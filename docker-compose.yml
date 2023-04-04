@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - social_gallery
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: $MYSQL_HOST
+      PMA_PORT: $MYSQL_PORT
+      PMA_USER: $MYSQL_USER
+      PMA_PASSWORD: $MYSQL_PASSWORD
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - social_gallery
+
+  server:
+    build: ./server/
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./server:/server
+    depends_on:
+      - db
+    networks:
+      - social_gallery
+    stdin_open: true
+    tty: true
+
+  client:
+    build: ./client/
+    ports:
+      - "8000:8000"
+    depends_on:
+      - server
+    volumes:
+      - ./client:/client
+    networks:
+      - social_gallery
+    tty: true
+
+networks:
+  social_gallery:
+    driver: bridge
+
+volumes:
+  db:

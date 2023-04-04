@@ -1,7 +1,7 @@
 const express = require('express')
-// const mysql = require('mysql2')
 const cors = require('cors')
 
+const config = require('./lib/config')
 const sequelize = require('./lib/db')
 
 const app = express()
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 sequelize.sync().then(() => {
-  app.listen(3001, () => {
+  app.listen(config.port, () => {
     console.log('Server is running on port 3001')
   })
 }).catch(err => {
