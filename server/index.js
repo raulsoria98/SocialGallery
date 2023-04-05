@@ -1,8 +1,8 @@
-const express = require('express')
-const cors = require('cors')
+import express from 'express'
+import cors from 'cors'
 
-const config = require('./lib/config')
-const sequelize = require('./lib/db')
+import { PORT } from './lib/config.js'
+import { sequelize } from './lib/db.js'
 
 const app = express()
 
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 })
 
 sequelize.sync().then(() => {
-  app.listen(config.port, () => {
+  app.listen(PORT, () => {
     console.log('Server is running on port 3001')
   })
 }).catch(err => {

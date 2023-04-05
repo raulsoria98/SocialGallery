@@ -1,16 +1,15 @@
-const config = require('./config')
-const db = config.db
+import { DB } from './config.js'
 
-const Sequelize = require('sequelize')
+import Sequelize from 'sequelize'
 
-const sequelize = new Sequelize(
-  db.database,
-  db.user,
-  db.password,
+export const sequelize = new Sequelize(
+  DB.database,
+  DB.user,
+  DB.password,
   {
     dialect: 'mysql',
-    host: db.host,
-    port: db.port
+    host: DB.host,
+    port: DB.port
   }
 )
 
@@ -19,5 +18,3 @@ sequelize.authenticate().then(() => {
 }).catch(err => {
   console.error('DB::Unable to connect to the database:', err)
 })
-
-module.exports = sequelize
