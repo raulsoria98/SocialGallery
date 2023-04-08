@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
@@ -37,6 +37,7 @@ services:
       - "3001:3001"
     volumes:
       - ./server:/server
+      - server_node_modules:/server/node_modules
     depends_on:
       - db
     networks:
@@ -52,6 +53,7 @@ services:
       - server
     volumes:
       - ./client:/client
+      - client_node_modules:/client/node_modules
     networks:
       - social_gallery
     tty: true
@@ -62,3 +64,5 @@ networks:
 
 volumes:
   db:
+  server_node_modules:
+  client_node_modules:
