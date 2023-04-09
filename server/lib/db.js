@@ -1,8 +1,8 @@
-import { DB } from './config.js'
-
 import Sequelize from 'sequelize'
 
-export const sequelize = new Sequelize(
+import { DB } from './config.js'
+
+const sequelize = new Sequelize(
   DB.database,
   DB.user,
   DB.password,
@@ -18,3 +18,5 @@ sequelize.authenticate().then(() => {
 }).catch(err => {
   console.error('DB::Unable to connect to the database:', err)
 })
+
+export default sequelize
