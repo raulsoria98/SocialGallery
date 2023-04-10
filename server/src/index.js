@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 
-import { PORT } from '#Config/index.js'
+import { PORT } from '#Config/env.js'
 import sequelize from '#Config/db.js'
 
 import authRouter from '#Routes/auth.js'

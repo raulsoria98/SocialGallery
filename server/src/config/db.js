@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 
-import { DB } from '#Config/index.js'
+import { DB } from '#Config/env.js'
 
 const sequelize = new Sequelize(
   DB.database,
