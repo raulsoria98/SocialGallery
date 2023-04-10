@@ -22,7 +22,7 @@ const LoginDTOSchema = {
         type: 'La contraseña debe ser un string',
         minLength: 'La contraseña debe tener al menos 6 caracteres',
         maxLength: 'La contraseña debe tener como máximo 50 caracteres',
-        pattern: 'La contraseña debe tener al menos una letra minúscula, una letra mayúsculay un número'
+        pattern: 'La contraseña debe tener al menos una letra minúscula, una letra mayúscula y un número'
       }
     }
   },

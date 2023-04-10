@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +25,13 @@
   },
   "devDependencies": {
     "nodemon": "2.0.22"
+  },
+  "imports": {
+    "#Config/*": "./src/config/*",
+    "#Controllers/*": "./src/controllers/*",
+    "#Models/*": "./src/models/*",
+    "#Routes/*": "./src/routes/*",
+    "#Validators/*": "./src/validators/*",
+    "#Utils/*": "./src/utils/*"
   }
 }

@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import { authByEmailPassword, authorizeByToken, generateAuthToken } from '../util/auth.js'
-import { validateLoginDTO } from '../validators/dto.js'
-import User from '../models/user.js'
+import { authByEmailPassword, authorizeByToken, generateAuthToken } from '#Utils/auth.js'
+import { validateLoginDTO } from '#Validators/dto.js'
+import User from '#Models/user.js'
 
 const authRouter = Router()
 

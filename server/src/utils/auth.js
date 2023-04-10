@@ -1,6 +1,6 @@
-import User from '../models/user.js'
+import User from '#Models/user.js'
 import { SignJWT, jwtVerify } from 'jose'
-import { JWT_SECRET } from '../lib/config.js'
+import { JWT_SECRET } from '#Config/index.js'
 
 export const authByEmailPassword = (email, password) => {
   return User.findOne({ where: { email } }).then(user => {

@@ -1,10 +1,10 @@
 import express from 'express'
 import cors from 'cors'
 
-import { PORT } from './lib/config.js'
-import sequelize from './lib/db.js'
+import { PORT } from '#Config/index.js'
+import sequelize from '#Config/db.js'
 
-import authRouter from './routes/auth.js'
+import authRouter from '#Routes/auth.js'
 
 const app = express()
 
