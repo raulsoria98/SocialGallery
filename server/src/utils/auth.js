@@ -1,6 +1,5 @@
 import User from '#Models/user.js'
 import { SignJWT, jwtVerify } from 'jose'
-import { JWT_SECRET } from '#Config/env.js'
 
 export const authByEmailPassword = (email, password) => {
   return User.findOne({ where: { email } }).then(user => {
@@ -27,7 +26,7 @@ export const generateAuthToken = id => {
   const jwtConstructor = new SignJWT({ id })
 
   // Encode JSW_SECRET to Uint8Array
-  const encodedJwtSecret = new TextEncoder().encode(JWT_SECRET)
+  const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
 
   return jwtConstructor
     .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
@@ -41,7 +40,7 @@ export const generateAuthToken = id => {
 }
 
 export const authorizeByToken = token => {
-  const encodedJwtSecret = new TextEncoder().encode(JWT_SECRET)
+  const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
 
   return jwtVerify(token, encodedJwtSecret).then(({ payload }) => {
     const { id } = payload

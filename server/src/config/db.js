@@ -1,22 +1,30 @@
 import Sequelize from 'sequelize'
 
-import { DB } from '#Config/env.js'
-
 const sequelize = new Sequelize(
-  DB.database,
-  DB.user,
-  DB.password,
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
     dialect: 'mysql',
-    host: DB.host,
-    port: DB.port
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT
   }
 )
 
-sequelize.authenticate().then(() => {
-  console.log('DB::Connection has been established successfully.')
-}).catch(err => {
-  console.error('DB::Unable to connect to the database:', err)
-})
+export const connectDB = () => {
+  return sequelize.authenticate().then(() => {
+    console.log('Database connected')
+  }).catch(err => {
+    console.error(err)
+  })
+}
+
+export const syncDB = (force = false, alter = false) => {
+  return sequelize.sync({ force, alter }).then(() => {
+    console.log('Database synced')
+  }).catch(err => {
+    console.error(err)
+  })
+}
 
 export default sequelize
