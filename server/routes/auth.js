@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import { authByEmailPassword, authorizeByToken, generateAuthToken } from '../util/auth.js'
+import { validateLoginDTO } from '../validators/dto.js'
 import User from '../models/user.js'
 
 const authRouter = Router()
 
-authRouter.post('/login', (req, res) => {
+authRouter.post('/login', validateLoginDTO, (req, res) => {
   const { email, password } = req.body
 
   if (!email || !password) {
