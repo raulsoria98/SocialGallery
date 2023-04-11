@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { authByEmailPassword, authorizeByToken, generateAuthToken } from '#Utils/auth.js'
-import { validateLoginDTO } from '#Validators/dto.js'
+import { validateLoginDTO, validateRegisterDTO } from '#Validators/dto/dto.js'
 import User from '#Models/user.js'
 
 const authRouter = Router()
@@ -32,7 +32,7 @@ authRouter.post('/login', validateLoginDTO, (req, res) => {
   })
 })
 
-authRouter.post('/signup', (req, res) => {
+authRouter.post('/register', validateRegisterDTO, (req, res) => {
   const { email, password, name } = req.body
 
   if (!email || !password || !name) {
