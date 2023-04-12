@@ -1,11 +1,12 @@
+import User from '#Models/user.js'
 import { Router } from 'express'
 import { authByEmailPassword, authorizeByToken, generateAuthToken } from '#Utils/auth.js'
-import { validateLoginDTO, validateRegisterDTO } from '#Validators/dto/dto.js'
-import User from '#Models/user.js'
+import validateLoginDTO from '#DTO/user-login.dto.js'
+import validateRegisterDTO from '#DTO/user-register.dto.js'
 
-const authRouter = Router()
+const userRouter = Router()
 
-authRouter.post('/login', validateLoginDTO, (req, res) => {
+userRouter.post('/login', validateLoginDTO, (req, res) => {
   const { email, password } = req.body
 
   if (!email || !password) {
@@ -32,7 +33,7 @@ authRouter.post('/login', validateLoginDTO, (req, res) => {
   })
 })
 
-authRouter.post('/register', validateRegisterDTO, (req, res) => {
+userRouter.post('/register', validateRegisterDTO, (req, res) => {
   const { email, password, name } = req.body
 
   if (!email || !password || !name) {
@@ -65,7 +66,7 @@ authRouter.post('/register', validateRegisterDTO, (req, res) => {
   })
 })
 
-authRouter.get('/auth-token', async (req, res) => {
+userRouter.get('/auth-token', async (req, res) => {
   const { authorization } = req.headers
 
   if (!authorization) {
@@ -93,4 +94,4 @@ authRouter.get('/auth-token', async (req, res) => {
   })
 })
 
-export default authRouter
+export default userRouter

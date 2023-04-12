@@ -9,7 +9,7 @@ const generateDTOSchema = (properties) => {
 
   properties.forEach(property => {
     const { name, required } = property
-    propertiesObject[name] = require(`#Validators/dto/schemas/properties/${name}.json`)
+    propertiesObject[name] = require(`#DTO/schemas/properties/${name}.json`)
     if (required) {
       requiredProperties.push(name)
       requiredErrorsMessages[name] = `El campo ${name} es requerido`

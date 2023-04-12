@@ -32,6 +32,7 @@
     "#Models/*": "./src/models/*",
     "#Routes/*": "./src/routes/*",
     "#Validators/*": "./src/validators/*",
-    "#Utils/*": "./src/utils/*"
+    "#Utils/*": "./src/utils/*",
+    "#DTO/*": "./src/dto/*"
   }
 }
