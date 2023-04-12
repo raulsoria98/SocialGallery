@@ -1,8 +1,11 @@
-import User from '#Models/user.js'
 import { Router } from 'express'
-import { authByEmailPassword, authorizeByToken, generateAuthToken } from '#Utils/auth.js'
+
+import User from '#Models/user.js'
+import { authByEmailPassword, generateAuthToken } from '#Utils/auth.js'
+
 import validateLoginDTO from '#DTO/user-login.dto.js'
 import validateRegisterDTO from '#DTO/user-register.dto.js'
+import verifyJWTDTO from '#DTO/user-jwt.dto.js'
 
 const userRouter = Router()
 
@@ -16,8 +19,9 @@ userRouter.post('/login', validateLoginDTO, (req, res) => {
   }
 
   authByEmailPassword(email, password).then(user => {
-    const { id } = user
-    generateAuthToken(id).then(jwt => {
+    const { id, role } = user
+
+    generateAuthToken({ id, role }).then(jwt => {
       return res.json({
         jwt
       })
@@ -49,8 +53,8 @@ userRouter.post('/register', validateRegisterDTO, (req, res) => {
     role: 'user',
     active: true
   }).then(user => {
-    const { id } = user
-    generateAuthToken(id).then(jwt => {
+    const { id, role } = user
+    generateAuthToken({ id, role }).then(jwt => {
       return res.json({
         jwt
       })
@@ -66,32 +70,30 @@ userRouter.post('/register', validateRegisterDTO, (req, res) => {
   })
 })
 
-userRouter.get('/auth-token', async (req, res) => {
-  const { authorization } = req.headers
+userRouter.get('/profile', verifyJWTDTO, async (req, res) => {
+  const { id } = req.user
 
-  if (!authorization) {
-    return res.status(401).json({
-      error: 'No autorizado'
+  try {
+    const user = await User.findOne({
+      where: {
+        id
+      }
     })
-  }
 
-  const [bearer, token] = authorization.split(' ')
+    if (!user) {
+      return res.status(404).json({
+        error: 'Usuario no encontrado'
+      })
+    }
 
-  if (bearer !== 'Bearer') {
-    return res.status(401).json({
-      error: 'No autorizado'
-    })
-  }
-
-  authorizeByToken(token).then(id => {
     return res.json({
-      id
+      user
     })
-  }).catch(err => {
-    return res.status(401).json({
+  } catch (err) {
+    return res.status(500).json({
       error: err.message
     })
-  })
+  }
 })
 
 export default userRouter

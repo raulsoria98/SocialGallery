@@ -22,8 +22,8 @@ export const authByEmailPassword = (email, password) => {
   })
 }
 
-export const generateAuthToken = id => {
-  const jwtConstructor = new SignJWT({ id })
+export const generateAuthToken = ({ id, role }) => {
+  const jwtConstructor = new SignJWT({ id, role })
 
   // Encode JSW_SECRET to Uint8Array
   const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
