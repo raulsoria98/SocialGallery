@@ -1,0 +1,12 @@
+{
+    "type": "string",
+    "enum": [
+        "admin",
+        "user",
+        "artist"
+    ],
+    "errorMessage": {
+        "type": "El rol debe ser un string",
+        "enum": "El rol debe ser admin, user o artist"
+    }
+}

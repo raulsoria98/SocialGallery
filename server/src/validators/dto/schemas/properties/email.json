@@ -1,0 +1,8 @@
+{
+    "type": "string",
+    "format": "email",
+    "errorMessage": {
+        "type": "El email debe ser un string",
+        "format": "El email debe tener un formato válido"
+    }
+}
