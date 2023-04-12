@@ -19,7 +19,7 @@ export const connectDB = () => {
   })
 }
 
-export const syncDB = (force = false, alter = false) => {
+export const syncDB = ({ force = false, alter = false }) => {
   return sequelize.sync({ force, alter }).then(() => {
     console.log('Database synced')
   }).catch(err => {
