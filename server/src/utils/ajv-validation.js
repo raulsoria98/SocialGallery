@@ -11,12 +11,7 @@ export const validateSchema = (body, schema) => {
   const valid = validate(body)
 
   if (!valid) {
-    const errors = []
-    validate.errors.forEach(error => {
-      errors.push(error.message)
-    })
-
-    return errors
+    return validate.errors.map(error => error.message)
   }
 
   return []
