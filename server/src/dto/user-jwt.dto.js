@@ -18,8 +18,8 @@ const verifyJWTDTO = async (req, res, next) => {
   }
 
   try {
-    const encoder = new TextEncoder()
-    const { payload } = await jwtVerify(token, encoder.encode(process.env.JWT_SECRET))
+    const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
+    const { payload } = await jwtVerify(token, encodedJwtSecret)
 
     req.user = {
       id: payload.id,

@@ -1,51 +1,81 @@
 import User from '#Models/user.js'
-import { SignJWT, jwtVerify } from 'jose'
+import { compare, hash } from 'bcrypt'
+import { SignJWT } from 'jose'
 
-export const authByEmailPassword = (email, password) => {
-  return User.findOne({ where: { email } }).then(user => {
-    if (!user) {
-      throw new Error('Usuario no existe')
-    }
-
-    // Validar la contraseña
-    if (password !== user.password) {
-      throw new Error('Contraseña incorrecta')
-    }
-
-    if (!user.active) {
-      throw new Error('Usuario inactivo')
-    }
-
-    return user
-  }).catch(err => {
-    throw new Error(err.message)
-  })
-}
-
-export const generateAuthToken = ({ id, role }) => {
+export const generateAuthToken = async ({ id, role }) => {
   const jwtConstructor = new SignJWT({ id, role })
 
   // Encode JSW_SECRET to Uint8Array
   const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
 
-  return jwtConstructor
-    .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
-    .setIssuedAt()
-    .setExpirationTime('1h')
-    .sign(encodedJwtSecret).then(jwt => {
-      return jwt
-    }).catch(err => {
-      throw new Error(err.message)
-    })
+  try {
+    const jwt = await jwtConstructor
+      .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
+      .setIssuedAt()
+      .setExpirationTime('2h')
+      .sign(encodedJwtSecret)
+    return jwt
+  } catch (err) {
+    throw new Error(err.message)
+  }
 }
 
-export const authorizeByToken = token => {
-  const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
+export const loginUser = async ({ email, password }) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    })
 
-  return jwtVerify(token, encodedJwtSecret).then(({ payload }) => {
-    const { id } = payload
-    return id
-  }).catch(err => {
+    if (!user || !user.active) {
+      return null
+    }
+
+    const correctPassword = await compare(password, user.password)
+
+    if (!correctPassword) {
+      return null
+    }
+
+    const { id, role } = user
+
+    const jwt = await generateAuthToken({ id, role })
+
+    return jwt
+  } catch (err) {
     throw new Error(err.message)
-  })
+  }
+}
+
+export const registerUser = async ({ email, password, name }) => {
+  try {
+    const user = await User.findOne({
+      where: {
+        email
+      }
+    })
+
+    if (user) {
+      return null
+    }
+
+    const hashedPassword = await hash(password, 12)
+
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      name,
+      role: 'user',
+      active: true
+    })
+
+    const { id, role } = newUser
+
+    const jwt = await generateAuthToken({ id, role })
+
+    return jwt
+  } catch (err) {
+    throw new Error(err.message)
+  }
 }
