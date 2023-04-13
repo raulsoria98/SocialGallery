@@ -1,17 +1,18 @@
-import { compare, hash } from 'bcrypt'
 import { SignJWT } from 'jose'
 
 import User from '#Models/user.js'
 
+import hashPassword from './hashPassword.js'
+import comparePassword from './comparePassword.js'
 import findUserByEmail from './findUserByEmail.js'
 
 export const generateAuthToken = async ({ id, role }) => {
-  const jwtConstructor = new SignJWT({ id, role })
-
-  // Encode JSW_SECRET to Uint8Array
-  const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
-
   try {
+    const jwtConstructor = new SignJWT({ id, role })
+
+    // Encode JSW_SECRET to Uint8Array
+    const encodedJwtSecret = new TextEncoder().encode(process.env.JWT_SECRET)
+
     const jwt = await jwtConstructor
       .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
       .setIssuedAt()
@@ -31,7 +32,7 @@ export const loginUser = async ({ email, password }) => {
       return null
     }
 
-    const correctPassword = await compare(password, user.password)
+    const correctPassword = await comparePassword({ password, hashedPassword: user.password })
 
     if (!correctPassword) {
       return null
@@ -55,7 +56,7 @@ export const registerUser = async ({ email, password, name }) => {
       return null
     }
 
-    const hashedPassword = await hash(password, 12)
+    const hashedPassword = await hashPassword(password)
 
     const newUser = await User.create({
       email,
