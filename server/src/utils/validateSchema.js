@@ -2,7 +2,7 @@ import Ajv from 'ajv'
 import addFormat from 'ajv-formats'
 import addErrors from 'ajv-errors'
 
-export const validateSchema = (body, schema) => {
+const validateSchema = (body, schema) => {
   const ajv = new Ajv({ allErrors: true })
   addFormat(ajv)
   addErrors(ajv)
@@ -16,3 +16,5 @@ export const validateSchema = (body, schema) => {
 
   return []
 }
+
+export default validateSchema

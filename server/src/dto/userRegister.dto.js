@@ -1,4 +1,4 @@
-import { validateSchema } from '#Utils/ajv-validation.js'
+import validateSchema from '#Utils/validateSchema.js'
 import RegisterDTOSchema from './schemas/register.schema.js'
 
 const validateRegisterDTO = (req, res, next) => {

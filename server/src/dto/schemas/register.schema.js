@@ -1,4 +1,3 @@
-// To read JSON files in ES Modules, we need to use the createRequire function
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
 const RegisterDTOSchema = generateDTOSchema([

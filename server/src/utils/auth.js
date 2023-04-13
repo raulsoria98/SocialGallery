@@ -1,6 +1,9 @@
-import User from '#Models/user.js'
 import { compare, hash } from 'bcrypt'
 import { SignJWT } from 'jose'
+
+import User from '#Models/user.js'
+
+import findUserByEmail from './findUserByEmail.js'
 
 export const generateAuthToken = async ({ id, role }) => {
   const jwtConstructor = new SignJWT({ id, role })
@@ -22,11 +25,7 @@ export const generateAuthToken = async ({ id, role }) => {
 
 export const loginUser = async ({ email, password }) => {
   try {
-    const user = await User.findOne({
-      where: {
-        email
-      }
-    })
+    const user = await findUserByEmail(email)
 
     if (!user || !user.active) {
       return null
@@ -50,11 +49,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const registerUser = async ({ email, password, name }) => {
   try {
-    const user = await User.findOne({
-      where: {
-        email
-      }
-    })
+    const user = await findUserByEmail(email)
 
     if (user) {
       return null
