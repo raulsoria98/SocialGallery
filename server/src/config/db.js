@@ -11,20 +11,22 @@ const sequelize = new Sequelize(
   }
 )
 
-export const connectDB = () => {
-  return sequelize.authenticate().then(() => {
+export const connectDB = async () => {
+  try {
+    await sequelize.authenticate()
     console.log('Database connected')
-  }).catch(err => {
+  } catch (err) {
     console.error(err)
-  })
+  }
 }
 
-export const syncDB = ({ force = false, alter = false }) => {
-  return sequelize.sync({ force, alter }).then(() => {
+export const syncDB = async ({ force = false, alter = false }) => {
+  try {
+    await sequelize.sync({ force, alter })
     console.log('Database synced')
-  }).catch(err => {
+  } catch (err) {
     console.error(err)
-  })
+  }
 }
 
 export default sequelize
