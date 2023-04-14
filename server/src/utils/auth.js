@@ -29,13 +29,17 @@ export const loginUser = async ({ email, password }) => {
     const user = await findUserByEmail(email)
 
     if (!user || !user.active) {
-      return null
+      const error = new Error('Email o contraseña incorrectos')
+      error.status = 401
+      throw error
     }
 
     const correctPassword = await comparePassword({ password, hashedPassword: user.password })
 
     if (!correctPassword) {
-      return null
+      const error = new Error('Email o contraseña incorrectos')
+      error.status = 401
+      throw error
     }
 
     const { id, role } = user
@@ -44,7 +48,9 @@ export const loginUser = async ({ email, password }) => {
 
     return jwt
   } catch (err) {
-    throw new Error(err.message)
+    const error = new Error(err.message)
+    error.status = err.status || 500
+    throw error
   }
 }
 
@@ -53,7 +59,9 @@ export const signUpUser = async ({ email, password, name }) => {
     const user = await findUserByEmail(email)
 
     if (user) {
-      return null
+      const error = new Error('El usuario ya existe')
+      error.status = 409
+      throw error
     }
 
     const hashedPassword = await hashPassword(password)
@@ -72,6 +80,8 @@ export const signUpUser = async ({ email, password, name }) => {
 
     return jwt
   } catch (err) {
-    throw new Error(err.message)
+    const error = new Error(err.message)
+    error.status = err.status || 500
+    throw error
   }
 }

@@ -6,17 +6,11 @@ export const postLogin = async (req, res) => {
   try {
     const jwt = await loginUser({ email, password })
 
-    if (!jwt) {
-      return res.status(401).json({
-        error: 'Email o contraseña incorrectos'
-      })
-    }
-
     return res.json({
       jwt
     })
   } catch (err) {
-    return res.status(500).json({
+    return res.status(err.status || 500).json({
       error: err.message
     })
   }
@@ -28,17 +22,11 @@ export const postSignUp = async (req, res) => {
   try {
     const jwt = await signUpUser({ email, password, name })
 
-    if (!jwt) {
-      return res.status(409).json({
-        error: 'El usuario ya existe'
-      })
-    }
-
     return res.json({
       jwt
     })
   } catch (err) {
-    return res.status(500).json({
+    return res.status(err.status || 500).json({
       error: err.message
     })
   }
