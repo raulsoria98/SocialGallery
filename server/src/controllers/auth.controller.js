@@ -1,4 +1,4 @@
-import { registerUser, loginUser } from '#Utils/auth.js'
+import { signUpUser, loginUser } from '#Utils/auth.js'
 
 export const postLogin = async (req, res) => {
   const { email, password } = req.body
@@ -22,11 +22,11 @@ export const postLogin = async (req, res) => {
   }
 }
 
-export const postRegister = async (req, res) => {
+export const postSignUp = async (req, res) => {
   const { email, password, name } = req.body
 
   try {
-    const jwt = await registerUser({ email, password, name })
+    const jwt = await signUpUser({ email, password, name })
 
     if (!jwt) {
       return res.status(409).json({

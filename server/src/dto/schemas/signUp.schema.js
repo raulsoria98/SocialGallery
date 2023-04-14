@@ -1,9 +1,9 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const RegisterDTOSchema = generateDTOSchema([
+const SignUpDTOSchema = generateDTOSchema([
   { name: 'email', required: true },
   { name: 'password', required: true },
   { name: 'name', required: true }
 ])
 
-export default RegisterDTOSchema
+export default SignUpDTOSchema

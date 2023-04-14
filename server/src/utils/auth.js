@@ -48,7 +48,7 @@ export const loginUser = async ({ email, password }) => {
   }
 }
 
-export const registerUser = async ({ email, password, name }) => {
+export const signUpUser = async ({ email, password, name }) => {
   try {
     const user = await findUserByEmail(email)
 

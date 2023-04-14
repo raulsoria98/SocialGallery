@@ -1,14 +1,14 @@
 import { Router } from 'express'
 
-import { postLogin, postRegister } from '#Controllers/auth.controller.js'
+import { postLogin, postSignUp } from '#Controllers/auth.controller.js'
 
 import validateLoginDTO from '#DTO/userLogin.dto.js'
-import validateRegisterDTO from '#DTO/userRegister.dto.js'
+import validateSignUpDTO from '#DTO/userSignUp.dto.js'
 
 const authRouter = Router()
 
 authRouter.post('/login', validateLoginDTO, postLogin)
 
-authRouter.post('/register', validateRegisterDTO, postRegister)
+authRouter.post('/signUp', validateSignUpDTO, postSignUp)
 
 export default authRouter
