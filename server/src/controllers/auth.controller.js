@@ -1,4 +1,5 @@
-import { signUpUser, loginUser } from '#Utils/auth.js'
+import loginUser from '#Utils/auth/loginUser.js'
+import signUpUser from '#Utils/auth/signUpUser.js'
 
 export const postLogin = async (req, res) => {
   const { email, password } = req.body

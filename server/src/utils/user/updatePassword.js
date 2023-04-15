@@ -1,6 +1,6 @@
 import findUserById from './findUserById.js'
-import comparePassword from './comparePassword.js'
-import hashPassword from './hashPassword.js'
+import comparePassword from '#Utils/auth/comparePassword.js'
+import hashPassword from '#Utils/auth/hashPassword.js'
 
 const updatePassword = async ({ id, password }) => {
   try {

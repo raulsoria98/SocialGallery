@@ -1,8 +1,8 @@
-import deleteUser from '#Utils/deleteUser.js'
-import findUserById from '#Utils/findUserById.js'
-import updateEmail from '#Utils/updateEmail.js'
-import updateName from '#Utils/updateName.js'
-import updatePassword from '#Utils/updatePassword.js'
+import deleteUser from '#Utils/user/deleteUser.js'
+import findUserById from '#Utils/user/findUserById.js'
+import updateEmail from '#Utils/user/updateEmail.js'
+import updateName from '#Utils/user/updateName.js'
+import updatePassword from '#Utils/user/updatePassword.js'
 
 export const getProfile = async (req, res) => {
   const { id } = req.user
