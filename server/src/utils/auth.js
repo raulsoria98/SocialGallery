@@ -30,7 +30,7 @@ export const loginUser = async ({ email, password }) => {
 
     if (!user || !user.active) {
       const error = new Error('Email o contraseña incorrectos')
-      error.status = 401
+      error.statusCode = 401
       throw error
     }
 
@@ -38,7 +38,7 @@ export const loginUser = async ({ email, password }) => {
 
     if (!correctPassword) {
       const error = new Error('Email o contraseña incorrectos')
-      error.status = 401
+      error.statusCode = 401
       throw error
     }
 
@@ -49,7 +49,7 @@ export const loginUser = async ({ email, password }) => {
     return jwt
   } catch (err) {
     const error = new Error(err.message)
-    error.status = err.status || 500
+    error.statusCode = err.statusCode || 500
     throw error
   }
 }
@@ -60,7 +60,7 @@ export const signUpUser = async ({ email, password, name }) => {
 
     if (user) {
       const error = new Error('El usuario ya existe')
-      error.status = 409
+      error.statusCode = 409
       throw error
     }
 
@@ -81,7 +81,7 @@ export const signUpUser = async ({ email, password, name }) => {
     return jwt
   } catch (err) {
     const error = new Error(err.message)
-    error.status = err.status || 500
+    error.statusCode = err.statusCode || 500
     throw error
   }
 }

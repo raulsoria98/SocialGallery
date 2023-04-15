@@ -8,14 +8,14 @@ const updatePassword = async ({ id, password }) => {
 
     if (!user) {
       const error = new Error('El usuario no existe')
-      error.status = 404
+      error.statusCode = 404
       throw error
     }
 
     const samePassword = await comparePassword({ password, hashedPassword: user.password })
     if (samePassword) {
       const error = new Error('La contraseña es igual a la actual')
-      error.status = 400
+      error.statusCode = 400
       throw error
     }
 
@@ -26,7 +26,7 @@ const updatePassword = async ({ id, password }) => {
     return user
   } catch (err) {
     const error = new Error(err.message)
-    error.status = err.status || 500
+    error.statusCode = err.statusCode || 500
     throw error
   }
 }

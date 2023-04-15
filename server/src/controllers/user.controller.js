@@ -1,3 +1,4 @@
+import deleteUser from '#Utils/deleteUser.js'
 import findUserById from '#Utils/findUserById.js'
 import updateEmail from '#Utils/updateEmail.js'
 import updateName from '#Utils/updateName.js'
@@ -36,7 +37,7 @@ export const postUpdateName = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.status || 500).json({
+    return res.status(err.statusCode || 500).json({
       error: err.message
     })
   }
@@ -53,7 +54,7 @@ export const postUpdateEmail = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.status || 500).json({
+    return res.status(err.statusCode || 500).json({
       error: err.message
     })
   }
@@ -70,7 +71,23 @@ export const postUpdatePassword = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.status || 500).json({
+    return res.status(err.statusCode || 500).json({
+      error: err.message
+    })
+  }
+}
+
+export const deleteDeleteUser = async (req, res) => {
+  const { id } = req.user
+
+  try {
+    const user = await deleteUser(id)
+
+    return res.json({
+      user
+    })
+  } catch (err) {
+    return res.status(err.statusCode || 500).json({
       error: err.message
     })
   }

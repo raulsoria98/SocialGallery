@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getProfile, postUpdateEmail, postUpdateName, postUpdatePassword } from '#Controllers/user.controller.js'
+import { deleteDeleteUser, getProfile, postUpdateEmail, postUpdateName, postUpdatePassword } from '#Controllers/user.controller.js'
 
 import verifyJWT from '#DTO/userJWT.dto.js'
 import validateUpdateNameDTO from '#DTO/userUpdateName.dto.js'
@@ -13,5 +13,6 @@ userRouter.get('/profile', verifyJWT, getProfile)
 userRouter.post('/update-name', verifyJWT, validateUpdateNameDTO, postUpdateName)
 userRouter.post('/update-email', verifyJWT, validateUpdateEmailDTO, postUpdateEmail)
 userRouter.post('/update-password', verifyJWT, validateUpdatePasswordDTO, postUpdatePassword)
+userRouter.delete('/delete', verifyJWT, deleteDeleteUser)
 
 export default userRouter

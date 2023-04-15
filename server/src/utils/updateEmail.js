@@ -7,19 +7,19 @@ const updateEmail = async ({ id, email }) => {
 
     if (!user) {
       const error = new Error('El usuario no existe')
-      error.status = 404
+      error.statusCode = 404
       throw error
     }
 
     if (user.email === email) {
       const error = new Error('El email es igual al actual')
-      error.status = 400
+      error.statusCode = 400
       throw error
     }
 
     if (await findUserByEmail(email)) {
       const error = new Error('El email ya está en uso')
-      error.status = 409
+      error.statusCode = 409
       throw error
     }
 
@@ -30,7 +30,7 @@ const updateEmail = async ({ id, email }) => {
     return user
   } catch (err) {
     const error = new Error(err.message)
-    error.status = err.status || 500
+    error.statusCode = err.statusCode || 500
     throw error
   }
 }

@@ -9,6 +9,6 @@ const authRouter = Router()
 
 authRouter.post('/login', validateLoginDTO, postLogin)
 
-authRouter.post('/signUp', validateSignUpDTO, postSignUp)
+authRouter.post('/sign-up', validateSignUpDTO, postSignUp)
 
 export default authRouter

@@ -6,13 +6,13 @@ const updateName = async ({ id, name }) => {
 
     if (!user) {
       const error = new Error('El usuario no existe')
-      error.status = 404
+      error.statusCode = 404
       throw error
     }
 
     if (user.name === name) {
       const error = new Error('El nombre es igual al actual')
-      error.status = 400
+      error.statusCode = 400
       throw error
     }
 
@@ -23,7 +23,7 @@ const updateName = async ({ id, name }) => {
     return user
   } catch (err) {
     const error = new Error(err.message)
-    error.status = err.status || 500
+    error.statusCode = err.statusCode || 500
     throw error
   }
 }

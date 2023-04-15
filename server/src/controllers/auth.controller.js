@@ -10,7 +10,7 @@ export const postLogin = async (req, res) => {
       jwt
     })
   } catch (err) {
-    return res.status(err.status || 500).json({
+    return res.status(err.statusCode || 500).json({
       error: err.message
     })
   }
@@ -26,7 +26,7 @@ export const postSignUp = async (req, res) => {
       jwt
     })
   } catch (err) {
-    return res.status(err.status || 500).json({
+    return res.status(err.statusCode || 500).json({
       error: err.message
     })
   }
