@@ -26,6 +26,9 @@
             ],
             "#DTO/*": [
                 "./src/dto/*"
+            ],
+            "#Middlewares/*": [
+                "./src/middlewares/*"
             ]
         }
     }

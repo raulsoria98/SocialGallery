@@ -1,6 +1,6 @@
 import { jwtVerify } from 'jose'
 
-const verifyJWT = async (req, res, next) => {
+const verifyUserJWT = async (req, res, next) => {
   const { authorization } = req.headers
 
   if (!authorization) {
@@ -34,4 +34,4 @@ const verifyJWT = async (req, res, next) => {
   }
 }
 
-export default verifyJWT
+export default verifyUserJWT
