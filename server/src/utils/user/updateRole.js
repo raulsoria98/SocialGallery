@@ -1,8 +1,8 @@
-import findUserByEmail from './findUserByEmail.js'
+import findUserById from './findUserById.js'
 
-const updateRole = async ({ email, role }) => {
+const updateRole = async ({ id, role }) => {
   try {
-    const user = await findUserByEmail(email)
+    const user = await findUserById(id)
 
     if (!user) {
       const error = new Error('No se encontró el usuario')

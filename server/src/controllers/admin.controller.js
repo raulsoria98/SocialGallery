@@ -1,10 +1,10 @@
 import updateRole from '#Utils/user/updateRole.js'
 
 const postUpdateUserRole = async (req, res) => {
-  const { email, role } = req.body
+  const { id, role } = req.body
 
   try {
-    const user = await updateRole({ email, role })
+    const user = await updateRole({ id, role })
 
     return res.json({
       user

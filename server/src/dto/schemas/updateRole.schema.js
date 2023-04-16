@@ -1,7 +1,7 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
 const UpdateRoleDTOSchema = generateDTOSchema([
-  { name: 'email', required: true },
+  { name: 'id', required: true },
   { name: 'role', required: true }
 ])
 
