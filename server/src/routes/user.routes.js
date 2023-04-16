@@ -9,10 +9,12 @@ import validateUpdatePasswordDTO from '#DTO/userUpdatePassword.dto.js'
 
 const userRouter = Router()
 
-userRouter.get('/profile', verifyUserJWT, getProfile)
-userRouter.post('/update-name', verifyUserJWT, validateUpdateNameDTO, postUpdateName)
-userRouter.post('/update-email', verifyUserJWT, validateUpdateEmailDTO, postUpdateEmail)
-userRouter.post('/update-password', verifyUserJWT, validateUpdatePasswordDTO, postUpdatePassword)
-userRouter.delete('/delete', verifyUserJWT, deleteDeleteUser)
+userRouter.use(verifyUserJWT)
+
+userRouter.get('/profile', getProfile)
+userRouter.post('/update-name', validateUpdateNameDTO, postUpdateName)
+userRouter.post('/update-email', validateUpdateEmailDTO, postUpdateEmail)
+userRouter.post('/update-password', validateUpdatePasswordDTO, postUpdatePassword)
+userRouter.delete('/delete', deleteDeleteUser)
 
 export default userRouter
