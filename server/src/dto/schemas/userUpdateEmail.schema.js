@@ -1,7 +1,7 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const UpdateEmailDTOSchema = generateDTOSchema([
+const UserUpdateEmailDTOSchema = generateDTOSchema([
   { name: 'email', required: true }
 ])
 
-export default UpdateEmailDTOSchema
+export default UserUpdateEmailDTOSchema

@@ -1,7 +1,7 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const UpdateNameDTOSchema = generateDTOSchema([
+const UserUpdateNameDTOSchema = generateDTOSchema([
   { name: 'name', required: true }
 ])
 
-export default UpdateNameDTOSchema
+export default UserUpdateNameDTOSchema

@@ -2,8 +2,8 @@ import { Router } from 'express'
 
 import { postLogin, postSignUp } from '#Controllers/auth.controller.js'
 
-import validateLoginDTO from '#DTO/userLogin.dto.js'
-import validateSignUpDTO from '#DTO/userSignUp.dto.js'
+import validateLoginDTO from '#DTO/login.dto.js'
+import validateSignUpDTO from '#DTO/signUp.dto.js'
 
 const authRouter = Router()
 

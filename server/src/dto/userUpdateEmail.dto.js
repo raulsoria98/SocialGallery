@@ -1,8 +1,8 @@
 import validateSchema from '#Utils/validateSchema.js'
-import UpdateEmailDTOSchema from './schemas/updateEmail.schema.js'
+import UserUpdateEmailDTOSchema from './schemas/userUpdateEmail.schema.js'
 
-const validateUpdateEmailDTO = (req, res, next) => {
-  const errors = validateSchema(req.body, UpdateEmailDTOSchema)
+const validateUserUpdateEmailDTO = (req, res, next) => {
+  const errors = validateSchema(req.body, UserUpdateEmailDTOSchema)
 
   if (errors.length > 0) {
     return res.status(400).json({
@@ -13,4 +13,4 @@ const validateUpdateEmailDTO = (req, res, next) => {
   next()
 }
 
-export default validateUpdateEmailDTO
+export default validateUserUpdateEmailDTO

@@ -1,7 +1,7 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const UpdatePasswordDTOSchema = generateDTOSchema([
+const UserUpdatePasswordDTOSchema = generateDTOSchema([
   { name: 'password', required: true }
 ])
 
-export default UpdatePasswordDTOSchema
+export default UserUpdatePasswordDTOSchema

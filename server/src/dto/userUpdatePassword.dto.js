@@ -1,8 +1,8 @@
 import validateSchema from '#Utils/validateSchema.js'
-import UpdatePasswordDTOSchema from './schemas/updatePassword.schema.js'
+import UserUpdatePasswordDTOSchema from './schemas/userUpdatePassword.schema.js'
 
-const validateUpdatePasswordDTO = (req, res, next) => {
-  const errors = validateSchema(req.body, UpdatePasswordDTOSchema)
+const validateUserUpdatePasswordDTO = (req, res, next) => {
+  const errors = validateSchema(req.body, UserUpdatePasswordDTOSchema)
 
   if (errors.length > 0) {
     return res.status(400).json({
@@ -13,4 +13,4 @@ const validateUpdatePasswordDTO = (req, res, next) => {
   next()
 }
 
-export default validateUpdatePasswordDTO
+export default validateUserUpdatePasswordDTO

@@ -1,8 +1,8 @@
 import validateSchema from '#Utils/validateSchema.js'
-import UpdateNameDTOSchema from './schemas/updateName.schema.js'
+import UserUpdateNameDTOSchema from './schemas/userUpdateName.schema.js'
 
-const validateUpdateNameDTO = (req, res, next) => {
-  const errors = validateSchema(req.body, UpdateNameDTOSchema)
+const validateUserUpdateNameDTO = (req, res, next) => {
+  const errors = validateSchema(req.body, UserUpdateNameDTOSchema)
 
   if (errors.length > 0) {
     return res.status(400).json({
@@ -13,4 +13,4 @@ const validateUpdateNameDTO = (req, res, next) => {
   next()
 }
 
-export default validateUpdateNameDTO
+export default validateUserUpdateNameDTO
