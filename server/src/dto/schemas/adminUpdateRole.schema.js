@@ -1,8 +1,8 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const UpdateRoleDTOSchema = generateDTOSchema([
+const AdminUpdateRoleDTOSchema = generateDTOSchema([
   { name: 'id', required: true },
   { name: 'role', required: true }
 ])
 
-export default UpdateRoleDTOSchema
+export default AdminUpdateRoleDTOSchema
