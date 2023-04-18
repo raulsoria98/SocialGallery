@@ -1,6 +1,0 @@
-{
-    "type": "number",
-    "errorMessage": {
-        "type": "El id debe ser un número"
-    }
-}

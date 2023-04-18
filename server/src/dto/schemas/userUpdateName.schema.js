@@ -1,6 +1,6 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const UserUpdateNameDTOSchema = generateDTOSchema([
+const UserUpdateNameDTOSchema = await generateDTOSchema([
   { name: 'name', required: true }
 ])
 

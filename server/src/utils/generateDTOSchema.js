@@ -1,32 +1,29 @@
-// To read JSON files in ES Modules, we need to use the createRequire function
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-const generateDTOSchema = (properties) => {
-  const propertiesObject = {}
-  const requiredProperties = []
-  const requiredErrorsMessages = {}
-
-  properties.forEach(property => {
-    const { name, required } = property
-    propertiesObject[name] = require(`#DTO/schemas/properties/${name}.json`)
-    if (required) {
-      requiredProperties.push(name)
-      requiredErrorsMessages[name] = `El campo '${name}' es requerido`
-    }
-  })
-
-  return {
+const generateDTOSchema = async (properties) => {
+  const schema = {
     type: 'object',
-    properties: propertiesObject,
-    required: requiredProperties,
+    properties: {},
+    required: [],
     additionalProperties: false,
     errorMessage: {
       type: 'El tipo de dato no es válido, ha de ser un objeto',
-      additionalProperties: `No se permiten campos adicionales, tan solo: ${Object.keys(propertiesObject).join(', ')}`,
-      required: requiredErrorsMessages
+      additionalProperties: `No se permiten campos adicionales, tan solo: ${properties.map(({ name }) => `'${name}'`).join(', ')}`,
+      required: {}
     }
   }
+
+  for (const { name, required } of properties) {
+    // Utiliza la sintaxis dinámica de importación para cargar el módulo
+    const { [name]: property } = await import('#DTO/schemas/properties.js')
+
+    schema.properties[name] = property
+
+    if (required) {
+      schema.required.push(name)
+      schema.errorMessage.required[name] = `El campo '${name}' es requerido`
+    }
+  }
+
+  return schema
 }
 
 export default generateDTOSchema

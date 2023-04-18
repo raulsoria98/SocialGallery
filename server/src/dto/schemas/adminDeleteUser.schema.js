@@ -1,6 +1,6 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
-const AdminDeleteUserDTOSchema = generateDTOSchema([
+const AdminDeleteUserDTOSchema = await generateDTOSchema([
   { name: 'id', required: true }
 ])
 
