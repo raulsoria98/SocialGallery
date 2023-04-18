@@ -1,3 +1,4 @@
+import USER_ROLES from '#Enums/USER_ROLES.js'
 import User from '#Models/user.js'
 import findUserByEmail from '#Utils/user/findUserByEmail.js'
 import generateAuthToken from './generateAuthToken.js'
@@ -19,7 +20,7 @@ const signUpUser = async ({ email, password, name }) => {
       email,
       password: hashedPassword,
       name,
-      role: 'user',
+      role: USER_ROLES.USER,
       active: true
     })
 

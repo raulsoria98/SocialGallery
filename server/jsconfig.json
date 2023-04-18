@@ -29,6 +29,9 @@
             ],
             "#Middlewares/*": [
                 "./src/middlewares/*"
+            ],
+            "#Enums/*": [
+                "./src/enums/*"
             ]
         }
     }

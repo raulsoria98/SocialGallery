@@ -35,6 +35,7 @@
     "#Validators/*": "./src/validators/*",
     "#Utils/*": "./src/utils/*",
     "#DTO/*": "./src/dto/*",
-    "#Middlewares/*": "./src/middlewares/*"
+    "#Middlewares/*": "./src/middlewares/*",
+    "#Enums/*": "./src/enums/*"
   }
 }

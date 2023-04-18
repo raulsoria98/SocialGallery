@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 
 import sequelize from '#Config/db.js'
+import USER_ROLES from '#Enums/USER_ROLES.js'
 
 const User = sequelize.define('user', {
   id: {
@@ -31,7 +32,7 @@ const User = sequelize.define('user', {
   role: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'user'
+    defaultValue: USER_ROLES.USER
   },
   active: {
     type: DataTypes.BOOLEAN,
