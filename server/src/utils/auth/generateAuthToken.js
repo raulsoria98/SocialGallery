@@ -11,7 +11,7 @@ const generateAuthToken = async ({ id, role }) => {
     const jwt = await jwtConstructor
       .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
       .setIssuedAt()
-      .setExpirationTime('2h')
+      .setExpirationTime('8h')
       .sign(encodedJwtSecret)
     return jwt
   } catch (err) {
