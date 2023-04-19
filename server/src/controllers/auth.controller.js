@@ -16,10 +16,10 @@ export const postLogin = async (req, res, next) => {
 }
 
 export const postSignUp = async (req, res, next) => {
-  const { email, password, name } = req.body
+  const { email, password, name, isArtist } = req.body
 
   try {
-    const jwt = await signUpUser({ email, password, name })
+    const jwt = await signUpUser({ email, password, name, isArtist })
 
     return res.json({
       jwt

@@ -54,3 +54,10 @@ export const role = {
     enum: 'El rol debe ser admin, user o artist'
   }
 }
+
+export const isArtist = {
+  type: 'boolean',
+  errorMessage: {
+    type: 'isArtist debe ser un boolean'
+  }
+}

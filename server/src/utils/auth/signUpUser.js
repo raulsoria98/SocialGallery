@@ -5,7 +5,7 @@ import findUserByEmail from '#Utils/user/findUserByEmail.js'
 import generateAuthToken from './generateAuthToken.js'
 import hashPassword from './hashPassword.js'
 
-const signUpUser = async ({ email, password, name }) => {
+const signUpUser = async ({ email, password, name, isArtist }) => {
   try {
     const user = await findUserByEmail(email)
 
@@ -21,7 +21,7 @@ const signUpUser = async ({ email, password, name }) => {
       email,
       password: hashedPassword,
       name,
-      role: userRoles.USER,
+      role: isArtist ? userRoles.ARTIST : userRoles.USER,
       active: true
     })
 
