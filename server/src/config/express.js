@@ -1,7 +1,10 @@
 import express from 'express'
+
 import userRouter from '#Routes/user.routes.js'
 import authRouter from '#Routes/auth.routes.js'
 import adminRouter from '#Routes/admin.routes.js'
+
+import { logError, returnError } from '#Errors/errorHandler.js'
 
 const expressApp = express()
 
@@ -16,5 +19,8 @@ expressApp.get('/', (req, res) => {
     message: 'Hello world'
   })
 })
+
+expressApp.use(logError)
+expressApp.use(returnError)
 
 export default expressApp

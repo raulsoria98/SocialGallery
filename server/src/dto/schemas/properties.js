@@ -1,4 +1,4 @@
-import USER_ROLES from '#Enums/USER_ROLES.js'
+import userRoles from '#Enums/userRoles.js'
 
 export const email = {
   type: 'string',
@@ -45,9 +45,9 @@ export const password = {
 export const role = {
   type: 'string',
   enum: [
-    USER_ROLES.USER,
-    USER_ROLES.ADMIN,
-    USER_ROLES.ARTIST
+    userRoles.USER,
+    userRoles.ADMIN,
+    userRoles.ARTIST
   ],
   errorMessage: {
     type: 'El rol debe ser un string',

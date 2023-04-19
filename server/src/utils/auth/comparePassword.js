@@ -1,3 +1,4 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import { compare } from 'bcrypt'
 
 const comparePassword = async ({ password, hashedPassword }) => {
@@ -5,7 +6,9 @@ const comparePassword = async ({ password, hashedPassword }) => {
     const isValid = await compare(password, hashedPassword)
     return isValid
   } catch (err) {
-    throw new Error(err.message)
+    const error = new Error(err.message)
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
+    throw error
   }
 }
 

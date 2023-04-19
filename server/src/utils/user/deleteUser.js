@@ -1,3 +1,4 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import findUserById from './findUserById.js'
 
 const deleteUser = async (id) => {
@@ -6,7 +7,7 @@ const deleteUser = async (id) => {
 
     if (!user) {
       const err = new Error('Usuario no encontrado')
-      err.statusCode = 404
+      err.statusCode = httpStatusCodes.NOT_FOUND
       throw err
     }
 
@@ -15,7 +16,7 @@ const deleteUser = async (id) => {
     return user
   } catch (error) {
     const err = new Error(error.message)
-    err.statusCode = error.statusCode || 500
+    err.statusCode = error.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
     throw err
   }
 }

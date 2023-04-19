@@ -1,32 +1,33 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import deleteUser from '#Utils/user/deleteUser.js'
 import findUserById from '#Utils/user/findUserById.js'
 import updateEmail from '#Utils/user/updateEmail.js'
 import updateName from '#Utils/user/updateName.js'
 import updatePassword from '#Utils/user/updatePassword.js'
 
-export const getProfile = async (req, res) => {
+export const getProfile = async (err, req, res, next) => {
+  console.log('PROFILE')
+  console.log(err)
   const { id } = req.user
 
   try {
     const user = await findUserById(id)
 
     if (!user) {
-      return res.status(404).json({
-        error: 'Usuario no encontrado'
-      })
+      const error = new Error('Usuario no encontrado')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      next(error)
     }
 
     return res.json({
       user
     })
   } catch (err) {
-    return res.status(500).json({
-      error: err.message
-    })
+    next(err)
   }
 }
 
-export const postUpdateName = async (req, res) => {
+export const postUpdateName = async (req, res, next) => {
   const { id } = req.user
   const { name } = req.body
 
@@ -37,13 +38,11 @@ export const postUpdateName = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }
 
-export const postUpdateEmail = async (req, res) => {
+export const postUpdateEmail = async (req, res, next) => {
   const { id } = req.user
   const { email } = req.body
 
@@ -54,13 +53,11 @@ export const postUpdateEmail = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }
 
-export const postUpdatePassword = async (req, res) => {
+export const postUpdatePassword = async (req, res, next) => {
   const { id } = req.user
   const { password } = req.body
 
@@ -71,13 +68,11 @@ export const postUpdatePassword = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }
 
-export const deleteDeleteUser = async (req, res) => {
+export const deleteDeleteUser = async (req, res, next) => {
   const { id } = req.user
 
   try {
@@ -87,8 +82,6 @@ export const deleteDeleteUser = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }

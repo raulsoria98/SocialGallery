@@ -21,6 +21,9 @@
             "#Enums/*": [
                 "./src/enums/*"
             ],
+            "#Errors/*": [
+                "./src/errors/*"
+            ],
             "#Middlewares/*": [
                 "./src/middlewares/*"
             ],

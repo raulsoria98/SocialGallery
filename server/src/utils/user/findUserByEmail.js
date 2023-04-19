@@ -1,3 +1,4 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import User from '#Models/user.js'
 
 const findUserByEmail = async (email) => {
@@ -14,7 +15,9 @@ const findUserByEmail = async (email) => {
 
     return user
   } catch (err) {
-    throw new Error(err.message)
+    const error = new Error(err.message)
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
+    throw error
   }
 }
 

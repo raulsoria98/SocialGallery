@@ -1,10 +1,11 @@
-import USER_ROLES from '#Enums/USER_ROLES.js'
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
+import userRoles from '#Enums/userRoles.js'
 
 const verifyAdminJWT = (req, res, next) => {
-  if (req.user.role !== USER_ROLES.ADMIN) {
-    return res.status(403).json({
-      error: 'No autorizado'
-    })
+  if (req.user.role !== userRoles.ADMIN) {
+    const err = new Error('No autorizado')
+    err.statusCode = httpStatusCodes.FORBIDDEN
+    next(err)
   }
 
   next()

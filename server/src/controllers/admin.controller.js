@@ -1,7 +1,7 @@
 import deleteUser from '#Utils/user/deleteUser.js'
 import updateRole from '#Utils/user/updateRole.js'
 
-export const postAdminUpdateUserRole = async (req, res) => {
+export const postAdminUpdateUserRole = async (req, res, next) => {
   const { id, role } = req.body
 
   try {
@@ -11,13 +11,11 @@ export const postAdminUpdateUserRole = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }
 
-export const deleteAdminDeleteUser = async (req, res) => {
+export const deleteAdminDeleteUser = async (req, res, next) => {
   const { id } = req.body
 
   try {
@@ -27,8 +25,6 @@ export const deleteAdminDeleteUser = async (req, res) => {
       user
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }

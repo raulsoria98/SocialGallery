@@ -1,7 +1,7 @@
 import loginUser from '#Utils/auth/loginUser.js'
 import signUpUser from '#Utils/auth/signUpUser.js'
 
-export const postLogin = async (req, res) => {
+export const postLogin = async (req, res, next) => {
   const { email, password } = req.body
 
   try {
@@ -11,13 +11,11 @@ export const postLogin = async (req, res) => {
       jwt
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }
 
-export const postSignUp = async (req, res) => {
+export const postSignUp = async (req, res, next) => {
   const { email, password, name } = req.body
 
   try {
@@ -27,8 +25,6 @@ export const postSignUp = async (req, res) => {
       jwt
     })
   } catch (err) {
-    return res.status(err.statusCode || 500).json({
-      error: err.message
-    })
+    next(err)
   }
 }

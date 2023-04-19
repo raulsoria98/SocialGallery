@@ -1,20 +1,21 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import { jwtVerify } from 'jose'
 
 const verifyUserJWT = async (req, res, next) => {
   const { authorization } = req.headers
 
   if (!authorization) {
-    return res.status(401).json({
-      error: 'No se ha enviado el token'
-    })
+    const err = new Error('No se ha enviado el token')
+    err.statusCode = httpStatusCodes.UNAUTHORIZED
+    next(err)
   }
 
   const [bearer, token] = authorization.split(' ')
 
   if (bearer !== 'Bearer') {
-    return res.status(401).json({
-      error: 'No autorizado'
-    })
+    const err = new Error('No autorizado')
+    err.statusCode = httpStatusCodes.UNAUTHORIZED
+    next(err)
   }
 
   try {
@@ -28,9 +29,8 @@ const verifyUserJWT = async (req, res, next) => {
 
     next()
   } catch (err) {
-    return res.status(401).json({
-      error: err.message
-    })
+    err.statusCode = httpStatusCodes.UNAUTHORIZED
+    next(err)
   }
 }
 

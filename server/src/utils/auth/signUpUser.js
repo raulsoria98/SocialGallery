@@ -1,4 +1,5 @@
-import USER_ROLES from '#Enums/USER_ROLES.js'
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
+import userRoles from '#Enums/userRoles.js'
 import User from '#Models/user.js'
 import findUserByEmail from '#Utils/user/findUserByEmail.js'
 import generateAuthToken from './generateAuthToken.js'
@@ -10,7 +11,7 @@ const signUpUser = async ({ email, password, name }) => {
 
     if (user) {
       const error = new Error('El usuario ya existe')
-      error.statusCode = 409
+      error.statusCode = httpStatusCodes.CONFLICT
       throw error
     }
 
@@ -20,7 +21,7 @@ const signUpUser = async ({ email, password, name }) => {
       email,
       password: hashedPassword,
       name,
-      role: USER_ROLES.USER,
+      role: userRoles.USER,
       active: true
     })
 
@@ -31,7 +32,7 @@ const signUpUser = async ({ email, password, name }) => {
     return jwt
   } catch (err) {
     const error = new Error(err.message)
-    error.statusCode = err.statusCode || 500
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
     throw error
   }
 }

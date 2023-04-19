@@ -1,3 +1,4 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import findUserById from './findUserById.js'
 
 const updateName = async ({ id, name }) => {
@@ -6,13 +7,13 @@ const updateName = async ({ id, name }) => {
 
     if (!user) {
       const error = new Error('El usuario no existe')
-      error.statusCode = 404
+      error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }
 
     if (user.name === name) {
       const error = new Error('El nombre es igual al actual')
-      error.statusCode = 400
+      error.statusCode = httpStatusCodes.BAD_REQUEST
       throw error
     }
 
@@ -23,7 +24,7 @@ const updateName = async ({ id, name }) => {
     return user
   } catch (err) {
     const error = new Error(err.message)
-    error.statusCode = err.statusCode || 500
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
     throw error
   }
 }

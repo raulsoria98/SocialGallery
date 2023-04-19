@@ -1,3 +1,4 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import findUserByEmail from '#Utils/user/findUserByEmail.js'
 import comparePassword from './comparePassword.js'
 import generateAuthToken from './generateAuthToken.js'
@@ -8,7 +9,7 @@ const loginUser = async ({ email, password }) => {
 
     if (!user || !user.active) {
       const error = new Error('Email o contraseña incorrectos')
-      error.statusCode = 401
+      error.statusCode = httpStatusCodes.UNAUTHORIZED
       throw error
     }
 
@@ -16,7 +17,7 @@ const loginUser = async ({ email, password }) => {
 
     if (!correctPassword) {
       const error = new Error('Email o contraseña incorrectos')
-      error.statusCode = 401
+      error.statusCode = httpStatusCodes.UNAUTHORIZED
       throw error
     }
 
@@ -27,7 +28,7 @@ const loginUser = async ({ email, password }) => {
     return jwt
   } catch (err) {
     const error = new Error(err.message)
-    error.statusCode = err.statusCode || 500
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
     throw error
   }
 }

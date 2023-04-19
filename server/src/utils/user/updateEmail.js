@@ -1,3 +1,4 @@
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import findUserByEmail from './findUserByEmail.js'
 import findUserById from './findUserById.js'
 
@@ -7,19 +8,19 @@ const updateEmail = async ({ id, email }) => {
 
     if (!user) {
       const error = new Error('El usuario no existe')
-      error.statusCode = 404
+      error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }
 
     if (user.email === email) {
       const error = new Error('El email es igual al actual')
-      error.statusCode = 400
+      error.statusCode = httpStatusCodes.BAD_REQUEST
       throw error
     }
 
     if (await findUserByEmail(email)) {
       const error = new Error('El email ya está en uso')
-      error.statusCode = 409
+      error.statusCode = httpStatusCodes.CONFLICT
       throw error
     }
 
@@ -30,7 +31,7 @@ const updateEmail = async ({ id, email }) => {
     return user
   } catch (err) {
     const error = new Error(err.message)
-    error.statusCode = err.statusCode || 500
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
     throw error
   }
 }

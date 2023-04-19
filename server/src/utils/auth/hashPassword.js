@@ -1,4 +1,5 @@
 import SALT from '#Constants/salt.js'
+import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import { hash } from 'bcrypt'
 
 const hashPassword = async (password) => {
@@ -6,7 +7,9 @@ const hashPassword = async (password) => {
     const hashedPassword = await hash(password, SALT)
     return hashedPassword
   } catch (err) {
-    throw new Error(err.message)
+    const error = new Error(err.message)
+    error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
+    throw error
   }
 }
 
