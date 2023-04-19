@@ -9,8 +9,20 @@
             "#Config/*": [
                 "./src/config/*"
             ],
+            "#Constants/*": [
+                "./src/constants/*"
+            ],
             "#Controllers/*": [
                 "./src/controllers/*"
+            ],
+            "#DTO/*": [
+                "./src/dto/*"
+            ],
+            "#Enums/*": [
+                "./src/enums/*"
+            ],
+            "#Middlewares/*": [
+                "./src/middlewares/*"
             ],
             "#Models/*": [
                 "./src/models/*"
@@ -18,21 +30,12 @@
             "#Routes/*": [
                 "./src/routes/*"
             ],
-            "#Validators/*": [
-                "./src/validators/*"
-            ],
             "#Utils/*": [
                 "./src/utils/*"
             ],
-            "#DTO/*": [
-                "./src/dto/*"
+            "#Validators/*": [
+                "./src/validators/*"
             ],
-            "#Middlewares/*": [
-                "./src/middlewares/*"
-            ],
-            "#Enums/*": [
-                "./src/enums/*"
-            ]
         }
     }
 }
