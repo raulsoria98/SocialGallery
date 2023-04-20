@@ -3,11 +3,7 @@ import User from '#Models/user.js'
 
 const findUserById = async (id) => {
   try {
-    const user = await User.findOne({
-      where: {
-        id
-      }
-    })
+    const user = await User.findByPk(id)
 
     if (!user) {
       return null
