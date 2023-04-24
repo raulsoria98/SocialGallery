@@ -1,7 +1,7 @@
 import deleteUser from '#Utils/user/deleteUser.js'
 import updateRole from '#Utils/user/updateRole.js'
 
-export const postAdminUpdateUserRole = async (req, res, next) => {
+export const putAdminUpdateUserRole = async (req, res, next) => {
   const { id, role } = req.body
 
   try {

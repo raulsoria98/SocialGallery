@@ -27,7 +27,7 @@ export const getProfile = async (err, req, res, next) => {
   }
 }
 
-export const postUpdateName = async (req, res, next) => {
+export const putUpdateName = async (req, res, next) => {
   const { id } = req.user
   const { name } = req.body
 
@@ -42,7 +42,7 @@ export const postUpdateName = async (req, res, next) => {
   }
 }
 
-export const postUpdateEmail = async (req, res, next) => {
+export const putUpdateEmail = async (req, res, next) => {
   const { id } = req.user
   const { email } = req.body
 
@@ -57,7 +57,7 @@ export const postUpdateEmail = async (req, res, next) => {
   }
 }
 
-export const postUpdatePassword = async (req, res, next) => {
+export const putUpdatePassword = async (req, res, next) => {
   const { id } = req.user
   const { password } = req.body
 

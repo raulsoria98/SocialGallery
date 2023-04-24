@@ -1,4 +1,4 @@
-import { postAdminUpdateUserRole, deleteAdminDeleteUser } from '#Controllers/admin.controller.js'
+import { putAdminUpdateUserRole, deleteAdminDeleteUser } from '#Controllers/admin.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
 import verifyAdmin from '#Middlewares/verifyAdmin.js'
@@ -12,7 +12,7 @@ const adminRouter = Router()
 
 adminRouter.use(verifyUserJWT, verifyAdmin)
 
-adminRouter.post('/update-user-role', validateAdminUpdateRoleDTO, postAdminUpdateUserRole)
+adminRouter.put('/update-user-role', validateAdminUpdateRoleDTO, putAdminUpdateUserRole)
 adminRouter.delete('/delete-user', validateAdminDeleteUserDTO, deleteAdminDeleteUser)
 
 export default adminRouter
