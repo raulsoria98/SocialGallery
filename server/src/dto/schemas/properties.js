@@ -1,3 +1,4 @@
+import artworkTypes from '#Enums/artworkTypes.js'
 import userRoles from '#Enums/userRoles.js'
 
 export const email = {
@@ -45,13 +46,11 @@ export const password = {
 export const role = {
   type: 'string',
   enum: [
-    userRoles.USER,
-    userRoles.ADMIN,
-    userRoles.ARTIST
+    ...Object.values(userRoles)
   ],
   errorMessage: {
     type: 'El rol debe ser un string',
-    enum: 'El rol debe ser admin, user o artist'
+    enum: 'El rol debe ser uno de los siguientes: ' + Object.values(userRoles).join(', ')
   }
 }
 
@@ -59,5 +58,38 @@ export const isArtist = {
   type: 'boolean',
   errorMessage: {
     type: 'isArtist debe ser un boolean'
+  }
+}
+
+export const title = {
+  type: 'string',
+  minLength: 2,
+  maxLength: 50,
+  errorMessage: {
+    type: 'El título debe ser un string',
+    minLength: 'El título debe tener al menos 2 caracteres',
+    maxLength: 'El título debe tener como máximo 50 caracteres'
+  }
+}
+
+export const description = {
+  type: 'string',
+  minLength: 2,
+  maxLength: 500,
+  errorMessage: {
+    type: 'La descripción debe ser un string',
+    minLength: 'La descripción debe tener al menos 2 caracteres',
+    maxLength: 'La descripción debe tener como máximo 500 caracteres'
+  }
+}
+
+export const artworkType = {
+  type: 'string',
+  enum: [
+    ...Object.values(artworkTypes)
+  ],
+  errorMessage: {
+    type: 'El tipo de obra debe ser un string',
+    enum: 'El tipo de obra debe ser uno de los siguientes: ' + Object.values(artworkTypes).join(', ')
   }
 }

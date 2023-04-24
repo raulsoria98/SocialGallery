@@ -6,20 +6,24 @@ const generateDTOSchema = async (properties) => {
     additionalProperties: false,
     errorMessage: {
       type: 'El tipo de dato no es válido, ha de ser un objeto',
-      additionalProperties: `No se permiten campos adicionales, tan solo: ${properties.map(({ name }) => `'${name}'`).join(', ')}`,
+      additionalProperties: `No se permiten campos adicionales, tan solo: ${properties.map(({ property }) => `'${property}'`).join(', ')}`,
       required: {}
     }
   }
 
-  for (const { name, required } of properties) {
-    // Utiliza la sintaxis dinámica de importación para cargar el módulo
-    const { [name]: property } = await import('#DTO/schemas/properties.js')
+  for (const { property, required, name } of properties) {
+    // Si se ha pasado una propiedad, se utiliza, si no, se utiliza el nombre
+    let propertyToImport = property
+    if (name) propertyToImport = name
 
-    schema.properties[name] = property
+    // Utiliza la sintaxis dinámica de importación para cargar el módulo
+    const { [propertyToImport]: propertyObject } = await import('#DTO/schemas/properties.js')
+
+    schema.properties[property] = propertyObject
 
     if (required) {
-      schema.required.push(name)
-      schema.errorMessage.required[name] = `El campo '${name}' es requerido`
+      schema.required.push(property)
+      schema.errorMessage.required[property] = `El campo '${property}' es requerido`
     }
   }
 

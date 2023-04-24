@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 
 import sequelize from '#Config/db.js'
+import artworkTypes from '#Enums/artworkTypes.js'
 
 const Artwork = sequelize.define('artwork', {
   id: {
@@ -20,13 +21,27 @@ const Artwork = sequelize.define('artwork', {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-      len: [2, 200]
+      len: [2, 500]
     }
   },
   authorId: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    validate: {
+      isIn: [Object.values(artworkTypes)]
+    }
   }
+}, {
+  indexes: [
+    {
+      unique: true,
+      fields: ['title', 'authorId']
+    }
+  ]
 })
 
 export default Artwork

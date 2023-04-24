@@ -1,10 +1,10 @@
 import generateDTOSchema from '#Utils/generateDTOSchema.js'
 
 const SignUpDTOSchema = await generateDTOSchema([
-  { name: 'email', required: true },
-  { name: 'password', required: true },
-  { name: 'name', required: true },
-  { name: 'isArtist', required: false }
+  { property: 'email', required: true },
+  { property: 'password', required: true },
+  { property: 'name', required: true },
+  { property: 'isArtist', required: false }
 ])
 
 export default SignUpDTOSchema
