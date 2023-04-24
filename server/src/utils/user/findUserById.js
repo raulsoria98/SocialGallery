@@ -5,10 +5,6 @@ const findUserById = async (id) => {
   try {
     const user = await User.findByPk(id)
 
-    if (!user) {
-      return null
-    }
-
     return user
   } catch (err) {
     const error = new Error(err.message)

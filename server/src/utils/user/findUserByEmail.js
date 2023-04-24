@@ -9,10 +9,6 @@ const findUserByEmail = async (email) => {
       }
     })
 
-    if (!user) {
-      return null
-    }
-
     return user
   } catch (err) {
     const error = new Error(err.message)

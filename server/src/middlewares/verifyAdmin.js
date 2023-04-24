@@ -1,8 +1,8 @@
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
-import userRoles from '#Enums/userRoles.js'
+import isAdmin from '#Utils/user/isAdmin.js'
 
-const verifyAdminJWT = (req, res, next) => {
-  if (req.user.role !== userRoles.ADMIN) {
+const verifyAdmin = async (req, res, next) => {
+  if (!await isAdmin(req.user.id)) {
     const err = new Error('No autorizado')
     err.statusCode = httpStatusCodes.FORBIDDEN
     next(err)
@@ -11,4 +11,4 @@ const verifyAdminJWT = (req, res, next) => {
   next()
 }
 
-export default verifyAdminJWT
+export default verifyAdmin

@@ -23,8 +23,7 @@ const verifyUserJWT = async (req, res, next) => {
     const { payload } = await jwtVerify(token, encodedJwtSecret)
 
     req.user = {
-      id: payload.id,
-      role: payload.role
+      id: payload.id
     }
 
     next()
