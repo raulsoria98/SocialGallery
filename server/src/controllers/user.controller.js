@@ -5,9 +5,7 @@ import updateEmail from '#Utils/user/updateEmail.js'
 import updateName from '#Utils/user/updateName.js'
 import updatePassword from '#Utils/user/updatePassword.js'
 
-export const getProfile = async (err, req, res, next) => {
-  console.log('PROFILE')
-  console.log(err)
+export const getProfile = async (req, res, next) => {
   const { id } = req.user
 
   try {

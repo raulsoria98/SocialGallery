@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getAllArtworks, postCreateArtwork } from '#Controllers/artwork.controller.js'
+import { getAllArtworks, getArtworkById, postCreateArtwork } from '#Controllers/artwork.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
 
@@ -10,5 +10,6 @@ const artwokRouter = Router()
 
 artwokRouter.post('/create', verifyUserJWT, validateArtistCreateArtworkDTO, postCreateArtwork)
 artwokRouter.get('/fetch-all', getAllArtworks)
+artwokRouter.get('/fetch-one/:artworkId', getArtworkById)
 
 export default artwokRouter
