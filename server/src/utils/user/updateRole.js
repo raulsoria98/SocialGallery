@@ -6,7 +6,7 @@ const updateRole = async ({ id, role }) => {
     const user = await findUserById(id)
 
     if (!user) {
-      const error = new Error('No se encontró el usuario')
+      const error = new Error('Usuario no encontrado')
       error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }

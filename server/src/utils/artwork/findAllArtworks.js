@@ -5,12 +5,6 @@ const findAllArtworks = async () => {
   try {
     const artworks = await Artwork.findAll()
 
-    if (!artworks.length) {
-      const error = new Error('No se encontraron obras de arte')
-      error.statusCode = httpStatusCodes.NOT_FOUND
-      throw error
-    }
-
     return artworks
   } catch (err) {
     const error = new Error(err.message)

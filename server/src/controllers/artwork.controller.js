@@ -24,6 +24,12 @@ export const getAllArtworks = async (req, res, next) => {
   try {
     const artworks = await findAllArtworks()
 
+    if (!artworks.length) {
+      const error = new Error('No se encontraron obras de arte')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
+
     return res.status(httpStatusCodes.OK).json({
       artworks
     })
@@ -38,6 +44,12 @@ export const getArtworkById = async (req, res, next) => {
   try {
     const artwork = await findArtworkById(artworkId)
 
+    if (!artwork) {
+      const error = new Error('No se encontró la obra de arte')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
+
     return res.status(httpStatusCodes.OK).json({
       artwork
     })
@@ -51,6 +63,12 @@ export const getAllByType = async (req, res, next) => {
 
   try {
     const artworks = await findArtworksByType(type)
+
+    if (!artworks.length) {
+      const error = new Error(`No se encontraron obras del tipo ${type}`)
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
 
     return res.status(httpStatusCodes.OK).json({
       artworks

@@ -8,7 +8,7 @@ const updatePassword = async ({ id, password }) => {
     const user = await findUserById(id)
 
     if (!user) {
-      const error = new Error('El usuario no existe')
+      const error = new Error('Usuario no encontrado')
       error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }

@@ -9,12 +9,6 @@ const findArtworksByType = async (type) => {
       }
     })
 
-    if (!artworks.length) {
-      const error = new Error(`No se encontraron obras del tipo ${type}`)
-      error.statusCode = httpStatusCodes.NOT_FOUND
-      throw error
-    }
-
     return artworks
   } catch (err) {
     const error = new Error(err.message)
