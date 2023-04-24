@@ -1,9 +1,15 @@
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import Artwork from '#Models/artwork.js'
 
-const fetchAllArtworks = async () => {
+const findAllArtworks = async () => {
   try {
     const artworks = await Artwork.findAll()
+
+    if (!artworks.length) {
+      const error = new Error('No se encontraron obras de arte')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
 
     return artworks
   } catch (err) {
@@ -13,4 +19,4 @@ const fetchAllArtworks = async () => {
   }
 }
 
-export default fetchAllArtworks
+export default findAllArtworks

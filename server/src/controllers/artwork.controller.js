@@ -1,8 +1,9 @@
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 
 import { createArtwork } from '#Utils/artwork/createArtwork.js'
-import fetchAllArtworks from '#Utils/artwork/fetchAllArtworks.js'
+import findAllArtworks from '#Utils/artwork/findAllArtworks.js'
 import findArtworkById from '#Utils/artwork/findArtworkById.js'
+import findArtworksByType from '#Utils/artwork/findArtworkByType.js'
 
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
@@ -21,13 +22,7 @@ export const postCreateArtwork = async (req, res, next) => {
 
 export const getAllArtworks = async (req, res, next) => {
   try {
-    const artworks = await fetchAllArtworks()
-
-    if (!artworks) {
-      const error = new Error('No se encontraron obras de arte')
-      error.statusCode = httpStatusCodes.NOT_FOUND
-      throw error
-    }
+    const artworks = await findAllArtworks()
 
     return res.status(httpStatusCodes.OK).json({
       artworks
@@ -43,14 +38,22 @@ export const getArtworkById = async (req, res, next) => {
   try {
     const artwork = await findArtworkById(artworkId)
 
-    if (!artwork) {
-      const error = new Error('No se encontró la obra de arte')
-      error.statusCode = httpStatusCodes.NOT_FOUND
-      throw error
-    }
-
     return res.status(httpStatusCodes.OK).json({
       artwork
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+export const getAllByType = async (req, res, next) => {
+  const { type } = req.params
+
+  try {
+    const artworks = await findArtworksByType(type)
+
+    return res.status(httpStatusCodes.OK).json({
+      artworks
     })
   } catch (err) {
     return next(err)

@@ -1,17 +1,21 @@
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import Artwork from '#Models/artwork.js'
 
-const findArtworkById = async (id) => {
+const findArtworksByType = async (type) => {
   try {
-    const artwork = await Artwork.findByPk(id)
+    const artworks = await Artwork.findAll({
+      where: {
+        type
+      }
+    })
 
-    if (!artwork) {
-      const error = new Error('No se encontró la obra de arte')
+    if (!artworks.length) {
+      const error = new Error(`No se encontraron obras del tipo ${type}`)
       error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }
 
-    return artwork
+    return artworks
   } catch (err) {
     const error = new Error(err.message)
     error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
@@ -19,4 +23,4 @@ const findArtworkById = async (id) => {
   }
 }
 
-export default findArtworkById
+export default findArtworksByType
