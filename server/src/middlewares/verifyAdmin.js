@@ -2,13 +2,19 @@ import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import isAdmin from '#Utils/user/isAdmin.js'
 
 const verifyAdmin = async (req, res, next) => {
-  if (!await isAdmin(req.user.id)) {
-    const err = new Error('No autorizado')
-    err.statusCode = httpStatusCodes.FORBIDDEN
+  try {
+    const admin = await isAdmin(req.user.id)
+
+    if (!admin) {
+      const error = new Error('No autorizado')
+      error.statusCode = httpStatusCodes.FORBIDDEN
+      throw error
+    }
+
+    return next()
+  } catch (err) {
     return next(err)
   }
-
-  return next()
 }
 
 export default verifyAdmin

@@ -14,7 +14,7 @@ export const getProfile = async (req, res, next) => {
     if (!user) {
       const error = new Error('Usuario no encontrado')
       error.statusCode = httpStatusCodes.NOT_FOUND
-      return next(error)
+      throw error
     }
 
     return res.json({
