@@ -11,7 +11,7 @@ const validateUserUpdatePasswordDTO = (req, res, next) => {
     })
   }
 
-  next()
+  return next()
 }
 
 export default validateUserUpdatePasswordDTO

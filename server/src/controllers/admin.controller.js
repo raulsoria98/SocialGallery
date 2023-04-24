@@ -11,7 +11,7 @@ export const postAdminUpdateUserRole = async (req, res, next) => {
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }
 
@@ -25,6 +25,6 @@ export const deleteAdminDeleteUser = async (req, res, next) => {
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }

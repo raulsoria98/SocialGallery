@@ -5,10 +5,10 @@ const verifyAdmin = async (req, res, next) => {
   if (!await isAdmin(req.user.id)) {
     const err = new Error('No autorizado')
     err.statusCode = httpStatusCodes.FORBIDDEN
-    next(err)
+    return next(err)
   }
 
-  next()
+  return next()
 }
 
 export default verifyAdmin

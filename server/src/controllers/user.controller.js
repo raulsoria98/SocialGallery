@@ -16,14 +16,14 @@ export const getProfile = async (err, req, res, next) => {
     if (!user) {
       const error = new Error('Usuario no encontrado')
       error.statusCode = httpStatusCodes.NOT_FOUND
-      next(error)
+      return next(error)
     }
 
     return res.json({
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }
 
@@ -38,7 +38,7 @@ export const postUpdateName = async (req, res, next) => {
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }
 
@@ -53,7 +53,7 @@ export const postUpdateEmail = async (req, res, next) => {
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }
 
@@ -68,7 +68,7 @@ export const postUpdatePassword = async (req, res, next) => {
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }
 
@@ -82,6 +82,6 @@ export const deleteDeleteUser = async (req, res, next) => {
       user
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }

@@ -11,7 +11,7 @@ const validateAdminUpdateRoleDTO = (req, res, next) => {
     })
   }
 
-  next()
+  return next()
 }
 
 export default validateAdminUpdateRoleDTO

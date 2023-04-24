@@ -11,7 +11,7 @@ const validateAdminDeleteUserDTO = (req, res, next) => {
     })
   }
 
-  next()
+  return next()
 }
 
 export default validateAdminDeleteUserDTO

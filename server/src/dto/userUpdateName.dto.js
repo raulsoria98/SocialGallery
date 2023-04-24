@@ -11,7 +11,7 @@ const validateUserUpdateNameDTO = (req, res, next) => {
     })
   }
 
-  next()
+  return next()
 }
 
 export default validateUserUpdateNameDTO

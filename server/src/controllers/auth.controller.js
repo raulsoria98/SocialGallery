@@ -12,7 +12,7 @@ export const postLogin = async (req, res, next) => {
       jwt
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }
 
@@ -26,6 +26,6 @@ export const postSignUp = async (req, res, next) => {
       jwt
     })
   } catch (err) {
-    next(err)
+    return next(err)
   }
 }

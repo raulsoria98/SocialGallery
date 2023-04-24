@@ -17,8 +17,8 @@ expressApp.use('/admin', adminRouter)
 expressApp.use('/artwork', artwokRouter)
 
 expressApp.get('/', (req, res) => {
-  res.json({
-    message: 'Hello world'
+  return res.json({
+    message: 'Social Gallery API'
   })
 })
 

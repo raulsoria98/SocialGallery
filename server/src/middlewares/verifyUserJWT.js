@@ -7,7 +7,7 @@ const verifyUserJWT = async (req, res, next) => {
   if (!authorization) {
     const err = new Error('No se ha enviado el token')
     err.statusCode = httpStatusCodes.UNAUTHORIZED
-    next(err)
+    return next(err)
   }
 
   const [bearer, token] = authorization.split(' ')
@@ -15,7 +15,7 @@ const verifyUserJWT = async (req, res, next) => {
   if (bearer !== 'Bearer') {
     const err = new Error('No autorizado')
     err.statusCode = httpStatusCodes.UNAUTHORIZED
-    next(err)
+    return next(err)
   }
 
   try {
@@ -26,10 +26,10 @@ const verifyUserJWT = async (req, res, next) => {
       id: payload.id
     }
 
-    next()
+    return next()
   } catch (err) {
     err.statusCode = httpStatusCodes.UNAUTHORIZED
-    next(err)
+    return next(err)
   }
 }
 
