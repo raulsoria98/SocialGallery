@@ -1,10 +1,10 @@
-import Header from '#Components/Header.jsx'
+import Profile from '#Components/Profile.jsx'
 import './App.css'
 
 function App () {
   return (
     <div className='App'>
-      <Header />
+      <Profile />
     </div>
   )
 }
