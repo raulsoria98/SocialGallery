@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosClient from '#Config/axios.js'
 import { useEffect, useState } from 'react'
 
 export default function Profile () {
@@ -9,7 +9,7 @@ export default function Profile () {
 
   const getUser = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/user/profile', {
+      const response = await axiosClient.get('/user/profile', {
         headers: {
           Authorization: `Bearer ${token}`
         }

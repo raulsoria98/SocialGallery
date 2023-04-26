@@ -6,6 +6,9 @@
         "module": "Node16",
         "baseUrl": "./",
         "paths": {
+            "#Config/*": [
+                "./src/config/*"
+            ],
             "#Components/*": [
                 "./src/components/*"
             ],
