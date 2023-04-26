@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 
 import userRouter from '#Routes/user.routes.js'
 import authRouter from '#Routes/auth.routes.js'
@@ -8,6 +9,8 @@ import artwokRouter from '#Routes/artwork.routes.js'
 import { logError, returnError } from '#Errors/errorHandler.js'
 
 const expressApp = express()
+
+expressApp.use(cors())
 
 expressApp.use(express.json())
 
