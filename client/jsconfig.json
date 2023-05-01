@@ -12,6 +12,9 @@
             "#Components/*": [
                 "./src/components/*"
             ],
+            "#Pages/*": [
+                "./src/pages/*"
+            ],
         }
     }
 }

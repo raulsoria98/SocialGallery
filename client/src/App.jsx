@@ -1,12 +1,22 @@
-import Profile from '#Components/Profile.jsx'
-import './App.css'
+import { Routes, Route } from 'react-router-dom'
+import './App.scss'
 
-function App () {
+import Home from '#Pages/Home.jsx'
+import Profile from '#Pages/Profile.jsx'
+import Layout from '#Components/Layout.jsx'
+
+export default function App () {
   return (
-    <div className='App'>
-      <Profile />
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path='/sign-in' element={<h1>Sign In</h1>} />
+        <Route path='/sign-up' element={<h1>Sign Up</h1>} />
+        <Route path='/profile' element={<Profile />} />
+
+        {/* Catch all other routes */}
+        <Route path='*' element={<h1>Not Found</h1>} />
+      </Route>
+    </Routes>
   )
 }
-
-export default App
