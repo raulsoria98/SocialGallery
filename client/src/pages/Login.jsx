@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import useToken from '#Hooks/useToken.js'
 import axiosClient from '#Config/axios.js'
-import useToken from '#Hooks/useToken.jsx'
 
 export default function Login () {
   const { token, setToken, deleteToken } = useToken()
@@ -50,7 +50,12 @@ export default function Login () {
   return (
     <div className='Login'>
       <h1>Login</h1>
-      {isLogged && <p>You are logged</p> && <button onClick={logOut}>Log out</button>}
+      {isLogged && (
+        <>
+          <p>You are logged</p>
+          <button onClick={logOut}>Log out</button>
+        </>
+      )}
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <div className='form-control'>

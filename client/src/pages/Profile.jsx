@@ -1,5 +1,5 @@
 import axiosClient from '#Config/axios.js'
-import useToken from '#Hooks/useToken.jsx'
+import useToken from '#Hooks/useToken.js'
 import { useEffect, useState } from 'react'
 
 export default function Profile () {
