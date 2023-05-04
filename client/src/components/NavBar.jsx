@@ -12,7 +12,7 @@ export default function NavBar () {
         </div>
         <div className='nav-bar_profile'>
           <li>
-            <NavLink to='/sign-in'>Sign In</NavLink>
+            <NavLink to='/login'>Login</NavLink>
           </li>
           <li>
             <NavLink to='/sign-up'>Sign Up</NavLink>

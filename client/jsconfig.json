@@ -12,6 +12,9 @@
             "#Components/*": [
                 "./src/components/*"
             ],
+            "#Hooks/*": [
+                "./src/hooks/*"
+            ],
             "#Pages/*": [
                 "./src/pages/*"
             ],

@@ -1,13 +1,20 @@
 import axiosClient from '#Config/axios.js'
+import useToken from '#Hooks/useToken.jsx'
 import { useEffect, useState } from 'react'
 
 export default function Profile () {
   const [user, setUser] = useState()
   const [loading, setLoading] = useState(true)
   const [errors, setErrors] = useState(false)
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywicm9sZSI6ImFydGlzdCIsImlhdCI6MTY4MjUyMTExMCwiZXhwIjoxNjgyNTQ5OTEwfQ.BiHZNgti_z6cpO3XRdrxrOFAwky4yX6d3kFUIMbuN8c'
+  const { token } = useToken()
 
   const getUser = async () => {
+    if (!token) {
+      setErrors(['You must be logged'])
+      setLoading(false)
+      return
+    }
+
     try {
       const response = await axiosClient.get('/user/profile', {
         headers: {
@@ -17,7 +24,11 @@ export default function Profile () {
 
       setUser(response.data.user)
     } catch (error) {
-      setErrors([error.message, ...error.response.data.errors])
+      if (error.response) {
+        setErrors([error.message, ...error.response.data.errors])
+      } else {
+        setErrors([error.message])
+      }
     } finally {
       setLoading(false)
     }
@@ -32,7 +43,7 @@ export default function Profile () {
       <h1>Profile</h1>
       {loading && <p>Loading...</p>}
       {errors && (
-        <ul style={{ color: 'red', listStyle: 'none' }}>
+        <ul className='errors-ul'>
           {errors.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
@@ -42,6 +53,7 @@ export default function Profile () {
         <>
           <p>{user.name}</p>
           <p>{user.email}</p>
+          <p>{user.role}</p>
         </>
       )}
     </div>
