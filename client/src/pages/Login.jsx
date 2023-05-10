@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import useToken from '#Hooks/useToken.js'
-import axiosClient from '#Config/axios.js'
+import { loginUser } from '#Services/auth.js'
+import useErrors from '#Hooks/useErrors.js'
 
 export default function Login () {
   const { token, setToken, deleteToken } = useToken()
@@ -8,21 +9,19 @@ export default function Login () {
   const [password, setPassword] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLogged, setIsLogged] = useState(token)
+  const { errors, setErrors } = useErrors()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
 
     try {
-      const res = await axiosClient.post('/auth/login', {
-        email,
-        password
-      })
+      const userToken = await loginUser({ email, password })
 
-      setToken(res.data)
+      setToken(userToken)
       setIsLogged(true)
     } catch (err) {
-      console.error(err)
+      setErrors(err)
     } finally {
       setIsSubmitting(false)
     }
@@ -80,6 +79,13 @@ export default function Login () {
             {isSubmitting ? 'Loading...' : 'Login'}
           </button>
         </form>
+      )}
+      {errors && (
+        <ul className='errors-ul'>
+          {errors.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
+        </ul>
       )}
     </div>
   )

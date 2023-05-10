@@ -27,6 +27,7 @@
     "#Config/*": "./src/config/*",
     "#Components/*": "./src/components/*",
     "#Hooks/*": "./src/hooks/*",
-    "#Pages/*": "./src/pages/*"
+    "#Pages/*": "./src/pages/*",
+    "#Services/*": "./src/services/*"
   }
 }

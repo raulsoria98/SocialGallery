@@ -18,6 +18,9 @@
             "#Pages/*": [
                 "./src/pages/*"
             ],
+            "#Services/*": [
+                "./src/services/*"
+            ],
         }
     }
 }
