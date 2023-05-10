@@ -8,3 +8,14 @@ export const loginUser = async ({ email, password }) => {
 
   return response.data
 }
+
+export const signUpUser = async ({ name, email, password, isArtist }) => {
+  const response = await axiosClient.post('/auth/sign-up', {
+    name,
+    email,
+    password,
+    isArtist
+  })
+
+  return response.data
+}

@@ -1,13 +1,15 @@
 import useErrors from '#Hooks/useErrors.js'
 import useToken from '#Hooks/useToken.js'
+
 import { getProfile } from '#Services/user.js'
 import { useEffect, useState } from 'react'
 
 export default function Profile () {
-  const [user, setUser] = useState()
-  const [loading, setLoading] = useState(true)
   const { errors, setErrors } = useErrors()
   const { token } = useToken()
+
+  const [user, setUser] = useState()
+  const [loading, setLoading] = useState(true)
 
   const getUser = async () => {
     if (!token) {

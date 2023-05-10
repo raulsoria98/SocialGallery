@@ -3,14 +3,16 @@ import { useState } from 'react'
 import useToken from '#Hooks/useToken.js'
 import useErrors from '#Hooks/useErrors.js'
 
-import { loginUser } from '#Services/auth.js'
+import { signUpUser } from '#Services/auth.js'
 
-export default function Login () {
+export default function SignUp () {
   const { token, setToken, deleteToken } = useToken()
   const { errors, setErrors, clearErrors } = useErrors()
 
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isArtist, setIsArtist] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLogged, setIsLogged] = useState(token)
 
@@ -19,7 +21,7 @@ export default function Login () {
     setIsSubmitting(true)
 
     try {
-      const userToken = await loginUser({ email, password })
+      const userToken = await signUpUser({ name, email, password, isArtist })
 
       setToken(userToken)
       setIsLogged(true)
@@ -31,10 +33,11 @@ export default function Login () {
     }
   }
 
-  const isDisabled = !email || !password || isSubmitting
+  const isDisabled = !name || !email || !password || isSubmitting
 
   const logOut = () => {
     deleteToken()
+    setName('')
     setEmail('')
     setPassword('')
     setIsLogged(false)
@@ -43,16 +46,20 @@ export default function Login () {
   const handleChange = (e) => {
     const { id, value } = e.target
 
-    if (id === 'email') {
+    if (id === 'name') {
+      setName(value)
+    } else if (id === 'email') {
       setEmail(value)
     } else if (id === 'password') {
       setPassword(value)
+    } else if (id === 'isArtist') {
+      setIsArtist(!isArtist)
     }
   }
 
   return (
-    <div className='Login'>
-      <h1>Login</h1>
+    <div className='SignUp'>
+      <h1>Sign Up</h1>
       {isLogged && (
         <>
           <p>You are logged</p>
@@ -62,10 +69,19 @@ export default function Login () {
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
+            <label htmlFor='name'>Name</label>
+            <input
+              id='name'
+              type='text'
+              value={name}
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-control'>
             <label htmlFor='email'>Email</label>
             <input
-              type='email'
               id='email'
+              type='email'
               value={email}
               onChange={handleChange}
             />
@@ -73,23 +89,32 @@ export default function Login () {
           <div className='form-control'>
             <label htmlFor='password'>Password</label>
             <input
-              type='password'
               id='password'
+              type='password'
               value={password}
               onChange={handleChange}
             />
           </div>
+          <div className='form-control'>
+            <label htmlFor='isArtist'>Artist</label>
+            <input
+              id='isArtist'
+              type='checkbox'
+              value={isArtist}
+              onChange={handleChange}
+            />
+          </div>
           <button type='submit' disabled={isDisabled}>
-            {isSubmitting ? 'Loading...' : 'Login'}
+            {isSubmitting ? 'Loading...' : 'Sign Up'}
           </button>
         </form>
       )}
       {errors && (
         <div className='errors'>
-          <h3>Errors</h3>
+          <h3>Errors:</h3>
           <ul className='errors-ul'>
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
+            {errors.map((err, index) => (
+              <li key={index}>{err}</li>
             ))}
           </ul>
         </div>

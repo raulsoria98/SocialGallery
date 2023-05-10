@@ -5,6 +5,7 @@ import Home from '#Pages/Home.jsx'
 import Profile from '#Pages/Profile.jsx'
 import Layout from '#Components/Layout.jsx'
 import Login from '#Pages/Login.jsx'
+import SignUp from '#Pages/SignUp.jsx'
 
 export default function App () {
   return (
@@ -12,7 +13,7 @@ export default function App () {
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/sign-up' element={<h1>Sign Up</h1>} />
+        <Route path='/sign-up' element={<SignUp />} />
         <Route path='/profile' element={<Profile />} />
 
         {/* Catch all other routes */}
