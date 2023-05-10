@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react'
+
 import useErrors from '#Hooks/useErrors.js'
 import useToken from '#Hooks/useToken.js'
 
 import { getProfile } from '#Services/user.js'
-import { useEffect, useState } from 'react'
+
+import Errors from '#Components/Errors.jsx'
 
 export default function Profile () {
   const { errors, setErrors } = useErrors()
@@ -37,13 +40,7 @@ export default function Profile () {
     <div className='Profile'>
       <h1>Profile</h1>
       {loading && <p>Loading...</p>}
-      {errors && (
-        <ul className='errors-ul'>
-          {errors.map((error, index) => (
-            <li key={index}>{error}</li>
-          ))}
-        </ul>
-      )}
+      {errors && <Errors errors={errors} />}
       {!loading && !errors && (
         <>
           <p>{user.name}</p>

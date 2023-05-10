@@ -5,6 +5,8 @@ import useErrors from '#Hooks/useErrors.js'
 
 import { loginUser } from '#Services/auth.js'
 
+import Errors from '#Components/Errors.jsx'
+
 export default function Login () {
   const { token, setToken, deleteToken } = useToken()
   const { errors, setErrors, clearErrors } = useErrors()
@@ -53,6 +55,7 @@ export default function Login () {
   return (
     <div className='Login'>
       <h1>Login</h1>
+      {errors && <Errors errors={errors} />}
       {isLogged && (
         <>
           <p>You are logged</p>
@@ -83,16 +86,6 @@ export default function Login () {
             {isSubmitting ? 'Loading...' : 'Login'}
           </button>
         </form>
-      )}
-      {errors && (
-        <div className='errors'>
-          <h3>Errors</h3>
-          <ul className='errors-ul'>
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-        </div>
       )}
     </div>
   )
