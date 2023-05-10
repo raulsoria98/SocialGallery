@@ -43,6 +43,13 @@ export const password = {
   }
 }
 
+export const loginPassword = {
+  type: 'string',
+  errorMessage: {
+    type: 'La contraseña debe ser un string'
+  }
+}
+
 export const role = {
   type: 'string',
   enum: [
