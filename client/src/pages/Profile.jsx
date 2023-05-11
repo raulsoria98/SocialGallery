@@ -6,12 +6,13 @@ import useToken from '#Hooks/useToken.js'
 import { getProfile } from '#Services/user.js'
 
 import Errors from '#Components/Errors.jsx'
+import ChangeUserNameForm from '#Components/ChangeUserNameForm.jsx'
 
 export default function Profile () {
   const { errors, setErrors } = useErrors()
   const { token } = useToken()
 
-  const [user, setUser] = useState()
+  const [name, setName] = useState('')
   const [loading, setLoading] = useState(true)
 
   const getUser = async () => {
@@ -24,7 +25,7 @@ export default function Profile () {
     try {
       const user = await getProfile({ token })
 
-      setUser(user)
+      setName(user.name)
     } catch (error) {
       setErrors(error)
     } finally {
@@ -43,9 +44,8 @@ export default function Profile () {
       {errors && <Errors errors={errors} />}
       {!loading && !errors && (
         <>
-          <p>{user.name}</p>
-          <p>{user.email}</p>
-          <p>{user.role}</p>
+          <h3 className='username'>{name}</h3>
+          <ChangeUserNameForm token={token} setName={setName} />
         </>
       )}
     </div>

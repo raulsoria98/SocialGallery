@@ -15,3 +15,21 @@ export const getProfile = async ({ token }) => {
     role: user.role
   }
 }
+
+export const changeUserName = async ({ token, name }) => {
+  const response = await axiosClient.put('/user/update-name', {
+    name
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const user = response.data.user
+
+  return {
+    name: user.name,
+    email: user.email,
+    role: user.role
+  }
+}
