@@ -7,12 +7,15 @@ import { getProfile } from '#Services/user.js'
 
 import Errors from '#Components/Errors.jsx'
 import ChangeUserNameForm from '#Components/ChangeUserNameForm.jsx'
+import ChangeUserEmailForm from '#Components/ChangeUserEmailForm.jsx'
+import ChangeUserPasswordForm from '#Components/ChangeUserPasswordForm.jsx'
 
 export default function Profile () {
   const { errors, setErrors } = useErrors()
   const { token } = useToken()
 
   const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(true)
 
   const getUser = async () => {
@@ -26,6 +29,7 @@ export default function Profile () {
       const user = await getProfile({ token })
 
       setName(user.name)
+      setEmail(user.email)
     } catch (error) {
       setErrors(error)
     } finally {
@@ -44,8 +48,12 @@ export default function Profile () {
       {errors && <Errors errors={errors} />}
       {!loading && !errors && (
         <>
-          <h3 className='username'>{name}</h3>
+          <h3>{name}</h3>
           <ChangeUserNameForm token={token} setName={setName} />
+          <h3>{email}</h3>
+          <ChangeUserEmailForm token={token} setEmail={setEmail} />
+          <h3>Password</h3>
+          <ChangeUserPasswordForm token={token} />
         </>
       )}
     </div>

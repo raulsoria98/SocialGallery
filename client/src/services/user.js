@@ -33,3 +33,39 @@ export const changeUserName = async ({ token, name }) => {
     role: user.role
   }
 }
+
+export const changeUserEmail = async ({ token, email }) => {
+  const response = await axiosClient.put('/user/update-email', {
+    email
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const user = response.data.user
+
+  return {
+    name: user.name,
+    email: user.email,
+    role: user.role
+  }
+}
+
+export const changeUserPassword = async ({ token, password }) => {
+  const response = await axiosClient.put('/user/update-password', {
+    password
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const user = response.data.user
+
+  return {
+    name: user.name,
+    email: user.email,
+    role: user.role
+  }
+}
