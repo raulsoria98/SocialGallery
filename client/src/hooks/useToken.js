@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import jwtDecode from 'jwt-decode'
 
 export default function useToken () {
   const getToken = () => {
@@ -6,7 +7,20 @@ export default function useToken () {
 
     const userToken = JSON.parse(localToken)
 
-    return userToken?.jwt
+    const jwt = userToken?.jwt
+
+    if (jwt) {
+      const { exp } = jwtDecode(jwt)
+
+      const currentTime = Date.now() / 1000
+
+      if (exp < currentTime) {
+        window.localStorage.removeItem('token')
+        return null
+      }
+    }
+
+    return jwt
   }
 
   const [token, setToken] = useState(getToken())
