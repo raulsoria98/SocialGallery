@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react'
 import useErrors from '#Hooks/useErrors.js'
 import useToken from '#Hooks/useToken.js'
 
+import userRoles from '#Enums/userRoles.js'
+
 import { getProfile } from '#Services/user.js'
 
 import Errors from '#Components/Errors.jsx'
 import ChangeUserNameForm from '#Components/ChangeUserNameForm.jsx'
 import ChangeUserEmailForm from '#Components/ChangeUserEmailForm.jsx'
 import ChangeUserPasswordForm from '#Components/ChangeUserPasswordForm.jsx'
+import ChangeUserIsAdminButton from '#Components/ChangeUserIsAdminButton.jsx'
 
 export default function Profile () {
   const { errors, setErrors } = useErrors()
@@ -16,6 +19,7 @@ export default function Profile () {
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [role, setRole] = useState('')
   const [loading, setLoading] = useState(true)
 
   const getUser = async () => {
@@ -30,6 +34,7 @@ export default function Profile () {
 
       setName(user.name)
       setEmail(user.email)
+      setRole(user.role)
     } catch (error) {
       setErrors(error)
     } finally {
@@ -54,6 +59,9 @@ export default function Profile () {
           <ChangeUserEmailForm token={token} setEmail={setEmail} />
           <h3>Password</h3>
           <ChangeUserPasswordForm token={token} />
+          <h3>Role</h3>
+          <p>{role.charAt(0).toUpperCase() + role.slice(1)}</p>
+          {role !== userRoles.ADMIN && <ChangeUserIsAdminButton token={token} previousIsArtist={role === userRoles.ARTIST} setRole={setRole} />}
         </>
       )}
     </div>

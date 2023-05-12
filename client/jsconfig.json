@@ -12,6 +12,9 @@
             "#Components/*": [
                 "./src/components/*"
             ],
+            "#Enums/*": [
+                "./src/enums/*"
+            ],
             "#Hooks/*": [
                 "./src/hooks/*"
             ],

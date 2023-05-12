@@ -69,3 +69,21 @@ export const changeUserPassword = async ({ token, password }) => {
     role: user.role
   }
 }
+
+export const changeUserIsArtist = async ({ token, isArtist }) => {
+  const response = await axiosClient.put('/user/update-is-artist', {
+    isArtist
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const user = response.data.user
+
+  return {
+    name: user.name,
+    email: user.email,
+    role: user.role
+  }
+}

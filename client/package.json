@@ -27,6 +27,7 @@
   "imports": {
     "#Config/*": "./src/config/*",
     "#Components/*": "./src/components/*",
+    "#Enums/*": "./src/enums/*",
     "#Hooks/*": "./src/hooks/*",
     "#Pages/*": "./src/pages/*",
     "#Services/*": "./src/services/*"
