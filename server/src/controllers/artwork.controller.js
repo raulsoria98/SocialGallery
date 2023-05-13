@@ -58,7 +58,7 @@ export const getArtworkById = async (req, res, next) => {
   }
 }
 
-export const getAllByType = async (req, res, next) => {
+export const getAllArtworksByType = async (req, res, next) => {
   const { type } = req.params
 
   try {
