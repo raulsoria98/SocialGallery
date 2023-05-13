@@ -12,6 +12,7 @@ import ChangeUserNameForm from '#Components/ChangeUserNameForm.jsx'
 import ChangeUserEmailForm from '#Components/ChangeUserEmailForm.jsx'
 import ChangeUserPasswordForm from '#Components/ChangeUserPasswordForm.jsx'
 import ChangeUserIsAdminButton from '#Components/ChangeUserIsAdminButton.jsx'
+import DeleteAccountButton from '#Components/DeleteAccountButton.jsx'
 
 export default function Profile () {
   const { errors, setErrors } = useErrors()
@@ -62,6 +63,7 @@ export default function Profile () {
           <h3>Role</h3>
           <p>{role.charAt(0).toUpperCase() + role.slice(1)}</p>
           {role !== userRoles.ADMIN && <ChangeUserIsAdminButton token={token} previousIsArtist={role === userRoles.ARTIST} setRole={setRole} />}
+          <DeleteAccountButton token={token} />
         </>
       )}
     </div>

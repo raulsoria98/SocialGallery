@@ -87,3 +87,19 @@ export const changeUserIsArtist = async ({ token, isArtist }) => {
     role: user.role
   }
 }
+
+export const deleteAccount = async ({ token }) => {
+  const response = await axiosClient.delete('/user/delete', {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  const user = response.data.user
+
+  return {
+    name: user.name,
+    email: user.email,
+    role: user.role
+  }
+}

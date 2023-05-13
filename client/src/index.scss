@@ -49,7 +49,8 @@ button {
   transition: border-color 0.25s;
 }
 
-button:hover {
+// If not disabled, apply hover styles
+button:not(:disabled):hover {
   border-color: #646cff;
 }
 
