@@ -9,6 +9,9 @@ export default function NavBar () {
           <li>
             <NavLink to='/'>Home</NavLink>
           </li>
+          <li>
+            <NavLink to='/gallery'>Gallery</NavLink>
+          </li>
         </div>
         <div className='nav-bar_profile'>
           <li>

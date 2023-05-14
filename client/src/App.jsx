@@ -6,12 +6,14 @@ import Profile from '#Pages/Profile.jsx'
 import Layout from '#Components/Layout.jsx'
 import Login from '#Pages/Login.jsx'
 import SignUp from '#Pages/SignUp.jsx'
+import Artworks from '#Pages/Artworks.jsx'
 
 export default function App () {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
+        <Route path='/gallery' element={<Artworks />} />
         <Route path='/login' element={<Login />} />
         <Route path='/sign-up' element={<SignUp />} />
         <Route path='/profile' element={<Profile />} />
