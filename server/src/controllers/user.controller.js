@@ -101,3 +101,27 @@ export const deleteDeleteUser = async (req, res, next) => {
     return next(err)
   }
 }
+
+export const getUserData = async (req, res, next) => {
+  const { id } = req.params
+
+  try {
+    const user = await findUserById(id)
+
+    if (!user) {
+      const error = new Error('Usuario no encontrado')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
+
+    return res.json({
+      user: {
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    })
+  } catch (err) {
+    return next(err)
+  }
+}

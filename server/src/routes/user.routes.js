@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { deleteDeleteUser, getProfile, putUpdateEmail, putUpdateIsArtist, putUpdateName, putUpdatePassword } from '#Controllers/user.controller.js'
+import { deleteDeleteUser, getProfile, getUserData, putUpdateEmail, putUpdateIsArtist, putUpdateName, putUpdatePassword } from '#Controllers/user.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
 import validateUserUpdateNameDTO from '#DTO/userUpdateName.dto.js'
@@ -9,6 +9,8 @@ import validateUserUpdatePasswordDTO from '#DTO/userUpdatePassword.dto.js'
 import validateUserUpdateIsArtistDTO from '#DTO/userUpdateIsArtist.dto.js'
 
 const userRouter = Router()
+
+userRouter.get('/:id', getUserData)
 
 userRouter.use(verifyUserJWT)
 
