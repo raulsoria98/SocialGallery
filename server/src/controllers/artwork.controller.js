@@ -4,6 +4,7 @@ import { createArtwork } from '#Utils/artwork/createArtwork.js'
 import findAllArtworks from '#Utils/artwork/findAllArtworks.js'
 import findArtworkById from '#Utils/artwork/findArtworkById.js'
 import findArtworksByType from '#Utils/artwork/findArtworkByType.js'
+import findArtworksByAuthorId from '#Utils/artwork/findArtworksByAuthorId.js'
 
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
@@ -66,6 +67,26 @@ export const getAllArtworksByType = async (req, res, next) => {
 
     if (!artworks.length) {
       const error = new Error(`No se encontraron obras del tipo ${type}`)
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
+
+    return res.status(httpStatusCodes.OK).json({
+      artworks
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+export const getArtworksByAuthorId = async (req, res, next) => {
+  const { authorId } = req.params
+
+  try {
+    const artworks = await findArtworksByAuthorId(authorId)
+
+    if (!artworks.length) {
+      const error = new Error('No se encontraron obras del autor')
       error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }

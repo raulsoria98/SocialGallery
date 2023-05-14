@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { getAllArtworks, getAllArtworksByType, getArtworkById, postCreateArtwork } from '#Controllers/artwork.controller.js'
+import { getAllArtworks, getAllArtworksByType, getArtworkById, getArtworksByAuthorId, postCreateArtwork } from '#Controllers/artwork.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
 
@@ -12,5 +12,6 @@ artwokRouter.post('/create', verifyUserJWT, validateArtistCreateArtworkDTO, post
 artwokRouter.get('/find-all', getAllArtworks)
 artwokRouter.get('/find-one/:artworkId', getArtworkById)
 artwokRouter.get('/find-by-type/:type', getAllArtworksByType)
+artwokRouter.get('/find-by-author/:authorId', getArtworksByAuthorId)
 
 export default artwokRouter
