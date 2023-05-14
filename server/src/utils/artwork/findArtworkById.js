@@ -3,7 +3,17 @@ import Artwork from '#Models/artwork.js'
 
 const findArtworkById = async (id) => {
   try {
-    const artwork = await Artwork.findByPk(id)
+    const artwork = await Artwork.findByPk(id, {
+      include: 'author'
+    })
+
+    const mappedAuthor = {
+      name: artwork.author.name,
+      email: artwork.author.email,
+      role: artwork.author.role
+    }
+
+    artwork.setDataValue('author', mappedAuthor)
 
     return artwork
   } catch (err) {

@@ -3,7 +3,7 @@ import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import { createArtwork } from '#Utils/artwork/createArtwork.js'
 import findAllArtworks from '#Utils/artwork/findAllArtworks.js'
 import findArtworkById from '#Utils/artwork/findArtworkById.js'
-import findArtworksByType from '#Utils/artwork/findArtworkByType.js'
+import findArtworksByType from '#Utils/artwork/findArtworksByType.js'
 import findArtworksByAuthorId from '#Utils/artwork/findArtworksByAuthorId.js'
 
 export const postCreateArtwork = async (req, res, next) => {

@@ -1,10 +1,12 @@
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import userRoles from '#Enums/userRoles.js'
-import findUserById from '#Utils/user/findUserById.js'
+import User from '#Models/user.js'
 
 const findArtworksByAuthorId = async (authorId) => {
   try {
-    const author = await findUserById(authorId)
+    const author = await User.findByPk(authorId, {
+      include: 'artworks'
+    })
 
     if (!author) {
       const error = new Error('No se encontró el autor')
@@ -18,13 +20,23 @@ const findArtworksByAuthorId = async (authorId) => {
       throw error
     }
 
-    const artworks = author.getArtworks()
+    const artworks = author.artworks
 
     if (!artworks) {
       const error = new Error('No se encontraron obras del autor')
       error.statusCode = httpStatusCodes.NOT_FOUND
       throw error
     }
+
+    artworks.forEach(artwork => {
+      const mappedAuthor = {
+        name: author.name,
+        email: author.email,
+        role: author.role
+      }
+
+      artwork.setDataValue('author', mappedAuthor)
+    })
 
     return artworks
   } catch (err) {

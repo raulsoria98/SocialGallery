@@ -7,8 +7,17 @@ const findArworkByAuthorTitle = async ({ authorId, title }) => {
       where: {
         title,
         authorId
-      }
+      },
+      include: 'author'
     })
+
+    const mappedAuthor = {
+      name: artwork.author.name,
+      email: artwork.author.email,
+      role: artwork.author.role
+    }
+
+    artwork.setDataValue('author', mappedAuthor)
 
     return artwork
   } catch (err) {

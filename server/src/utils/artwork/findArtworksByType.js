@@ -6,7 +6,18 @@ const findArtworksByType = async (type) => {
     const artworks = await Artwork.findAll({
       where: {
         type
+      },
+      include: 'author'
+    })
+
+    artworks.forEach(artwork => {
+      const mappedAuthor = {
+        name: artwork.author.name,
+        email: artwork.author.email,
+        role: artwork.author.role
       }
+
+      artwork.setDataValue('author', mappedAuthor)
     })
 
     return artworks
