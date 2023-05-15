@@ -105,7 +105,7 @@ export const deleteAccount = async ({ token }) => {
 }
 
 export const getUserById = async ({ userId }) => {
-  const response = await axiosClient.get(`/user/${userId}`)
+  const response = await axiosClient.get(`/user/find/${userId}`)
 
   const user = response.data.user
 
