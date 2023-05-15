@@ -10,7 +10,7 @@ import validateUserUpdateIsArtistDTO from '#DTO/userUpdateIsArtist.dto.js'
 
 const userRouter = Router()
 
-userRouter.get('/:id', getUserData)
+userRouter.get('/find/:id', getUserData)
 
 userRouter.use(verifyUserJWT)
 
