@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 
 import useErrors from '#Hooks/useErrors.js'
-import useToken from '#Hooks/useToken.js'
+import useAuth from '#Hooks/useAuth.js'
 
 import userRoles from '#Enums/userRoles.js'
-
-import { getProfile } from '#Services/user.js'
 
 import Errors from '#Components/Errors.jsx'
 import ChangeUserNameForm from '#Components/ChangeUserNameForm.jsx'
@@ -16,7 +14,7 @@ import DeleteAccountButton from '#Components/DeleteAccountButton.jsx'
 
 export default function Profile () {
   const { errors, setErrors } = useErrors()
-  const { token } = useToken()
+  const { user, token } = useAuth()
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -24,15 +22,13 @@ export default function Profile () {
   const [loading, setLoading] = useState(true)
 
   const getUser = async () => {
-    if (!token) {
+    if (!user) {
       setErrors({ message: 'You must be logged' })
       setLoading(false)
       return
     }
 
     try {
-      const user = await getProfile({ token })
-
       setName(user.name)
       setEmail(user.email)
       setRole(user.role)

@@ -1,18 +1,18 @@
 import { useNavigate } from 'react-router-dom'
 import useErrors from '#Hooks/useErrors.js'
-import useToken from '#Hooks/useToken.js'
+import useAuth from '#Hooks/useAuth.js'
 import { deleteAccount } from '#Services/user.js'
 import Errors from './Errors.jsx'
 
 export default function DeleteAccountButton ({ token }) {
-  const { deleteToken } = useToken()
+  const { deleteAuth } = useAuth()
   const { errors, setErrors } = useErrors()
   const navigate = useNavigate()
 
   const handleClick = async () => {
     try {
       await deleteAccount({ token })
-      deleteToken()
+      deleteAuth()
       navigate('/')
     } catch (err) {
       setErrors(err)

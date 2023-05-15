@@ -12,6 +12,9 @@
             "#Components/*": [
                 "./src/components/*"
             ],
+            "#Contexts/*": [
+                "./src/contexts/*"
+            ],
             "#Enums/*": [
                 "./src/enums/*"
             ],

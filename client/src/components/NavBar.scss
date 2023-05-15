@@ -18,7 +18,10 @@ nav.nav-bar {
         li {
             margin-right: 1em;
 
-            a {
+            a,
+            button {
+                border: none;
+                padding: 0;
                 color: #646cff;
                 text-decoration: none;
                 font-size: 1.2em;

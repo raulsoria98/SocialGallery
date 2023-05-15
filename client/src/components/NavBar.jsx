@@ -1,7 +1,16 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import './NavBar.scss'
+import useAuth from '#Hooks/useAuth.js'
 
 export default function NavBar () {
+  const navigate = useNavigate()
+  const { user, deleteAuth } = useAuth()
+
+  const handleClick = () => {
+    deleteAuth()
+    navigate('/')
+  }
+
   return (
     <nav className='nav-bar'>
       <ul>
@@ -14,15 +23,26 @@ export default function NavBar () {
           </li>
         </div>
         <div className='nav-bar_profile'>
-          <li>
-            <NavLink to='/login'>Login</NavLink>
-          </li>
-          <li>
-            <NavLink to='/sign-up'>Sign Up</NavLink>
-          </li>
-          <li>
-            <NavLink to='/profile'>Profile</NavLink>
-          </li>
+          {user && (
+            <>
+              <li>
+                <NavLink to='/profile'>{user.name}</NavLink>
+              </li>
+              <li>
+                <button onClick={handleClick}>Logout</button>
+              </li>
+            </>
+          )}
+          {!user && (
+            <>
+              <li>
+                <NavLink to='/login'>Login</NavLink>
+              </li>
+              <li>
+                <NavLink to='/sign-up'>Sign Up</NavLink>
+              </li>
+            </>
+          )}
         </div>
       </ul>
     </nav>

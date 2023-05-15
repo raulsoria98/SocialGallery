@@ -1,14 +1,18 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import useToken from '#Hooks/useToken.js'
 import useErrors from '#Hooks/useErrors.js'
+import useAuth from '#Hooks/useAuth.js'
 
 import { loginUser } from '#Services/auth.js'
 
 import Errors from '#Components/Errors.jsx'
+import { getProfile } from '#Services/user.js'
 
 export default function Login () {
-  const { token, setToken, deleteToken } = useToken()
+  const navigate = useNavigate()
+
+  const { token, setAuth, deleteAuth } = useAuth()
   const { errors, setErrors, clearErrors } = useErrors()
 
   const [email, setEmail] = useState('')
@@ -21,11 +25,13 @@ export default function Login () {
     setIsSubmitting(true)
 
     try {
-      const userToken = await loginUser({ email, password })
+      const { jwt } = await loginUser({ email, password })
+      const user = await getProfile({ token: jwt })
 
-      setToken(userToken)
+      setAuth({ token: jwt, user })
       setIsLogged(true)
       clearErrors()
+      navigate('/')
     } catch (err) {
       setErrors(err)
     } finally {
@@ -36,7 +42,7 @@ export default function Login () {
   const isDisabled = !email || !password || isSubmitting
 
   const logOut = () => {
-    deleteToken()
+    deleteAuth()
     setEmail('')
     setPassword('')
     setIsLogged(false)
