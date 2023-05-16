@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import multer from 'multer'
 
 import { getAllArtworks, getAllArtworksByType, getArtworkById, getArtworksByAuthorId, postCreateArtwork } from '#Controllers/artwork.controller.js'
 
@@ -8,7 +9,7 @@ import validateArtistCreateArtworkDTO from '#DTO/artistCreateArtwork.dto.js'
 
 const artwokRouter = Router()
 
-artwokRouter.post('/create', verifyUserJWT, validateArtistCreateArtworkDTO, postCreateArtwork)
+artwokRouter.post('/create', verifyUserJWT, multer().single('file'), validateArtistCreateArtworkDTO, postCreateArtwork)
 artwokRouter.get('/find-all', getAllArtworks)
 artwokRouter.get('/find-one/:artworkId', getArtworkById)
 artwokRouter.get('/find-by-type/:type', getAllArtworksByType)

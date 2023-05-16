@@ -13,6 +13,7 @@ const expressApp = express()
 expressApp.use(cors())
 
 expressApp.use(express.json())
+expressApp.use(express.urlencoded({ extended: true }))
 
 expressApp.use('/auth', authRouter)
 expressApp.use('/user', userRouter)

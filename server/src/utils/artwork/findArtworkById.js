@@ -7,6 +7,10 @@ const findArtworkById = async (id) => {
       include: 'author'
     })
 
+    if (!artwork) {
+      return null
+    }
+
     const mappedAuthor = {
       name: artwork.author.name,
       email: artwork.author.email,

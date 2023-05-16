@@ -34,6 +34,10 @@ const Artwork = sequelize.define('artwork', {
     validate: {
       isIn: [Object.values(artworkTypes)]
     }
+  },
+  file: {
+    type: DataTypes.BLOB('long'),
+    allowNull: false
   }
 }, {
   indexes: [

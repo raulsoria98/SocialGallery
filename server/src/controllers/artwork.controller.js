@@ -9,9 +9,10 @@ import findArtworksByAuthorId from '#Utils/artwork/findArtworksByAuthorId.js'
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
   const { title, description, type } = req.body
+  const { file } = req
 
   try {
-    const artwork = await createArtwork({ authorId, title, description, type })
+    const artwork = await createArtwork({ authorId, title, description, type, file })
 
     return res.status(httpStatusCodes.CREATED).json({
       artwork
