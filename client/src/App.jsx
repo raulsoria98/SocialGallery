@@ -8,7 +8,7 @@ import Profile from '#Pages/Profile.jsx'
 import Layout from '#Components/Layout.jsx'
 import Login from '#Pages/Login.jsx'
 import SignUp from '#Pages/SignUp.jsx'
-import Artworks from '#Pages/Artworks.jsx'
+import Gallery from '#Pages/Gallery.jsx'
 import UploadArtwork from '#Pages/UploadArtwork.jsx'
 
 export default function App () {
@@ -17,7 +17,7 @@ export default function App () {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='/gallery' element={<Artworks />} />
+          <Route path='/gallery' element={<Gallery />} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile' element={<Profile />} />

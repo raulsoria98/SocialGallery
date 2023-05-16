@@ -4,7 +4,9 @@ import Errors from '#Components/Errors.jsx'
 import { getAllArtworks } from '#Services/artwork.js'
 import Artwork from '#Components/Artwork.jsx'
 
-export default function Artworks () {
+import './Gallery.scss'
+
+export default function Gallery () {
   const { errors, setErrors } = useErrors()
 
   const [artworks, setArtworks] = useState([])
@@ -27,17 +29,17 @@ export default function Artworks () {
   }, [])
 
   return (
-    <div className='Artworks'>
+    <>
       <h1>Artworks</h1>
-      {loading && <p>Loading...</p>}
+      {loading && <p className='loading'>Loading...</p>}
       {errors && <Errors errors={errors} />}
       {!loading && !errors && (
-        <>
+        <ul className='Gallery'>
           {artworks.map(artwork => (
             <Artwork key={artwork.id} artwork={artwork} />
           ))}
-        </>
+        </ul>
       )}
-    </div>
+    </>
   )
 }

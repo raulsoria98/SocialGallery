@@ -1,0 +1,31 @@
+.Artwork {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+
+    .title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .description {
+        margin-bottom: 10px;
+    }
+
+    .type {
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+
+    .author {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .file {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+}
