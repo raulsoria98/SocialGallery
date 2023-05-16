@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import useErrors from '#Hooks/useErrors.js'
+import useAuth from '#Hooks/useAuth.js'
 
 import { changeUserEmail } from '#Services/user.js'
 
@@ -8,6 +9,7 @@ import Errors from './Errors.jsx'
 
 export default function ChangeUserEmailForm ({ token, setEmail }) {
   const { errors, setErrors, clearErrors } = useErrors()
+  const { user, setUser } = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [newEmail, setNewEmail] = useState('')
 
@@ -19,6 +21,7 @@ export default function ChangeUserEmailForm ({ token, setEmail }) {
       await changeUserEmail({ email: newEmail, token })
       setEmail(newEmail)
       setNewEmail('')
+      setUser({ user: { ...user, email: newEmail } })
       clearErrors()
     } catch (err) {
       setErrors(err)
