@@ -21,6 +21,11 @@ export default function NavBar () {
           <li>
             <NavLink to='/gallery'>Gallery</NavLink>
           </li>
+          {user && user.role === 'artist' && (
+            <li>
+              <NavLink to='/create-artwork'>Create Artwork</NavLink>
+            </li>
+          )}
         </div>
         <div className='nav-bar_profile'>
           {user && (

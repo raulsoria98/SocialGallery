@@ -5,3 +5,21 @@ export const getAllArtworks = async () => {
 
   return response.data.artworks
 }
+
+export const createArtwork = async ({ data, token }) => {
+  const { title, description, type, file } = data
+
+  const response = await axiosClient.post('/artwork/create', {
+    title,
+    description,
+    type,
+    file
+  }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+
+  return response.data.artwork
+}

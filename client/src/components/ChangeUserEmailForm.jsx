@@ -36,9 +36,9 @@ export default function ChangeUserEmailForm ({ token, setEmail }) {
   }
 
   return (
-    <div className='change-email-form'>
+    <div className='change-email'>
       {errors && <Errors errors={errors} />}
-      <form onSubmit={handleSubmit}>
+      <form className='change-email-form' onSubmit={handleSubmit}>
         <label htmlFor='email'>New Email:</label>
         <input
           id='email'

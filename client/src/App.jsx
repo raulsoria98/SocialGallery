@@ -9,6 +9,7 @@ import Layout from '#Components/Layout.jsx'
 import Login from '#Pages/Login.jsx'
 import SignUp from '#Pages/SignUp.jsx'
 import Artworks from '#Pages/Artworks.jsx'
+import UploadArtwork from '#Pages/UploadArtwork.jsx'
 
 export default function App () {
   return (
@@ -20,6 +21,7 @@ export default function App () {
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/create-artwork' element={<UploadArtwork />} />
 
           {/* Catch all other routes */}
           <Route path='*' element={<h1>Not Found</h1>} />
