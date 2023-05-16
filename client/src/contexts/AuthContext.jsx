@@ -41,10 +41,15 @@ export const AuthProvider = ({ children }) => {
     window.localStorage.removeItem('user')
   }
 
+  const setUser = ({ user }) => {
+    setSession({ ...session, user })
+    window.localStorage.setItem('user', JSON.stringify(user))
+  }
+
   const { user, token } = session
 
   return (
-    <AuthContext.Provider value={{ user, token, setAuth, deleteAuth }}>
+    <AuthContext.Provider value={{ user, token, setAuth, deleteAuth, setUser }}>
       {children}
     </AuthContext.Provider>
   )

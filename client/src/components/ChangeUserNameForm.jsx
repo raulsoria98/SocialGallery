@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import useErrors from '#Hooks/useErrors.js'
+import useAuth from '#Hooks/useAuth.js'
 
 import { changeUserName } from '#Services/user.js'
 
@@ -8,6 +9,7 @@ import Errors from './Errors.jsx'
 
 export default function ChangeUserNameForm ({ token, setName }) {
   const { errors, setErrors, clearErrors } = useErrors()
+  const { user, setUser } = useAuth()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [newName, setNewName] = useState('')
 
@@ -19,6 +21,7 @@ export default function ChangeUserNameForm ({ token, setName }) {
       await changeUserName({ name: newName, token })
       setName(newName)
       setNewName('')
+      setUser({ user: { ...user, name: newName } })
       clearErrors()
     } catch (err) {
       setErrors(err)
@@ -36,9 +39,9 @@ export default function ChangeUserNameForm ({ token, setName }) {
   }
 
   return (
-    <div className='change-name-form'>
+    <div className='change-name'>
       {errors && <Errors errors={errors} />}
-      <form onSubmit={handleSubmit}>
+      <form className='change-name-form' onSubmit={handleSubmit}>
         <label htmlFor='name'>New Name:</label>
         <input
           id='name'
