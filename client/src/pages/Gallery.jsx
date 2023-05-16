@@ -5,6 +5,7 @@ import { getAllArtworks } from '#Services/artwork.js'
 import Artwork from '#Components/Artwork.jsx'
 
 import './Gallery.scss'
+import userRoles from '#Enums/userRoles.js'
 
 export default function Gallery () {
   const { errors, setErrors } = useErrors()
@@ -35,9 +36,15 @@ export default function Gallery () {
       {errors && <Errors errors={errors} />}
       {!loading && !errors && (
         <ul className='Gallery'>
-          {artworks.map(artwork => (
-            <Artwork key={artwork.id} artwork={artwork} />
-          ))}
+          {
+            artworks.map(artwork => {
+              if (artwork.author.role === userRoles.ARTIST) {
+                return <Artwork key={artwork.id} artwork={artwork} />
+              } else {
+                return null
+              }
+            })
+          }
         </ul>
       )}
     </>
