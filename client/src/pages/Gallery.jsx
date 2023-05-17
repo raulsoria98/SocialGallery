@@ -15,9 +15,10 @@ export default function Gallery () {
 
   const getArtworks = async () => {
     try {
-      const artworks = await getAllArtworks()
+      const getArtworks = await getAllArtworks()
+      const activeArtworks = getArtworks.filter(artwork => artwork.author.role === userRoles.ARTIST)
 
-      setArtworks(artworks)
+      setArtworks(activeArtworks)
     } catch (error) {
       setErrors(error)
     } finally {
@@ -34,17 +35,12 @@ export default function Gallery () {
       <h1>Artworks</h1>
       {loading && <p className='loading'>Loading...</p>}
       {errors && <Errors errors={errors} />}
-      {!loading && !errors && (
+      {!loading && !errors && !artworks.length && <p>No artworks found</p>}
+      {!loading && !errors && !!artworks.length && (
         <ul className='Gallery'>
-          {
-            artworks.map(artwork => {
-              if (artwork.author.role === userRoles.ARTIST) {
-                return <Artwork key={artwork.id} artwork={artwork} />
-              } else {
-                return null
-              }
-            })
-          }
+          {artworks.map(artwork => (
+            <Artwork key={artwork.id} artwork={artwork} />
+          ))}
         </ul>
       )}
     </>

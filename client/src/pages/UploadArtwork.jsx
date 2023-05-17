@@ -69,8 +69,7 @@ export default function UploadArtwork () {
         file
       }
 
-      const artwork = await createArtwork({ data, token })
-      console.log(artwork)
+      await createArtwork({ data, token })
       clearFields()
     } catch (err) {
       setErrors(err)
