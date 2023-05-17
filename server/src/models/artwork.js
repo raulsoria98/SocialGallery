@@ -18,7 +18,7 @@ const Artwork = sequelize.define('artwork', {
     }
   },
   description: {
-    type: DataTypes.STRING,
+    type: DataTypes.TEXT,
     allowNull: false,
     validate: {
       len: [2, 500]
@@ -36,7 +36,7 @@ const Artwork = sequelize.define('artwork', {
     }
   },
   file: {
-    type: DataTypes.BLOB('long'),
+    type: DataTypes.BLOB('medium'), // 16MB
     allowNull: false
   }
 }, {
