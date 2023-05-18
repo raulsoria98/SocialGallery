@@ -1,23 +1,32 @@
+import sequelize from '#Config/db.js'
+
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import Artwork from '#Models/artwork.js'
 
 const findArtworkById = async (id) => {
   try {
     const artwork = await Artwork.findByPk(id, {
-      include: 'author'
+      include: [
+        {
+          association: 'author',
+          attributes: ['name', 'email', 'role']
+        },
+        {
+          association: 'ratings',
+          attributes: []
+        }
+      ],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'type',
+        'file',
+        'authorId',
+        [sequelize.fn('AVG', sequelize.col('ratings.score')), 'rating']
+      ],
+      group: ['artwork.id']
     })
-
-    if (!artwork) {
-      return null
-    }
-
-    const mappedAuthor = {
-      name: artwork.author.name,
-      email: artwork.author.email,
-      role: artwork.author.role
-    }
-
-    artwork.setDataValue('author', mappedAuthor)
 
     return artwork
   } catch (err) {

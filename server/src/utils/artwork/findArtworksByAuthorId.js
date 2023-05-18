@@ -1,3 +1,4 @@
+import sequelize from '#Config/db.js'
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import userRoles from '#Enums/userRoles.js'
 import User from '#Models/user.js'
@@ -5,7 +6,28 @@ import User from '#Models/user.js'
 const findArtworksByAuthorId = async (authorId) => {
   try {
     const author = await User.findByPk(authorId, {
-      include: 'artworks'
+      include: [
+        {
+          association: 'artworks',
+          include: [
+            {
+              association: 'ratings',
+              attributes: []
+            }
+          ],
+          attributes: [
+            'id',
+            'title',
+            'description',
+            'type',
+            'file',
+            'authorId',
+            [sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artworks`.`id`)'), 'rating']
+          ],
+          group: ['artwork.id']
+        }
+      ],
+      attributes: ['name', 'email', 'role']
     })
 
     if (!author) {

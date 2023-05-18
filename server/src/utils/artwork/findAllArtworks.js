@@ -1,20 +1,30 @@
+import sequelize from '#Config/db.js'
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import Artwork from '#Models/artwork.js'
 
 const findAllArtworks = async () => {
   try {
     const artworks = await Artwork.findAll({
-      include: 'author'
-    })
-
-    artworks.forEach(artwork => {
-      const mappedAuthor = {
-        name: artwork.author.name,
-        email: artwork.author.email,
-        role: artwork.author.role
-      }
-
-      artwork.setDataValue('author', mappedAuthor)
+      include: [
+        {
+          association: 'author',
+          attributes: ['name', 'email', 'role']
+        },
+        {
+          association: 'ratings',
+          attributes: []
+        }
+      ],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'type',
+        'file',
+        'authorId',
+        [sequelize.fn('AVG', sequelize.col('ratings.score')), 'rating']
+      ],
+      group: ['artwork.id']
     })
 
     return artworks

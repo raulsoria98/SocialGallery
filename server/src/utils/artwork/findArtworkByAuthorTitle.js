@@ -1,27 +1,35 @@
+import sequelize from '#Config/db.js'
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import Artwork from '#Models/artwork.js'
 
 const findArworkByAuthorTitle = async ({ authorId, title }) => {
   try {
     const artwork = await Artwork.findOne({
+      include: [
+        {
+          association: 'author',
+          attributes: ['name', 'email', 'role']
+        },
+        {
+          association: 'ratings',
+          attributes: []
+        }
+      ],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'type',
+        'file',
+        'authorId',
+        [sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artwork`.`id`)'), 'rating']
+      ],
+      group: ['artwork.id'],
       where: {
-        title,
-        authorId
-      },
-      include: 'author'
+        authorId,
+        title
+      }
     })
-
-    if (!artwork) {
-      return null
-    }
-
-    const mappedAuthor = {
-      name: artwork.author.name,
-      email: artwork.author.email,
-      role: artwork.author.role
-    }
-
-    artwork.setDataValue('author', mappedAuthor)
 
     return artwork
   } catch (err) {
