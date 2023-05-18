@@ -22,7 +22,7 @@ const findAllArtworks = async () => {
         'type',
         'file',
         'authorId',
-        [sequelize.fn('AVG', sequelize.col('ratings.score')), 'rating']
+        [sequelize.cast(sequelize.fn('AVG', sequelize.col('ratings.score')), 'FLOAT'), 'rating']
       ],
       group: ['artwork.id']
     })

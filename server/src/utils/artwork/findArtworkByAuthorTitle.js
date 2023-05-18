@@ -22,7 +22,7 @@ const findArworkByAuthorTitle = async ({ authorId, title }) => {
         'type',
         'file',
         'authorId',
-        [sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artwork`.`id`)'), 'rating']
+        [sequelize.cast(sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artwork`.`id`)'), 'FLOAT'), 'rating']
       ],
       group: ['artwork.id'],
       where: {
