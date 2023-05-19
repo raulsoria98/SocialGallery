@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Rating } from '@mui/material'
 
 import './Artwork.scss'
 
@@ -19,6 +20,7 @@ export default function Artwork ({ artwork }) {
       <img className='file' src={imageUrl} alt={artwork.title} />
       <h2 className='title'>{artwork.title}</h2>
       <p className='author'>{artwork.author.name}</p>
+      <Rating name='read-only' value={artwork.rating} precision={0.5} size='small' readOnly />
     </li>
   )
 }
