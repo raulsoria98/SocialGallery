@@ -13,16 +13,16 @@ export default function NavBar () {
 
   return (
     <nav className='nav-bar'>
-      <ul>
+      <ul className='nav-bar_ul'>
         <div className='nav-bar_common'>
-          <li>
+          <li className='nav-bar_li'>
             <NavLink to='/'>Home</NavLink>
           </li>
-          <li>
+          <li className='nav-bar_li'>
             <NavLink to='/gallery'>Gallery</NavLink>
           </li>
           {user && user.role === 'artist' && (
-            <li>
+            <li className='nav-bar_li'>
               <NavLink to='/create-artwork'>Create Artwork</NavLink>
             </li>
           )}
@@ -30,20 +30,20 @@ export default function NavBar () {
         <div className='nav-bar_profile'>
           {user && (
             <>
-              <li>
+              <li className='nav-bar_li'>
                 <NavLink to='/profile'>{user.name}</NavLink>
               </li>
-              <li>
-                <button onClick={handleClick}>Logout</button>
+              <li className='nav-bar_li'>
+                <button className='nav-bar_btn' onClick={handleClick}>Logout</button>
               </li>
             </>
           )}
           {!user && (
             <>
-              <li>
+              <li className='nav-bar_li'>
                 <NavLink to='/login'>Login</NavLink>
               </li>
-              <li>
+              <li className='nav-bar_li'>
                 <NavLink to='/sign-up'>Sign Up</NavLink>
               </li>
             </>

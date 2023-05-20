@@ -4,22 +4,23 @@
     background-color: #1a1a1a;
     border-bottom: 1px solid #646cff;
 
-    ul {
+    .nav-bar_ul {
         display: flex;
         justify-content: space-between;
         list-style: none;
         padding: 0;
 
-        div {
+        .nav-bar_common,
+        .nav-bar_profile {
             display: flex;
             align-items: center;
         }
 
-        li {
+        .nav-bar_li {
             margin-right: 1em;
 
             a,
-            button {
+            .nav-bar_btn {
                 border: none;
                 padding: 0;
                 color: #646cff;
