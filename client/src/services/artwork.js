@@ -1,9 +1,13 @@
 import axiosClient from '#Config/axios.js'
 
-export const getAllArtworks = async () => {
-  const response = await axiosClient.get('/artwork/find-all')
+export const getAllArtworks = async ({ page, pageSize }) => {
+  const response = await axiosClient.get('/artwork/find-all?page=' + page + '&pageSize=' + pageSize)
 
-  return response.data.artworks
+  const { artworks, totalArtworks } = response.data
+  return {
+    artworks,
+    totalArtworks
+  }
 }
 
 export const createArtwork = async ({ data, token }) => {

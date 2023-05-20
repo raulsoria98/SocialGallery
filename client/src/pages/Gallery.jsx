@@ -5,7 +5,7 @@ import { getAllArtworks } from '#Services/artwork.js'
 import Artwork from '#Components/Artwork.jsx'
 
 import './Gallery.scss'
-import userRoles from '#Enums/userRoles.js'
+import { Pagination } from '@mui/material'
 
 export default function Gallery () {
   const { errors, setErrors } = useErrors()
@@ -13,12 +13,19 @@ export default function Gallery () {
   const [artworks, setArtworks] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const getArtworks = async () => {
-    try {
-      const getArtworks = await getAllArtworks()
-      const activeArtworks = getArtworks.filter(artwork => artwork.author.role === userRoles.ARTIST)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
+  const pageSize = 6
 
-      setArtworks(activeArtworks)
+  const getArtworks = async ({ page, pageSize }) => {
+    console.log('getArtworks', { page, pageSize })
+    setLoading(true)
+
+    try {
+      const { artworks: responseArtworks, totalArtworks } = await getAllArtworks({ page, pageSize })
+
+      setArtworks(responseArtworks)
+      setTotalPages(Math.ceil(totalArtworks / pageSize))
     } catch (error) {
       setErrors(error)
     } finally {
@@ -26,9 +33,13 @@ export default function Gallery () {
     }
   }
 
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value)
+  }
+
   useEffect(() => {
-    getArtworks()
-  }, [])
+    getArtworks({ page: currentPage, pageSize })
+  }, [currentPage])
 
   return (
     <>
@@ -37,11 +48,21 @@ export default function Gallery () {
       {errors && <Errors errors={errors} />}
       {!loading && !errors && !artworks.length && <p>No artworks found</p>}
       {!loading && !errors && !!artworks.length && (
-        <ul className='Gallery'>
-          {artworks.map(artwork => (
-            <Artwork key={artwork.id} artwork={artwork} />
-          ))}
-        </ul>
+        <div>
+          <ul className='Gallery'>
+            {artworks.map(artwork => (
+              <Artwork key={artwork.id} artwork={artwork} />
+            ))}
+          </ul>
+          <div className='Pagination'>
+            <Pagination
+              color='primary'
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </div>
+        </div>
       )}
     </>
   )
