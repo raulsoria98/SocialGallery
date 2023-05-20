@@ -1,38 +1,14 @@
 import sequelize from '#Config/db.js'
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import userRoles from '#Enums/userRoles.js'
+import Artwork from '#Models/artwork.js'
 import User from '#Models/user.js'
 
 const findArtworksByAuthorId = async (authorId, pagination = {}) => {
   const { page = 1, pageSize = 6 } = pagination
 
   try {
-    const author = await User.findByPk(authorId, {
-      include: [
-        {
-          association: 'artworks',
-          include: [
-            {
-              association: 'ratings',
-              attributes: []
-            }
-          ],
-          attributes: [
-            'id',
-            'title',
-            'description',
-            'type',
-            'file',
-            'authorId',
-            [sequelize.cast(sequelize.fn('AVG', sequelize.col('ratings.score')), 'FLOAT'), 'rating']
-          ],
-          group: ['artwork.id'],
-          offset: (page - 1) * pageSize,
-          limit: pageSize
-        }
-      ],
-      attributes: ['name', 'email', 'role']
-    })
+    const author = await User.findByPk(authorId)
 
     if (!author) {
       const error = new Error('No se encontró el autor')
@@ -46,25 +22,44 @@ const findArtworksByAuthorId = async (authorId, pagination = {}) => {
       throw error
     }
 
-    const artworks = author.artworks
-
-    if (!artworks) {
-      const error = new Error('No se encontraron obras del autor')
-      error.statusCode = httpStatusCodes.NOT_FOUND
-      throw error
-    }
-
-    artworks.forEach(artwork => {
-      const mappedAuthor = {
-        name: author.name,
-        email: author.email,
-        role: author.role
-      }
-
-      artwork.setDataValue('author', mappedAuthor)
+    const artworks = await Artwork.findAll({
+      include: [
+        {
+          association: 'author',
+          attributes: ['name', 'email', 'role']
+        },
+        {
+          association: 'ratings',
+          attributes: []
+        }
+      ],
+      attributes: [
+        'id',
+        'title',
+        'description',
+        'type',
+        'file',
+        'authorId',
+        [sequelize.cast(sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artwork`.`id`)'), 'FLOAT'), 'rating']
+      ],
+      where: {
+        authorId
+      },
+      group: ['artwork.id'],
+      offset: (page - 1) * pageSize,
+      limit: pageSize
     })
 
-    return artworks
+    const totalArtworks = await Artwork.count({
+      where: {
+        authorId
+      }
+    })
+
+    return {
+      artworks,
+      totalArtworks
+    }
   } catch (err) {
     const error = new Error(err.message)
     error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR

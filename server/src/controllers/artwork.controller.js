@@ -27,7 +27,7 @@ export const getAllArtworks = async (req, res, next) => {
   const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
 
   try {
-    const artworks = await findAllArtworks(pagination)
+    const { artworks, totalArtworks } = await findAllArtworks(pagination)
 
     if (!artworks.length) {
       const error = new Error('No se encontraron obras de arte')
@@ -36,7 +36,8 @@ export const getAllArtworks = async (req, res, next) => {
     }
 
     return res.status(httpStatusCodes.OK).json({
-      artworks
+      artworks,
+      totalArtworks
     })
   } catch (err) {
     return next(err)
@@ -69,7 +70,7 @@ export const getAllArtworksByType = async (req, res, next) => {
   const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
 
   try {
-    const artworks = await findArtworksByType(type, pagination)
+    const { artworks, totalArtworks } = await findArtworksByType(type, pagination)
 
     if (!artworks.length) {
       const error = new Error(`No se encontraron obras del tipo ${type}`)
@@ -78,7 +79,8 @@ export const getAllArtworksByType = async (req, res, next) => {
     }
 
     return res.status(httpStatusCodes.OK).json({
-      artworks
+      artworks,
+      totalArtworks
     })
   } catch (err) {
     return next(err)
@@ -91,7 +93,7 @@ export const getArtworksByAuthorId = async (req, res, next) => {
   const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
 
   try {
-    const artworks = await findArtworksByAuthorId(authorId, pagination)
+    const { artworks, totalArtworks } = await findArtworksByAuthorId(authorId, pagination)
 
     if (!artworks.length) {
       const error = new Error('No se encontraron obras del autor')
@@ -100,7 +102,8 @@ export const getArtworksByAuthorId = async (req, res, next) => {
     }
 
     return res.status(httpStatusCodes.OK).json({
-      artworks
+      artworks,
+      totalArtworks
     })
   } catch (err) {
     return next(err)

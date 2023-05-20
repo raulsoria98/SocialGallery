@@ -1,5 +1,6 @@
 import sequelize from '#Config/db.js'
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
+import userRoles from '#Enums/userRoles.js'
 import Artwork from '#Models/artwork.js'
 
 const findArtworksByType = async (type, pagination = {}) => {
@@ -10,7 +11,10 @@ const findArtworksByType = async (type, pagination = {}) => {
       include: [
         {
           association: 'author',
-          attributes: ['name', 'email', 'role']
+          attributes: ['name', 'email', 'role'],
+          where: {
+            role: userRoles.ARTIST
+          }
         },
         {
           association: 'ratings',
@@ -34,7 +38,24 @@ const findArtworksByType = async (type, pagination = {}) => {
       }
     })
 
-    return artworks
+    const totalArtworks = await Artwork.count({
+      include: [
+        {
+          association: 'author',
+          where: {
+            role: userRoles.ARTIST
+          }
+        }
+      ],
+      where: {
+        type
+      }
+    })
+
+    return {
+      artworks,
+      totalArtworks
+    }
   } catch (err) {
     const error = new Error(err.message)
     error.statusCode = err.statusCode || httpStatusCodes.INTERNAL_SERVER_ERROR
