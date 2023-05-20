@@ -23,8 +23,11 @@ export const postCreateArtwork = async (req, res, next) => {
 }
 
 export const getAllArtworks = async (req, res, next) => {
+  // Si hay page y pageSize en el query, se los asignamos a la variable pagination
+  const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
+
   try {
-    const artworks = await findAllArtworks()
+    const artworks = await findAllArtworks(pagination)
 
     if (!artworks.length) {
       const error = new Error('No se encontraron obras de arte')
@@ -62,9 +65,11 @@ export const getArtworkById = async (req, res, next) => {
 
 export const getAllArtworksByType = async (req, res, next) => {
   const { type } = req.params
+  // Si hay page y pageSize en el query, se los asignamos a la variable pagination
+  const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
 
   try {
-    const artworks = await findArtworksByType(type)
+    const artworks = await findArtworksByType(type, pagination)
 
     if (!artworks.length) {
       const error = new Error(`No se encontraron obras del tipo ${type}`)
@@ -82,9 +87,11 @@ export const getAllArtworksByType = async (req, res, next) => {
 
 export const getArtworksByAuthorId = async (req, res, next) => {
   const { authorId } = req.params
+  // Si hay page y pageSize en el query, se los asignamos a la variable pagination
+  const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
 
   try {
-    const artworks = await findArtworksByAuthorId(authorId)
+    const artworks = await findArtworksByAuthorId(authorId, pagination)
 
     if (!artworks.length) {
       const error = new Error('No se encontraron obras del autor')

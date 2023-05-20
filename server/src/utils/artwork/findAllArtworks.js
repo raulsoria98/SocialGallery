@@ -2,7 +2,9 @@ import sequelize from '#Config/db.js'
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import Artwork from '#Models/artwork.js'
 
-const findAllArtworks = async () => {
+const findAllArtworks = async (pagination = {}) => {
+  const { page = 1, pageSize = 6 } = pagination
+
   try {
     const artworks = await Artwork.findAll({
       include: [
@@ -22,9 +24,11 @@ const findAllArtworks = async () => {
         'type',
         'file',
         'authorId',
-        [sequelize.cast(sequelize.fn('AVG', sequelize.col('ratings.score')), 'FLOAT'), 'rating']
+        [sequelize.cast(sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artwork`.`id`)'), 'FLOAT'), 'rating']
       ],
-      group: ['artwork.id']
+      group: ['artwork.id'],
+      offset: (page - 1) * pageSize,
+      limit: pageSize
     })
 
     return artworks

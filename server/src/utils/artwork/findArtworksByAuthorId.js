@@ -3,7 +3,9 @@ import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import userRoles from '#Enums/userRoles.js'
 import User from '#Models/user.js'
 
-const findArtworksByAuthorId = async (authorId) => {
+const findArtworksByAuthorId = async (authorId, pagination = {}) => {
+  const { page = 1, pageSize = 6 } = pagination
+
   try {
     const author = await User.findByPk(authorId, {
       include: [
@@ -22,9 +24,11 @@ const findArtworksByAuthorId = async (authorId) => {
             'type',
             'file',
             'authorId',
-            [sequelize.cast(sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artworks`.`id`)'), 'FLOAT'), 'rating']
+            [sequelize.cast(sequelize.fn('AVG', sequelize.col('ratings.score')), 'FLOAT'), 'rating']
           ],
-          group: ['artwork.id']
+          group: ['artwork.id'],
+          offset: (page - 1) * pageSize,
+          limit: pageSize
         }
       ],
       attributes: ['name', 'email', 'role']
