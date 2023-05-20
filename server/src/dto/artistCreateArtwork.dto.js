@@ -16,6 +16,11 @@ const validateArtistCreateArtworkDTO = (req, res, next) => {
     if (!file.mimetype.startsWith('image')) {
       errors.push('El archivo debe ser una imagen')
     }
+
+    // if file is too large
+    if (file.size > 1024 * 1024 * 16) { // 16MB
+      errors.push('El archivo debe pesar menos de 16MB')
+    }
   }
 
   if (errors.length > 0) {
