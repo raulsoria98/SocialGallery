@@ -10,6 +10,16 @@ export const getAllArtworks = async ({ page, pageSize }) => {
   }
 }
 
+export const getArtworksByType = async ({ type, page, pageSize }) => {
+  const response = await axiosClient.get('/artwork/find-by-type/' + type + '?page=' + page + '&pageSize=' + pageSize)
+
+  const { artworks, totalArtworks } = response.data
+  return {
+    artworks,
+    totalArtworks
+  }
+}
+
 export const createArtwork = async ({ data, token }) => {
   const { title, description, type, file } = data
 

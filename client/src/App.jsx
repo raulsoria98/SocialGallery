@@ -17,7 +17,9 @@ export default function App () {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='/gallery' element={<Gallery />} />
+          <Route path='/gallery'>
+            <Route path=':type' element={<Gallery />} />
+          </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile' element={<Profile />} />

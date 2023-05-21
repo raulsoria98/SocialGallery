@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { Pagination } from '@mui/material'
+
 import useErrors from '#Hooks/useErrors.js'
+
+import { getArtworksByType } from '#Services/artwork.js'
+
 import Errors from '#Components/Errors.jsx'
-import { getAllArtworks } from '#Services/artwork.js'
 import Artwork from '#Components/Artwork.jsx'
 
 import './Gallery.scss'
-import { Pagination } from '@mui/material'
 
 export default function Gallery () {
-  const { errors, setErrors } = useErrors()
+  const { type } = useParams()
+  const { errors, setErrors, clearErrors } = useErrors()
 
   const [artworks, setArtworks] = useState([])
   const [loading, setLoading] = useState(true)
@@ -18,13 +23,13 @@ export default function Gallery () {
   const pageSize = 6
 
   const getArtworks = async ({ page, pageSize }) => {
-    console.log('getArtworks', { page, pageSize })
     setLoading(true)
+    clearErrors()
 
     try {
-      const { artworks: responseArtworks, totalArtworks } = await getAllArtworks({ page, pageSize })
+      const { artworks: newArtworks, totalArtworks } = await getArtworksByType({ type, page, pageSize })
 
-      setArtworks(responseArtworks)
+      setArtworks(newArtworks)
       setTotalPages(Math.ceil(totalArtworks / pageSize))
     } catch (error) {
       setErrors(error)
@@ -39,7 +44,7 @@ export default function Gallery () {
 
   useEffect(() => {
     getArtworks({ page: currentPage, pageSize })
-  }, [currentPage])
+  }, [currentPage, type])
 
   return (
     <>
