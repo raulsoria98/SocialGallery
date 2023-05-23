@@ -100,3 +100,25 @@ export const artworkType = {
     enum: 'El tipo de obra debe ser uno de los siguientes: ' + Object.values(artworkTypes).join(', ')
   }
 }
+
+export const score = {
+  type: 'number',
+  minimum: 1,
+  maximum: 5,
+  errorMessage: {
+    type: 'El puntaje debe ser un número',
+    minimum: 'El puntaje debe ser como mínimo 1',
+    maximum: 'El puntaje debe ser como máximo 5'
+  }
+}
+
+export const comment = {
+  type: 'string',
+  minLength: 2,
+  maxLength: 500,
+  errorMessage: {
+    type: 'El comentario debe ser un string',
+    minLength: 'El comentario debe tener al menos 2 caracteres',
+    maxLength: 'El comentario debe tener como máximo 500 caracteres'
+  }
+}

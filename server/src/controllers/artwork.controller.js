@@ -1,10 +1,11 @@
 import httpStatusCodes from '#Enums/httpStatusCodes.js'
 
-import { createArtwork } from '#Utils/artwork/createArtwork.js'
+import createArtwork from '#Utils/artwork/createArtwork.js'
 import findAllArtworks from '#Utils/artwork/findAllArtworks.js'
 import findArtworkById from '#Utils/artwork/findArtworkById.js'
 import findArtworksByType from '#Utils/artwork/findArtworksByType.js'
 import findArtworksByAuthorId from '#Utils/artwork/findArtworksByAuthorId.js'
+import rateArtwork from '#Utils/artwork/rateArtwork.js'
 
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
@@ -104,6 +105,21 @@ export const getArtworksByAuthorId = async (req, res, next) => {
     return res.status(httpStatusCodes.OK).json({
       artworks,
       totalArtworks
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+export const postRateArtwork = async (req, res, next) => {
+  const { id: userId } = req.user
+  const { artworkId, score, comment } = req.body
+
+  try {
+    const rating = await rateArtwork({ userId, artworkId, score, comment })
+
+    return res.status(httpStatusCodes.OK).json({
+      rating
     })
   } catch (err) {
     return next(err)

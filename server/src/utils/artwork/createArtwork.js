@@ -3,7 +3,7 @@ import Artwork from '#Models/artwork.js'
 import isArtist from '#Utils/user/isArtist.js'
 import findArworkByAuthorTitle from './findArtworkByAuthorTitle.js'
 
-export const createArtwork = async ({ authorId, title, description, type, file }) => {
+const createArtwork = async ({ authorId, title, description, type, file }) => {
   try {
     if (!await isArtist(authorId)) {
       const error = new Error('El usuario no es un artista')
@@ -32,3 +32,5 @@ export const createArtwork = async ({ authorId, title, description, type, file }
     throw error
   }
 }
+
+export default createArtwork
