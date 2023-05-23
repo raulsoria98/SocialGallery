@@ -6,6 +6,7 @@ import findArtworkById from '#Utils/artwork/findArtworkById.js'
 import findArtworksByType from '#Utils/artwork/findArtworksByType.js'
 import findArtworksByAuthorId from '#Utils/artwork/findArtworksByAuthorId.js'
 import rateArtwork from '#Utils/artwork/rateArtwork.js'
+import findRatingByUserArtwork from '#Utils/artwork/findRatingByUserArtwork.js'
 
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
@@ -117,6 +118,21 @@ export const postRateArtwork = async (req, res, next) => {
 
   try {
     const rating = await rateArtwork({ userId, artworkId, score, comment })
+
+    return res.status(httpStatusCodes.OK).json({
+      rating
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+export const getUserRating = async (req, res, next) => {
+  const { id: userId } = req.user
+  const { artworkId } = req.params
+
+  try {
+    const rating = await findRatingByUserArtwork({ userId, artworkId })
 
     return res.status(httpStatusCodes.OK).json({
       rating

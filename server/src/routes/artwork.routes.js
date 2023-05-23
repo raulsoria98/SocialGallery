@@ -1,7 +1,15 @@
 import { Router } from 'express'
 import multer from 'multer'
 
-import { getAllArtworks, getAllArtworksByType, getArtworkById, getArtworksByAuthorId, postCreateArtwork, postRateArtwork } from '#Controllers/artwork.controller.js'
+import {
+  getAllArtworks,
+  getAllArtworksByType,
+  getArtworkById,
+  getUserRating,
+  getArtworksByAuthorId,
+  postCreateArtwork,
+  postRateArtwork
+} from '#Controllers/artwork.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
 
@@ -16,5 +24,6 @@ artwokRouter.get('/find-all', getAllArtworks)
 artwokRouter.get('/find-one/:artworkId', getArtworkById)
 artwokRouter.get('/find-by-type/:type', getAllArtworksByType)
 artwokRouter.get('/find-by-author/:authorId', getArtworksByAuthorId)
+artwokRouter.get('/userRating/:artworkId', verifyUserJWT, getUserRating)
 
 export default artwokRouter
