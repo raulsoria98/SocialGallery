@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { Pagination } from '@mui/material'
 
@@ -22,6 +22,8 @@ export default function Gallery () {
   const [totalPages, setTotalPages] = useState(0)
   const pageSize = 6
 
+  const typeRef = useRef(type)
+
   const getArtworks = async ({ page, pageSize }) => {
     setLoading(true)
     clearErrors()
@@ -43,7 +45,13 @@ export default function Gallery () {
   }
 
   useEffect(() => {
-    getArtworks({ page: currentPage, pageSize })
+    if (typeRef.current !== type) { // Si el tipo cambia, reseteamos la página a 1
+      setCurrentPage(1)
+      typeRef.current = type
+      getArtworks({ page: 1, pageSize })
+    } else { // Si el tipo no cambia, hacemos la petición con la página actual
+      getArtworks({ page: currentPage, pageSize })
+    }
   }, [currentPage, type])
 
   return (
