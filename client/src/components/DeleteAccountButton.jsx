@@ -22,7 +22,7 @@ export default function DeleteAccountButton ({ token }) {
   return (
     <div className='delete-account-form'>
       {errors && <Errors errors={errors} />}
-      <button className='delete-button' onClick={handleClick}>Delete Account</button>
+      <button className='delete-button' onClick={handleClick}>Eliminar cuenta</button>
     </div>
   )
 }

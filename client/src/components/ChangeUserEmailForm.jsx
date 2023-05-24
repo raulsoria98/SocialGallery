@@ -42,7 +42,7 @@ export default function ChangeUserEmailForm ({ token, setEmail }) {
     <div className='change-email'>
       {errors && <Errors errors={errors} />}
       <form className='change-email-form' onSubmit={handleSubmit}>
-        <label htmlFor='email'>New Email:</label>
+        <label htmlFor='email'>Nuevo Email:</label>
         <input
           id='email'
           type='text'
@@ -50,7 +50,7 @@ export default function ChangeUserEmailForm ({ token, setEmail }) {
           onChange={handleChange}
         />
         <button type='submit' disabled={isDisabled}>
-          {isSubmitting ? 'Loading...' : 'Change email'}
+          {isSubmitting ? 'Cargando...' : 'Cambiar email'}
         </button>
       </form>
     </div>

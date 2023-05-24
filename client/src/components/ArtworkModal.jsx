@@ -54,7 +54,7 @@ export default function ArtworkModal ({ artwork, user, token, modalOpen, setModa
           <div>
             <h2>{artwork.title}</h2>
             <p>{artwork.description}</p>
-            <p>Author: {artwork.author.name}</p>
+            <p>Autor: {artwork.author.name}</p>
           </div>
           {user && (
             <RatingForm

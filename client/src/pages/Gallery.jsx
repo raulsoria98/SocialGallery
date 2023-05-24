@@ -56,10 +56,10 @@ export default function Gallery () {
 
   return (
     <>
-      <h1>Artworks</h1>
-      {loading && <p className='loading'>Loading...</p>}
+      <h1>{type === 'painting' ? 'Pintura' : type === 'photography' ? 'Fotografía' : 'Tipo no reconocido'}</h1>
+      {loading && <p className='loading'>Cargando...</p>}
       {errors && <Errors errors={errors} />}
-      {!loading && !errors && !artworks.length && <p>No artworks found</p>}
+      {!loading && !errors && !artworks.length && <p>No se han encontrado obras de arte</p>}
       {!loading && !errors && !!artworks.length && (
         <div>
           <ul className='Gallery'>

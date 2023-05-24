@@ -27,7 +27,7 @@ export default function NavBar () {
       <ul className='nav-bar_ul'>
         <div className='nav-bar_common'>
           <li className='nav-bar_li'>
-            <NavLink to='/'>Home</NavLink>
+            <NavLink to='/'>Inicio</NavLink>
           </li>
           <li className='nav-bar_li'>
             <div
@@ -36,7 +36,7 @@ export default function NavBar () {
               aria-haspopup='true'
               onClick={handleMenuOpen}
             >
-              Galleries
+              Galerías de arte
             </div>
             <Menu
               id='gallery-menu'
@@ -45,16 +45,16 @@ export default function NavBar () {
               onClose={handleMenuClose}
             >
               <MenuItem onClick={handleMenuClose}>
-                <NavLink to='/gallery/painting'>Painting</NavLink>
+                <NavLink to='/gallery/painting'>Pintura</NavLink>
               </MenuItem>
               <MenuItem onClick={handleMenuClose}>
-                <NavLink to='/gallery/photography'>Photography</NavLink>
+                <NavLink to='/gallery/photography'>Fotografía</NavLink>
               </MenuItem>
             </Menu>
           </li>
           {user && user.role === 'artist' && (
             <li className='nav-bar_li'>
-              <NavLink to='/create-artwork'>Create Artwork</NavLink>
+              <NavLink to='/create-artwork'>Subir obra</NavLink>
             </li>
           )}
         </div>
@@ -65,17 +65,17 @@ export default function NavBar () {
                 <NavLink to='/profile'>{user.name}</NavLink>
               </li>
               <li className='nav-bar_li'>
-                <button className='nav-bar_btn' onClick={handleClick}>Logout</button>
+                <button className='nav-bar_btn' onClick={handleClick}>Cerrar sesión</button>
               </li>
             </>
           )}
           {!user && (
             <>
               <li className='nav-bar_li'>
-                <NavLink to='/login'>Login</NavLink>
+                <NavLink to='/login'>Iniciar sesión</NavLink>
               </li>
               <li className='nav-bar_li'>
-                <NavLink to='/sign-up'>Sign Up</NavLink>
+                <NavLink to='/sign-up'>Registrarse</NavLink>
               </li>
             </>
           )}

@@ -67,18 +67,18 @@ export default function SignUp () {
 
   return (
     <div className='SignUp'>
-      <h1>Sign Up</h1>
+      <h1>Registrarse</h1>
       {errors && <Errors errors={errors} />}
       {isLogged && (
         <>
-          <p>You are logged</p>
-          <button onClick={logOut}>Log out</button>
+          <p>Ya tiene una sesión iniciada</p>
+          <button onClick={logOut}>Cerrar sesión</button>
         </>
       )}
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
-            <label htmlFor='name'>Name</label>
+            <label htmlFor='name'>Nombre</label>
             <input
               id='name'
               type='text'
@@ -96,7 +96,7 @@ export default function SignUp () {
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>Contraseña</label>
             <input
               id='password'
               type='password'
@@ -105,7 +105,7 @@ export default function SignUp () {
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='isArtist'>Artist</label>
+            <label htmlFor='isArtist'>Artista</label>
             <input
               id='isArtist'
               type='checkbox'
@@ -114,7 +114,7 @@ export default function SignUp () {
             />
           </div>
           <button type='submit' disabled={isDisabled}>
-            {isSubmitting ? 'Loading...' : 'Sign Up'}
+            {isSubmitting ? 'Cargando...' : 'Crear cuenta'}
           </button>
         </form>
       )}

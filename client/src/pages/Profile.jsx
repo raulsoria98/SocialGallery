@@ -45,8 +45,8 @@ export default function Profile () {
 
   return (
     <div className='Profile'>
-      <h1>Profile</h1>
-      {loading && <p>Loading...</p>}
+      <h1>Perfil</h1>
+      {loading && <p>Cargando...</p>}
       {errors && <Errors errors={errors} />}
       {!loading && !errors && (
         <>
@@ -54,9 +54,9 @@ export default function Profile () {
           <ChangeUserNameForm token={token} setName={setName} />
           <h3>{email}</h3>
           <ChangeUserEmailForm token={token} setEmail={setEmail} />
-          <h3>Password</h3>
+          <h3>Contraseña</h3>
           <ChangeUserPasswordForm token={token} />
-          <h3>Role</h3>
+          <h3>Rol de usuario</h3>
           <p>{role.charAt(0).toUpperCase() + role.slice(1)}</p>
           {role !== userRoles.ADMIN && <ChangeUserIsArtistButton token={token} previousIsArtist={role === userRoles.ARTIST} setRole={setRole} />}
           <DeleteAccountButton token={token} />

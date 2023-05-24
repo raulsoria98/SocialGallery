@@ -79,16 +79,16 @@ export default function RatingForm ({ artwork, token, userRating, setUserRating,
             <Rating name='user-rating' value={userRating.score} precision={0.5} size='small' readOnly />
             <p>{userRating.comment}</p>
             <button onClick={handleDelete} disabled={isSubmitting}>
-              {isSubmitting ? 'Deleting...' : 'Delete Rating'}
+              {isSubmitting ? 'Borrando...' : 'Borrar valoración'}
             </button>
           </Box>
           )
         : (
           <form className='rating-form' onSubmit={handleSubmit}>
             <Rating name='score' defaultValue={0} size='small' value={score} onChange={handleChange} />
-            <textarea name='comment' value={comment} placeholder='Leave a comment...' rows={4} style={{ width: '100%', marginTop: '8px' }} onChange={handleChange} />
+            <textarea name='comment' value={comment} placeholder='Deja un comentario...' rows={4} style={{ width: '100%', marginTop: '8px' }} onChange={handleChange} />
             <button type='submit' disabled={isDisabled} style={{ marginTop: '8px' }}>
-              {isSubmitting ? 'Loading...' : 'Submit'}
+              {isSubmitting ? 'Cargando...' : 'Enviar'}
             </button>
           </form>
           )}

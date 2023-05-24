@@ -38,7 +38,7 @@ export default function ChangeUserPasswordForm ({ token }) {
     <div className='change-password'>
       {errors && <Errors errors={errors} />}
       <form className='change-password-form' onSubmit={handleSubmit}>
-        <label htmlFor='password'>New Password:</label>
+        <label htmlFor='password'>Nueva contraseña:</label>
         <input
           id='password'
           type='password'
@@ -46,7 +46,7 @@ export default function ChangeUserPasswordForm ({ token }) {
           onChange={handleChange}
         />
         <button type='submit' disabled={isDisabled}>
-          {isSubmitting ? 'Loading...' : 'Change password'}
+          {isSubmitting ? 'Cargando...' : 'Cambiar contraseña'}
         </button>
       </form>
     </div>

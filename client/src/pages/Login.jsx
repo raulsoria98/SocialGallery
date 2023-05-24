@@ -60,12 +60,12 @@ export default function Login () {
 
   return (
     <div className='Login'>
-      <h1>Login</h1>
+      <h1>Iniciar sesión</h1>
       {errors && <Errors errors={errors} />}
       {isLogged && (
         <>
-          <p>You are logged</p>
-          <button onClick={logOut}>Log out</button>
+          <p>Ya tiene una sesión iniciada</p>
+          <button onClick={logOut}>Cerrar sesión</button>
         </>
       )}
       {!isLogged && (
@@ -80,7 +80,7 @@ export default function Login () {
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='password'>Password</label>
+            <label htmlFor='password'>Contraseña</label>
             <input
               type='password'
               id='password'
@@ -89,7 +89,7 @@ export default function Login () {
             />
           </div>
           <button type='submit' disabled={isDisabled}>
-            {isSubmitting ? 'Loading...' : 'Login'}
+            {isSubmitting ? 'Cargando...' : 'Iniciar sesión'}
           </button>
         </form>
       )}

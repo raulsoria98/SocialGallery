@@ -33,7 +33,7 @@ export default function UploadArtwork () {
         clearErrors()
       } else {
         clearImage()
-        setErrors({ message: 'Please select an image file (png or jpeg)' })
+        setErrors({ message: 'Seleccione un archivo de imagen (png o jpeg)' })
       }
     }
   }
@@ -57,7 +57,7 @@ export default function UploadArtwork () {
     setIsSubmitting(true)
 
     if (!file) {
-      setErrors({ message: 'Please select an image file (png or jpeg)' })
+      setErrors({ message: 'Seleccione un archivo de imagen (png o jpeg)' })
       return
     }
 
@@ -88,21 +88,21 @@ export default function UploadArtwork () {
         <input
           id='title'
           type='text'
-          placeholder='Title'
+          placeholder='Título'
           value={title}
           onChange={handleChange}
         />
         <input
           id='description'
           type='text'
-          placeholder='Description'
+          placeholder='Descripción'
           value={description}
           onChange={handleChange}
         />
         <select id='type' value={type} onChange={handleChange}>
-          <option value=''>Select a type</option>
-          <option value='painting'>Painting</option>
-          <option value='photography'>Photography</option>
+          <option value=''>Seleccione un tipo</option>
+          <option value='painting'>Pintura</option>
+          <option value='photography'>Fotografía</option>
         </select>
         <input
           id='file'
@@ -111,7 +111,7 @@ export default function UploadArtwork () {
           onChange={handleChange}
         />
         <button type='submit' disabled={isDisabled}>
-          {isSubmitting ? 'Uploading...' : 'Upload'}
+          {isSubmitting ? 'Subiendo...' : 'Subir obra'}
         </button>
       </form>
 
@@ -121,7 +121,7 @@ export default function UploadArtwork () {
             <div>
               <img src={URL.createObjectURL(file)} alt='uploaded' width='250px' />
             </div>
-            <button onClick={clearImage}>Clear</button>
+            <button onClick={clearImage}>Quitar archivo</button>
           </>
         )}
       </div>

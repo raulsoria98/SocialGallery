@@ -42,7 +42,7 @@ export default function ChangeUserNameForm ({ token, setName }) {
     <div className='change-name'>
       {errors && <Errors errors={errors} />}
       <form className='change-name-form' onSubmit={handleSubmit}>
-        <label htmlFor='name'>New Name:</label>
+        <label htmlFor='name'>Nuevo nombre:</label>
         <input
           id='name'
           type='text'
@@ -50,7 +50,7 @@ export default function ChangeUserNameForm ({ token, setName }) {
           onChange={handleChange}
         />
         <button type='submit' disabled={isDisabled}>
-          {isSubmitting ? 'Loading...' : 'Change name'}
+          {isSubmitting ? 'Cargando...' : 'Cambiar nombre'}
         </button>
       </form>
     </div>

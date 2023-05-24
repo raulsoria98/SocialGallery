@@ -26,7 +26,7 @@ export default function ChangeUserIsArtistButton ({ token, previousIsArtist, set
   return (
     <div className='change-isArtist-form'>
       {errors && <Errors errors={errors} />}
-      <button onClick={handleClick}>{isArtist ? 'Change to User' : 'Change to Artist'}</button>
+      <button onClick={handleClick}>{isArtist ? 'Dejar de ser artista' : 'Ser artista'}</button>
     </div>
   )
 }
