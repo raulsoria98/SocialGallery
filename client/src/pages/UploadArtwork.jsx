@@ -63,9 +63,9 @@ export default function UploadArtwork () {
 
     try {
       const data = {
-        title: e.target.title.value,
-        description: e.target.description.value,
-        type: e.target.type.value,
+        title,
+        description,
+        type,
         file
       }
 

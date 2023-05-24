@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react'
-import { Box, Modal, Rating } from '@mui/material'
+import { Rating } from '@mui/material'
+
+import useAuth from '#Hooks/useAuth.js'
+
+import ArtworkModal from './ArtworkModal.jsx'
 
 import './Artwork.scss'
 
 export default function Artwork ({ artwork }) {
   const [modalOpen, setModalOpen] = useState(false)
+  const { user, token } = useAuth()
 
   const fileData = new Uint8Array(artwork.file.data)
   // eslint-disable-next-line no-undef
@@ -28,22 +33,14 @@ export default function Artwork ({ artwork }) {
       <p className='author'>{artwork.author.name}</p>
       <Rating name='read-only' value={artwork.rating} precision={0.5} size='small' readOnly />
 
-      <Modal
-        open={modalOpen} onClose={() => setModalOpen(false)} sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'rgba(0, 0, 0, 0.8)'
-        }}
-      >
-        <Box sx={{ width: 800 }}>
-          <img src={imageUrl} alt={artwork.title} style={{ width: '100%', marginBottom: 10 }} />
-          <h2>{artwork.title}</h2>
-          <p>{artwork.description}</p>
-          <p>Author: {artwork.author.name}</p>
-          <Rating name='read-only' value={artwork.rating} precision={0.5} size='small' readOnly />
-        </Box>
-      </Modal>
+      <ArtworkModal
+        artwork={artwork}
+        user={user}
+        token={token}
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        imageUrl={imageUrl}
+      />
     </li>
   )
 }
