@@ -25,7 +25,7 @@ artwokRouter.get('/find-all', getAllArtworks)
 artwokRouter.get('/find-one/:artworkId', getArtworkById)
 artwokRouter.get('/find-by-type/:type', getAllArtworksByType)
 artwokRouter.get('/find-by-author/:authorId', getArtworksByAuthorId)
-artwokRouter.get('/userRating/:artworkId', verifyUserJWT, getUserRating)
+artwokRouter.get('/user-rating/:artworkId', verifyUserJWT, getUserRating)
 artwokRouter.delete('/rating/:artworkId', verifyUserJWT, deleteUserRating)
 
 export default artwokRouter
