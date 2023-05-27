@@ -84,3 +84,23 @@ export const deleteRating = async ({ artworkId, token }) => {
 
   return response.data.rating
 }
+
+export const getArtworksByAuthor = async ({ authorId, page, pageSize }) => {
+  const response = await axiosClient.get('/artwork/find-by-author/' + authorId + '?page=' + page + '&pageSize=' + pageSize)
+
+  const { artworks, totalArtworks } = response.data
+  return {
+    artworks,
+    totalArtworks
+  }
+}
+
+export const deleteArtworkAsAuthor = async ({ artworkId, token }) => {
+  const response = await axiosClient.delete('/artwork/delete/' + artworkId, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return response.data.artwork
+}

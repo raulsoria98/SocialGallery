@@ -5,7 +5,7 @@ import { getUserRating } from '#Services/artwork.js'
 import useErrors from '#Hooks/useErrors.js'
 import Errors from './Errors.jsx'
 
-export default function ArtworkModal ({ artwork, user, token, modalOpen, setModalOpen, imageUrl }) {
+export default function ArtworkModal ({ artwork, user, token, modalOpen, setModalOpen, imageUrl, getArtworks }) {
   const [userRating, setUserRating] = useState(null)
 
   const { errors, setErrors, clearErrors } = useErrors()
@@ -59,10 +59,12 @@ export default function ArtworkModal ({ artwork, user, token, modalOpen, setModa
           {user && (
             <RatingForm
               artwork={artwork}
+              user={user}
               token={token}
               userRating={userRating}
               onDeleteRating={handleDeleteRating}
               setUserRating={setUserRating}
+              getArtworks={getArtworks}
             />
           )}
         </Box>

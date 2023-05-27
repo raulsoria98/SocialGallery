@@ -10,6 +10,7 @@ import Login from '#Pages/Login.jsx'
 import SignUp from '#Pages/SignUp.jsx'
 import Gallery from '#Pages/Gallery.jsx'
 import UploadArtwork from '#Pages/UploadArtwork.jsx'
+import MyArtworks from '#Pages/MyArtworks.jsx'
 
 export default function App () {
   return (
@@ -24,6 +25,7 @@ export default function App () {
           <Route path='/sign-up' element={<SignUp />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/create-artwork' element={<UploadArtwork />} />
+          <Route path='/my-artworks' element={<MyArtworks />} />
 
           {/* Catch all other routes */}
           <Route path='*' element={<h1>Not Found</h1>} />

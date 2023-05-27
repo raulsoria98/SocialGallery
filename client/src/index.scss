@@ -51,12 +51,20 @@ button {
 
 // If not disabled, apply hover styles
 button:not(:disabled):hover {
-  border-color: #646cff;
+  background-color: #0e0e0e;
 }
 
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.delete-button {
+  background-color: #ff0000;
+
+  &:not(:disabled):hover {
+    background-color: #cc0000;
+  }
 }
 
 @media (prefers-color-scheme: light) {

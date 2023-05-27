@@ -1,18 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
-import { Pagination } from '@mui/material'
-
-import useErrors from '#Hooks/useErrors.js'
-
-import { getArtworksByType } from '#Services/artwork.js'
-
-import Errors from '#Components/Errors.jsx'
 import Artwork from '#Components/Artwork.jsx'
+import Errors from '#Components/Errors.jsx'
+import useAuth from '#Hooks/useAuth.js'
+import useErrors from '#Hooks/useErrors.js'
+import { getArtworksByAuthor } from '#Services/artwork.js'
+import { Pagination } from '@mui/material'
+import { useEffect, useState } from 'react'
 
-import './Gallery.scss'
-
-export default function Gallery () {
-  const { type } = useParams()
+export default function MyArtworks () {
+  const { user } = useAuth()
   const { errors, setErrors, clearErrors } = useErrors()
 
   const [artworks, setArtworks] = useState([])
@@ -22,14 +17,12 @@ export default function Gallery () {
   const [totalPages, setTotalPages] = useState(0)
   const pageSize = 6
 
-  const typeRef = useRef(type)
-
   const getArtworks = async (page = currentPage) => {
     setLoading(true)
     clearErrors()
 
     try {
-      const { artworks: newArtworks, totalArtworks } = await getArtworksByType({ type, page, pageSize })
+      const { artworks: newArtworks, totalArtworks } = await getArtworksByAuthor({ authorId: user.id, page, pageSize })
 
       setArtworks(newArtworks)
       setTotalPages(Math.ceil(totalArtworks / pageSize))
@@ -45,18 +38,12 @@ export default function Gallery () {
   }
 
   useEffect(() => {
-    if (typeRef.current !== type) { // Si el tipo cambia, reseteamos la página a 1
-      setCurrentPage(1)
-      typeRef.current = type
-      getArtworks(1)
-    } else { // Si el tipo no cambia, hacemos la petición con la página actual
-      getArtworks()
-    }
-  }, [currentPage, type])
+    getArtworks()
+  }, [currentPage])
 
   return (
     <>
-      <h1>{type === 'painting' ? 'Pintura' : type === 'photography' ? 'Fotografía' : 'Tipo no reconocido'}</h1>
+      <h1>Mis obras</h1>
       {loading && <p className='loading'>Cargando...</p>}
       {errors && <Errors errors={errors} />}
       {!loading && !errors && !artworks.length && <p>No se han encontrado obras de arte</p>}

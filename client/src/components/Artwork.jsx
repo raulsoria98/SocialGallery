@@ -7,7 +7,7 @@ import ArtworkModal from './ArtworkModal.jsx'
 
 import './Artwork.scss'
 
-export default function Artwork ({ artwork }) {
+export default function Artwork ({ artwork, getArtworks }) {
   const [modalOpen, setModalOpen] = useState(false)
   const { user, token } = useAuth()
 
@@ -40,6 +40,7 @@ export default function Artwork ({ artwork }) {
         modalOpen={modalOpen}
         setModalOpen={setModalOpen}
         imageUrl={imageUrl}
+        getArtworks={getArtworks}
       />
     </li>
   )

@@ -10,6 +10,7 @@ export const getProfile = async ({ token }) => {
   const user = response.data.user
 
   return {
+    id: user.id,
     name: user.name,
     email: user.email,
     role: user.role

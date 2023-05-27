@@ -1,12 +1,14 @@
 import { useState } from 'react'
+import { Box, Rating } from '@mui/material'
 
 import useErrors from '#Hooks/useErrors.js'
 
 import Errors from './Errors.jsx'
-import { Box, Rating } from '@mui/material'
+import DeleteArtworkButton from './DeleteArtworkButton.jsx'
+
 import { deleteRating, getArtworkById, rateArtwork } from '#Services/artwork.js'
 
-export default function RatingForm ({ artwork, token, userRating, setUserRating, onDeleteRating }) {
+export default function RatingForm ({ artwork, user, token, userRating, setUserRating, onDeleteRating, getArtworks }) {
   const { errors, setErrors, clearErrors } = useErrors()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [score, setScore] = useState(userRating?.score || null)
@@ -81,6 +83,9 @@ export default function RatingForm ({ artwork, token, userRating, setUserRating,
             <button onClick={handleDelete} disabled={isSubmitting}>
               {isSubmitting ? 'Borrando...' : 'Borrar valoración'}
             </button>
+            {artwork.authorId === user.id && (
+              <DeleteArtworkButton artwork={artwork} token={token} getArtworks={getArtworks} />
+            )}
           </Box>
           )
         : (
@@ -90,6 +95,9 @@ export default function RatingForm ({ artwork, token, userRating, setUserRating,
             <button type='submit' disabled={isDisabled} style={{ marginTop: '8px' }}>
               {isSubmitting ? 'Cargando...' : 'Enviar'}
             </button>
+            {artwork.authorId === user.id && (
+              <DeleteArtworkButton artwork={artwork} token={token} getArtworks={getArtworks} />
+            )}
           </form>
           )}
     </Box>

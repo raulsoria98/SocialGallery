@@ -3,6 +3,7 @@ import './NavBar.scss'
 import useAuth from '#Hooks/useAuth.js'
 import { Menu, MenuItem } from '@mui/material'
 import { useState } from 'react'
+import userRoles from '#Enums/userRoles.js'
 
 export default function NavBar () {
   const navigate = useNavigate()
@@ -61,6 +62,11 @@ export default function NavBar () {
         <div className='nav-bar_profile'>
           {user && (
             <>
+              {user.role === userRoles.ARTIST && (
+                <li className='nav-bar_li'>
+                  <NavLink to='/my-artworks'>Mis obras</NavLink>
+                </li>
+              )}
               <li className='nav-bar_li'>
                 <NavLink to='/profile'>{user.name}</NavLink>
               </li>
