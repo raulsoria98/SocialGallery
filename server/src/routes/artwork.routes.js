@@ -9,7 +9,8 @@ import {
   getArtworksByAuthorId,
   postCreateArtwork,
   postRateArtwork,
-  deleteUserRating
+  deleteUserRating,
+  deleteArtworkAsAuthor
 } from '#Controllers/artwork.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
@@ -17,15 +18,16 @@ import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
 import validateArtistCreateArtworkDTO from '#DTO/artistCreateArtwork.dto.js'
 import validateUserRateArtworkDTO from '#DTO/userRateArtwork.dto.js'
 
-const artwokRouter = Router()
+const artworkRouter = Router()
 
-artwokRouter.post('/create', verifyUserJWT, multer().single('file'), validateArtistCreateArtworkDTO, postCreateArtwork)
-artwokRouter.post('/rate', verifyUserJWT, validateUserRateArtworkDTO, postRateArtwork)
-artwokRouter.get('/find-all', getAllArtworks)
-artwokRouter.get('/find-one/:artworkId', getArtworkById)
-artwokRouter.get('/find-by-type/:type', getAllArtworksByType)
-artwokRouter.get('/find-by-author/:authorId', getArtworksByAuthorId)
-artwokRouter.get('/user-rating/:artworkId', verifyUserJWT, getUserRating)
-artwokRouter.delete('/rating/:artworkId', verifyUserJWT, deleteUserRating)
+artworkRouter.post('/create', verifyUserJWT, multer().single('file'), validateArtistCreateArtworkDTO, postCreateArtwork)
+artworkRouter.post('/rate', verifyUserJWT, validateUserRateArtworkDTO, postRateArtwork)
+artworkRouter.get('/find-all', getAllArtworks)
+artworkRouter.get('/find-one/:artworkId', getArtworkById)
+artworkRouter.get('/find-by-type/:type', getAllArtworksByType)
+artworkRouter.get('/find-by-author/:authorId', getArtworksByAuthorId)
+artworkRouter.get('/user-rating/:artworkId', verifyUserJWT, getUserRating)
+artworkRouter.delete('/rating/:artworkId', verifyUserJWT, deleteUserRating)
+artworkRouter.delete('/delete/:artworkId', verifyUserJWT, deleteArtworkAsAuthor)
 
-export default artwokRouter
+export default artworkRouter

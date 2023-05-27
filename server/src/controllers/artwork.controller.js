@@ -8,6 +8,7 @@ import findArtworksByAuthorId from '#Utils/artwork/findArtworksByAuthorId.js'
 import rateArtwork from '#Utils/artwork/rateArtwork.js'
 import findRatingByUserArtwork from '#Utils/artwork/findRatingByUserArtwork.js'
 import deleteRating from '#Utils/artwork/deleteRating.js'
+import deleteArtwork from '#Utils/artwork/deleteArtwork.js'
 
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
@@ -120,7 +121,7 @@ export const postRateArtwork = async (req, res, next) => {
   try {
     const rating = await rateArtwork({ userId, artworkId, score, comment })
 
-    return res.status(httpStatusCodes.OK).json({
+    return res.status(httpStatusCodes.CREATED).json({
       rating
     })
   } catch (err) {
@@ -152,6 +153,36 @@ export const deleteUserRating = async (req, res, next) => {
 
     return res.status(httpStatusCodes.OK).json({
       rating
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+export const deleteArtworkAsAuthor = async (req, res, next) => {
+  const { id: authorId } = req.user
+  const { artworkId } = req.params
+
+  try {
+    // Verificamos que el usuario sea el autor de la obra
+    const artwork = await findArtworkById(artworkId)
+
+    if (!artwork) {
+      const error = new Error('No se encontró la obra de arte')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
+
+    if (artwork.authorId !== authorId) {
+      const error = new Error('No tienes permisos para eliminar esta obra')
+      error.statusCode = httpStatusCodes.FORBIDDEN
+      throw error
+    }
+
+    const artworkDeleted = await deleteArtwork({ artworkId })
+
+    return res.status(httpStatusCodes.OK).json({
+      artworkDeleted
     })
   } catch (err) {
     return next(err)
