@@ -1,7 +1,11 @@
-import useErrors from '#Hooks/useErrors.js'
 import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import Errors from '#Components/Errors.jsx'
+
 import { createArtwork } from '#Services/artwork.js'
+
+import useErrors from '#Hooks/useErrors.js'
 import useAuth from '#Hooks/useAuth.js'
 
 export default function UploadArtwork () {
@@ -15,6 +19,8 @@ export default function UploadArtwork () {
 
   const { errors, setErrors, clearErrors } = useErrors()
   const { token } = useAuth()
+
+  const navigate = useNavigate()
 
   const types = ['image/png', 'image/jpeg']
 
@@ -71,6 +77,7 @@ export default function UploadArtwork () {
 
       await createArtwork({ data, token })
       clearFields()
+      navigate('/my-artworks')
     } catch (err) {
       setErrors(err)
     } finally {
