@@ -4,20 +4,22 @@ import { Pagination } from '@mui/material'
 
 import useErrors from '#Hooks/useErrors.js'
 
-import { getArtworksByType } from '#Services/artwork.js'
+import { getArtworksByAuthor, getArtworksByType } from '#Services/artwork.js'
 
 import Errors from '#Components/Errors.jsx'
 import Artwork from '#Components/Artwork.jsx'
 
 import './Gallery.scss'
+import { getUserById } from '#Services/user.js'
 
 export default function Gallery () {
-  const { type } = useParams()
+  const { type, authorId } = useParams()
   const { errors, setErrors, clearErrors } = useErrors()
 
   const [artworks, setArtworks] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [title, setTitle] = useState('')
   const [sort, setSort] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
@@ -30,6 +32,14 @@ export default function Gallery () {
     clearErrors()
 
     try {
+      if (authorId) {
+        const { artworks: newArtworks, totalArtworks } = await getArtworksByAuthor({ authorId, page, pageSize, sort })
+
+        setArtworks(newArtworks)
+        setTotalPages(Math.ceil(totalArtworks / pageSize))
+        return
+      }
+
       const { artworks: newArtworks, totalArtworks } = await getArtworksByType({ type, page, pageSize, sort })
 
       setArtworks(newArtworks)
@@ -45,6 +55,15 @@ export default function Gallery () {
     setCurrentPage(value)
   }
 
+  const setTitleFromTypeOrAuthorId = async () => {
+    if (authorId) {
+      const { name } = await getUserById({ userId: authorId })
+      setTitle(name)
+    } else {
+      setTitle(type === 'painting' ? 'Pintura' : type === 'photography' ? 'Fotografía' : 'Tipo no reconocido')
+    }
+  }
+
   useEffect(() => {
     if (typeRef.current !== type) { // Si el tipo cambia, reseteamos la página a 1
       setCurrentPage(1)
@@ -53,12 +72,12 @@ export default function Gallery () {
     } else { // Si el tipo no cambia, hacemos la petición con la página actual
       getArtworks()
     }
-  }, [currentPage, type, sort])
+    setTitleFromTypeOrAuthorId()
+  }, [currentPage, type, authorId, sort])
 
   return (
     <>
-      <h1>{type === 'painting' ? 'Pintura' : type === 'photography' ? 'Fotografía' : 'Tipo no reconocido'}</h1>
-      {/* Checkbox sort by rating */}
+      <h1>{title}</h1>
       <div className='Sort'>
         <label htmlFor='sort'>Ordenar por valoración</label>
         <input

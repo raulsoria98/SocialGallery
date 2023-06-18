@@ -6,6 +6,7 @@ import useAuth from '#Hooks/useAuth.js'
 import ArtworkModal from './ArtworkModal.jsx'
 
 import './Artwork.scss'
+import { Link } from 'react-router-dom'
 
 export default function Artwork ({ artwork, getArtworks }) {
   const [modalOpen, setModalOpen] = useState(false)
@@ -30,7 +31,7 @@ export default function Artwork ({ artwork, getArtworks }) {
     <li className='Artwork'>
       <img className='file' src={imageUrl} alt={artwork.title} onClick={openModal} />
       <h2 className='title'>{artwork.title}</h2>
-      <p className='author'>{artwork.author.name}</p>
+      <p className='author'><Link style={{ color: 'white' }} to={'/gallery/author/' + artwork.authorId}>{artwork.author.name}</Link></p>
       <Rating name='read-only' value={artwork.rating} precision={0.5} size='small' readOnly />
 
       <ArtworkModal

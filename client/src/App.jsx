@@ -20,6 +20,7 @@ export default function App () {
           <Route index element={<Home />} />
           <Route path='/gallery'>
             <Route path=':type' element={<Gallery />} />
+            <Route path='author/:authorId' element={<Gallery />} />
           </Route>
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
