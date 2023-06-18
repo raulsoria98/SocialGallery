@@ -29,9 +29,10 @@ export const postCreateArtwork = async (req, res, next) => {
 export const getAllArtworks = async (req, res, next) => {
   // Si hay page y pageSize en el query, se los asignamos a la variable pagination
   const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
+  const sort = req.query.sort ? req.query.sort === 'true' : false
 
   try {
-    const { artworks, totalArtworks } = await findAllArtworks(pagination)
+    const { artworks, totalArtworks } = await findAllArtworks(pagination, sort)
 
     if (!artworks.length) {
       const error = new Error('No se encontraron obras de arte')
@@ -72,9 +73,10 @@ export const getAllArtworksByType = async (req, res, next) => {
   const { type } = req.params
   // Si hay page y pageSize en el query, se los asignamos a la variable pagination
   const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
+  const sort = req.query.sort ? req.query.sort === 'true' : false
 
   try {
-    const { artworks, totalArtworks } = await findArtworksByType(type, pagination)
+    const { artworks, totalArtworks } = await findArtworksByType(type, pagination, sort)
 
     if (!artworks.length) {
       const error = new Error(`No se encontraron obras del tipo ${type}`)
@@ -95,9 +97,10 @@ export const getArtworksByAuthorId = async (req, res, next) => {
   const { authorId } = req.params
   // Si hay page y pageSize en el query, se los asignamos a la variable pagination
   const pagination = req.query.page && req.query.pageSize ? { page: parseInt(req.query.page), pageSize: parseInt(req.query.pageSize) } : {}
+  const sort = req.query.sort ? req.query.sort === 'true' : false
 
   try {
-    const { artworks, totalArtworks } = await findArtworksByAuthorId(authorId, pagination)
+    const { artworks, totalArtworks } = await findArtworksByAuthorId(authorId, pagination, sort)
 
     if (!artworks.length) {
       const error = new Error('No se encontraron obras del autor')

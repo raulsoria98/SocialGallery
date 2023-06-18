@@ -4,7 +4,7 @@ import userRoles from '#Enums/userRoles.js'
 import Artwork from '#Models/artwork.js'
 import User from '#Models/user.js'
 
-const findArtworksByAuthorId = async (authorId, pagination = {}) => {
+const findArtworksByAuthorId = async (authorId, pagination = {}, sort = false) => {
   const { page = 1, pageSize = 6 } = pagination
 
   try {
@@ -22,7 +22,7 @@ const findArtworksByAuthorId = async (authorId, pagination = {}) => {
       throw error
     }
 
-    const artworks = await Artwork.findAll({
+    const query = {
       include: [
         {
           association: 'author',
@@ -48,7 +48,13 @@ const findArtworksByAuthorId = async (authorId, pagination = {}) => {
       group: ['artwork.id'],
       offset: (page - 1) * pageSize,
       limit: pageSize
-    })
+    }
+
+    if (sort) {
+      query.order = [[sequelize.literal('rating'), 'DESC']]
+    }
+
+    const artworks = await Artwork.findAll(query)
 
     const totalArtworks = await Artwork.count({
       where: {

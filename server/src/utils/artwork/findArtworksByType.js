@@ -3,11 +3,11 @@ import httpStatusCodes from '#Enums/httpStatusCodes.js'
 import userRoles from '#Enums/userRoles.js'
 import Artwork from '#Models/artwork.js'
 
-const findArtworksByType = async (type, pagination = {}) => {
+const findArtworksByType = async (type, pagination = {}, sort = false) => {
   const { page = 1, pageSize = 6 } = pagination
 
   try {
-    const artworks = await Artwork.findAll({
+    const query = {
       include: [
         {
           association: 'author',
@@ -36,7 +36,13 @@ const findArtworksByType = async (type, pagination = {}) => {
       where: {
         type
       }
-    })
+    }
+
+    if (sort) {
+      query.order = [[sequelize.literal('rating'), 'DESC']]
+    }
+
+    const artworks = await Artwork.findAll(query)
 
     const totalArtworks = await Artwork.count({
       include: [
