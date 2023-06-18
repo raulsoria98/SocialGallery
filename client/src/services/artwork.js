@@ -1,7 +1,7 @@
 import axiosClient from '#Config/axios.js'
 
-export const getAllArtworks = async ({ page, pageSize }) => {
-  const response = await axiosClient.get('/artwork/find-all?page=' + page + '&pageSize=' + pageSize)
+export const getAllArtworks = async ({ page, pageSize, sort }) => {
+  const response = await axiosClient.get('/artwork/find-all?page=' + page + '&pageSize=' + pageSize + '&sort=' + sort)
 
   const { artworks, totalArtworks } = response.data
   return {
@@ -10,8 +10,8 @@ export const getAllArtworks = async ({ page, pageSize }) => {
   }
 }
 
-export const getArtworksByType = async ({ type, page, pageSize }) => {
-  const response = await axiosClient.get('/artwork/find-by-type/' + type + '?page=' + page + '&pageSize=' + pageSize)
+export const getArtworksByType = async ({ type, page, pageSize, sort }) => {
+  const response = await axiosClient.get('/artwork/find-by-type/' + type + '?page=' + page + '&pageSize=' + pageSize + '&sort=' + sort)
 
   const { artworks, totalArtworks } = response.data
   return {
@@ -85,8 +85,8 @@ export const deleteRating = async ({ artworkId, token }) => {
   return response.data.rating
 }
 
-export const getArtworksByAuthor = async ({ authorId, page, pageSize }) => {
-  const response = await axiosClient.get('/artwork/find-by-author/' + authorId + '?page=' + page + '&pageSize=' + pageSize)
+export const getArtworksByAuthor = async ({ authorId, page, pageSize, sort }) => {
+  const response = await axiosClient.get('/artwork/find-by-author/' + authorId + '?page=' + page + '&pageSize=' + pageSize + '&sort=' + sort)
 
   const { artworks, totalArtworks } = response.data
   return {

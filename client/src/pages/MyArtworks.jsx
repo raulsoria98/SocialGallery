@@ -13,6 +13,7 @@ export default function MyArtworks () {
   const [artworks, setArtworks] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [sort, setSort] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
   const pageSize = 6
@@ -22,7 +23,7 @@ export default function MyArtworks () {
     clearErrors()
 
     try {
-      const { artworks: newArtworks, totalArtworks } = await getArtworksByAuthor({ authorId: user.id, page, pageSize })
+      const { artworks: newArtworks, totalArtworks } = await getArtworksByAuthor({ authorId: user.id, page, pageSize, sort })
 
       setArtworks(newArtworks)
       setTotalPages(Math.ceil(totalArtworks / pageSize))
@@ -39,11 +40,20 @@ export default function MyArtworks () {
 
   useEffect(() => {
     getArtworks()
-  }, [currentPage])
+  }, [currentPage, sort])
 
   return (
     <>
       <h1>Mis obras</h1>
+      <div className='Sort'>
+        <label htmlFor='sort'>Ordenar por valoración</label>
+        <input
+          type='checkbox'
+          id='sort'
+          checked={sort}
+          onChange={() => setSort(!sort)}
+        />
+      </div>
       {loading && <p className='loading'>Cargando...</p>}
       {errors && <Errors errors={errors} />}
       {!loading && !errors && !artworks.length && <p>No se han encontrado obras de arte</p>}

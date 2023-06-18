@@ -18,6 +18,7 @@ export default function Gallery () {
   const [artworks, setArtworks] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [sort, setSort] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
   const pageSize = 6
@@ -29,7 +30,7 @@ export default function Gallery () {
     clearErrors()
 
     try {
-      const { artworks: newArtworks, totalArtworks } = await getArtworksByType({ type, page, pageSize })
+      const { artworks: newArtworks, totalArtworks } = await getArtworksByType({ type, page, pageSize, sort })
 
       setArtworks(newArtworks)
       setTotalPages(Math.ceil(totalArtworks / pageSize))
@@ -52,11 +53,21 @@ export default function Gallery () {
     } else { // Si el tipo no cambia, hacemos la petición con la página actual
       getArtworks()
     }
-  }, [currentPage, type])
+  }, [currentPage, type, sort])
 
   return (
     <>
       <h1>{type === 'painting' ? 'Pintura' : type === 'photography' ? 'Fotografía' : 'Tipo no reconocido'}</h1>
+      {/* Checkbox sort by rating */}
+      <div className='Sort'>
+        <label htmlFor='sort'>Ordenar por valoración</label>
+        <input
+          type='checkbox'
+          id='sort'
+          checked={sort}
+          onChange={() => setSort(!sort)}
+        />
+      </div>
       {loading && <p className='loading'>Cargando...</p>}
       {errors && <Errors errors={errors} />}
       {!loading && !errors && !artworks.length && <p>No se han encontrado obras de arte</p>}
