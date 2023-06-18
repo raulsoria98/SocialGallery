@@ -28,15 +28,17 @@ const findAllArtworks = async (pagination = {}, sort = false) => {
         'type',
         'file',
         'authorId',
+        'createdAt',
         [sequelize.cast(sequelize.literal('(SELECT AVG(`ratings`.`score`) FROM `ratings` WHERE `ratings`.`artworkId` = `artwork`.`id`)'), 'FLOAT'), 'rating']
       ],
+      order: [['createdAt', 'DESC']],
       group: ['artwork.id'],
       offset: (page - 1) * pageSize,
       limit: pageSize
     }
 
     if (sort) {
-      query.order = [[sequelize.literal('rating'), 'DESC']]
+      query.order = [[sequelize.literal('rating'), 'DESC'], ['createdAt', 'DESC']]
     }
 
     const artworks = await Artwork.findAll(query)
