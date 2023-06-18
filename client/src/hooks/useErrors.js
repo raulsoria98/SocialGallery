@@ -5,7 +5,7 @@ export default function useErrors () {
 
   const saveErrors = error => {
     if (error.response) {
-      setErrors([error.message, ...error.response.data.errors])
+      setErrors(error.response.data.errors)
     } else {
       setErrors([error.message])
     }
