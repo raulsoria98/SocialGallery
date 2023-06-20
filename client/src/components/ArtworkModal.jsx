@@ -52,7 +52,7 @@ export default function ArtworkModal ({ artwork, user, token, modalOpen, setModa
         <Box sx={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <img src={imageUrl} alt={artwork.title} style={{ maxWidth: '100%', maxHeight: '100%' }} />
         </Box>
-        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0px 16px' }}>
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px 16px' }}>
           <div>
             <h2>{artwork.title}</h2>
             <RatingsModal artwork={artwork} />
