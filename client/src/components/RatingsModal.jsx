@@ -4,7 +4,7 @@ import useErrors from '#Hooks/useErrors.js'
 import Errors from './Errors.jsx'
 import { Box, List, ListItem, ListItemText, Modal, Rating, Typography } from '@mui/material'
 
-const RatingsModal = ({ artwork }) => {
+const RatingsModal = ({ artwork, userRating }) => {
   const [openModal, setOpenModal] = useState(false)
   const [ratings, setRatings] = useState([])
 
@@ -23,15 +23,13 @@ const RatingsModal = ({ artwork }) => {
     }
 
     fetchRatings()
-  }, [artwork])
+  }, [artwork, userRating])
 
   const handleOpenModal = () => {
-    console.log('Abriendo modal')
     setOpenModal(true)
   }
 
   const handleCloseModal = () => {
-    console.log('Cerrando modal')
     setOpenModal(false)
   }
 
@@ -60,7 +58,7 @@ const RatingsModal = ({ artwork }) => {
           <Typography variant='h6' component='h2' align='center' fontWeight='bold' gutterBottom>
             Valoraciones de {artwork.title}
           </Typography>
-          <List sx={{ maxHeight: 50, overflow: 'auto' }}>
+          <List sx={{ maxHeight: 200, overflow: 'auto' }}>
             {ratings.map((rating, index) => (
               <ListItem key={index} disablePadding>
                 <Rating style={{ paddingRight: '10px' }} value={rating.score} readOnly />

@@ -55,7 +55,9 @@ export default function ArtworkModal ({ artwork, user, token, modalOpen, setModa
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '10px 16px' }}>
           <div>
             <h2>{artwork.title}</h2>
-            <RatingsModal artwork={artwork} />
+            {user && (
+              <RatingsModal artwork={artwork} userRating={userRating} />
+            )}
             <p>{artwork.description}</p>
             <p>Autor: <Link style={{ color: 'white' }} to={'/gallery/author/' + artwork.authorId}>{artwork.author.name}</Link></p>
           </div>
