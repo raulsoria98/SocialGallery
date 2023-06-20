@@ -5,6 +5,7 @@ import { getUserRating } from '#Services/artwork.js'
 import useErrors from '#Hooks/useErrors.js'
 import Errors from './Errors.jsx'
 import { Link } from 'react-router-dom'
+import RatingsModal from './RatingsModal.jsx'
 
 export default function ArtworkModal ({ artwork, user, token, modalOpen, setModalOpen, imageUrl, getArtworks }) {
   const [userRating, setUserRating] = useState(null)
@@ -54,6 +55,7 @@ export default function ArtworkModal ({ artwork, user, token, modalOpen, setModa
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0px 16px' }}>
           <div>
             <h2>{artwork.title}</h2>
+            <RatingsModal artwork={artwork} />
             <p>{artwork.description}</p>
             <p>Autor: <Link style={{ color: 'white' }} to={'/gallery/author/' + artwork.authorId}>{artwork.author.name}</Link></p>
           </div>

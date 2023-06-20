@@ -104,3 +104,9 @@ export const deleteArtworkAsAuthor = async ({ artworkId, token }) => {
 
   return response.data.artwork
 }
+
+export const getRatingsFromArtwork = async ({ artworkId }) => {
+  const response = await axiosClient.get('/artwork/ratings/' + artworkId)
+
+  return response.data.ratings
+}
