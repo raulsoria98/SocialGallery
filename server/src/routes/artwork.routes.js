@@ -10,7 +10,8 @@ import {
   postCreateArtwork,
   postRateArtwork,
   deleteUserRating,
-  deleteArtworkAsAuthor
+  deleteArtworkAsAuthor,
+  getRatingsByArtworkId
 } from '#Controllers/artwork.controller.js'
 
 import verifyUserJWT from '#Middlewares/verifyUserJWT.js'
@@ -26,6 +27,7 @@ artworkRouter.get('/find-all', getAllArtworks)
 artworkRouter.get('/find-one/:artworkId', getArtworkById)
 artworkRouter.get('/find-by-type/:type', getAllArtworksByType)
 artworkRouter.get('/find-by-author/:authorId', getArtworksByAuthorId)
+artworkRouter.get('/ratings/:artworkId', getRatingsByArtworkId)
 artworkRouter.get('/user-rating/:artworkId', verifyUserJWT, getUserRating)
 artworkRouter.delete('/rating/:artworkId', verifyUserJWT, deleteUserRating)
 artworkRouter.delete('/delete/:artworkId', verifyUserJWT, deleteArtworkAsAuthor)

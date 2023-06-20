@@ -9,6 +9,7 @@ import rateArtwork from '#Utils/artwork/rateArtwork.js'
 import findRatingByUserArtwork from '#Utils/artwork/findRatingByUserArtwork.js'
 import deleteRating from '#Utils/artwork/deleteRating.js'
 import deleteArtwork from '#Utils/artwork/deleteArtwork.js'
+import findRatingsByArtworkId from '#Utils/artwork/findRatingsByArtworkId.js'
 
 export const postCreateArtwork = async (req, res, next) => {
   const { id: authorId } = req.user
@@ -111,6 +112,26 @@ export const getArtworksByAuthorId = async (req, res, next) => {
     return res.status(httpStatusCodes.OK).json({
       artworks,
       totalArtworks
+    })
+  } catch (err) {
+    return next(err)
+  }
+}
+
+export const getRatingsByArtworkId = async (req, res, next) => {
+  const { artworkId } = req.params
+
+  try {
+    const ratings = await findRatingsByArtworkId({ artworkId })
+
+    if (!ratings.length) {
+      const error = new Error('No se encontraron valoraciones para esta obra')
+      error.statusCode = httpStatusCodes.NOT_FOUND
+      throw error
+    }
+
+    return res.status(httpStatusCodes.OK).json({
+      ratings
     })
   } catch (err) {
     return next(err)
