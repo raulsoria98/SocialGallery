@@ -13,7 +13,7 @@ const Rating = sequelize.define('rating', {
     type: DataTypes.STRING,
     allowNull: true,
     validate: {
-      len: [2, 100]
+      len: [2, 150]
     }
   },
   score: {

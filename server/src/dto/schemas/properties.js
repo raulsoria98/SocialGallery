@@ -115,10 +115,10 @@ export const score = {
 export const comment = {
   type: 'string',
   minLength: 2,
-  maxLength: 500,
+  maxLength: 150,
   errorMessage: {
     type: 'El comentario debe ser un string',
     minLength: 'El comentario debe tener al menos 2 caracteres',
-    maxLength: 'El comentario debe tener como máximo 500 caracteres'
+    maxLength: 'El comentario debe tener como máximo 150 caracteres'
   }
 }
