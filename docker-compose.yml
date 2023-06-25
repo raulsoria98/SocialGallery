@@ -3,7 +3,6 @@ version: "3.9"
 services:
   db:
     image: mysql:8.0
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DATABASE
@@ -18,7 +17,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin
-    restart: always
     environment:
       PMA_HOST: $MYSQL_HOST
       PMA_PORT: $MYSQL_PORT
