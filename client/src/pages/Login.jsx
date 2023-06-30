@@ -6,6 +6,7 @@ import useAuth from '#Hooks/useAuth.js'
 
 import { loginUser } from '#Services/auth.js'
 
+import WhiteTextField from '#Components/WhiteTextField.jsx'
 import Errors from '#Components/Errors.jsx'
 import { getProfile } from '#Services/user.js'
 
@@ -71,21 +72,24 @@ export default function Login () {
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
-            <label htmlFor='email'>Email</label>
-            <input
-              type='email'
+            <WhiteTextField
               id='email'
+              label='Email'
+              variant='outlined'
               value={email}
               onChange={handleChange}
+              style={{ marginBottom: '1rem' }}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='password'>Contraseña</label>
-            <input
+            <WhiteTextField
               type='password'
               id='password'
+              label='Contraseña'
+              variant='outlined'
               value={password}
               onChange={handleChange}
+              style={{ marginBottom: '1rem' }}
             />
           </div>
           <button type='submit' disabled={isDisabled}>

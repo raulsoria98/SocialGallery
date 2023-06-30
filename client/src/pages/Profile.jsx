@@ -52,11 +52,11 @@ export default function Profile () {
         <>
           <h3>{name}</h3>
           <ChangeUserNameForm token={token} setName={setName} />
-          <h3>{email}</h3>
+          <h3 style={{ marginTop: '2rem' }}>{email}</h3>
           <ChangeUserEmailForm token={token} setEmail={setEmail} />
-          <h3>Contraseña</h3>
+          <h3 style={{ marginTop: '2rem' }}>Contraseña</h3>
           <ChangeUserPasswordForm token={token} />
-          <h3>Rol de usuario</h3>
+          <h3 style={{ marginTop: '2rem' }}>Rol de usuario</h3>
           <p>{role.charAt(0).toUpperCase() + role.slice(1)}</p>
           {role !== userRoles.ADMIN && <ChangeUserIsArtistButton token={token} previousIsArtist={role === userRoles.ARTIST} setRole={setRole} />}
           <DeleteAccountButton token={token} />

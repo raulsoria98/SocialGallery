@@ -5,6 +5,7 @@ import useErrors from '#Hooks/useErrors.js'
 import { changeUserPassword } from '#Services/user.js'
 
 import Errors from './Errors.jsx'
+import WhiteTextField from './WhiteTextField.jsx'
 
 export default function ChangeUserPasswordForm ({ token }) {
   const { errors, setErrors, clearErrors } = useErrors()
@@ -38,12 +39,14 @@ export default function ChangeUserPasswordForm ({ token }) {
     <div className='change-password'>
       {errors && <Errors errors={errors} />}
       <form className='change-password-form' onSubmit={handleSubmit}>
-        <label htmlFor='password'>Nueva contraseña:</label>
-        <input
+        <WhiteTextField
           id='password'
-          type='password'
+          label='Nueva contraseña'
+          variant='outlined'
           value={newPassword}
           onChange={handleChange}
+          style={{ marginRight: '1rem', marginBottom: '1rem' }}
+          size='small'
         />
         <button type='submit' disabled={isDisabled}>
           {isSubmitting ? 'Cargando...' : 'Cambiar contraseña'}

@@ -11,3 +11,18 @@
   font-size: 2rem;
   margin: 2rem;
 }
+
+.change-name-form,
+.change-email-form,
+.change-password-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Artwork {
+  img:hover {
+    cursor: pointer;
+  }
+}

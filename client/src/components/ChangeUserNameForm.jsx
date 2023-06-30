@@ -6,6 +6,7 @@ import useAuth from '#Hooks/useAuth.js'
 import { changeUserName } from '#Services/user.js'
 
 import Errors from './Errors.jsx'
+import WhiteTextField from './WhiteTextField.jsx'
 
 export default function ChangeUserNameForm ({ token, setName }) {
   const { errors, setErrors, clearErrors } = useErrors()
@@ -42,12 +43,14 @@ export default function ChangeUserNameForm ({ token, setName }) {
     <div className='change-name'>
       {errors && <Errors errors={errors} />}
       <form className='change-name-form' onSubmit={handleSubmit}>
-        <label htmlFor='name'>Nuevo nombre:</label>
-        <input
+        <WhiteTextField
           id='name'
-          type='text'
+          label='Nuevo nombre'
+          variant='outlined'
           value={newName}
           onChange={handleChange}
+          style={{ marginRight: '1rem', marginBottom: '1rem' }}
+          size='small'
         />
         <button type='submit' disabled={isDisabled}>
           {isSubmitting ? 'Cargando...' : 'Cambiar nombre'}

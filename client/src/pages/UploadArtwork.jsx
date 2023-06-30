@@ -7,6 +7,31 @@ import { createArtwork } from '#Services/artwork.js'
 
 import useErrors from '#Hooks/useErrors.js'
 import useAuth from '#Hooks/useAuth.js'
+import WhiteTextField from '#Components/WhiteTextField.jsx'
+import { FormControl, InputLabel, MenuItem, Select, styled } from '@mui/material'
+
+import './UploadArtwork.scss'
+
+const StyledSelect = styled(Select)({
+  '& .MuiSelect-select': {
+    color: 'white'
+  },
+  '& .MuiSelect-icon': {
+    color: 'white'
+  },
+  '& .MuiInputBase-root': {
+    color: 'white'
+  },
+  '& .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'white'
+  },
+  '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'white'
+  },
+  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+    borderColor: 'white'
+  }
+})
 
 export default function UploadArtwork () {
   const [file, setFile] = useState(null)
@@ -25,13 +50,13 @@ export default function UploadArtwork () {
   const types = ['image/png', 'image/jpeg']
 
   const handleChange = (e) => {
-    if (e.target.id === 'title') {
+    if (e.target.name === 'title') {
       setTitle(e.target.value)
-    } else if (e.target.id === 'description') {
+    } else if (e.target.name === 'description') {
       setDescription(e.target.value)
-    } else if (e.target.id === 'type') {
+    } else if (e.target.name === 'type') {
       setType(e.target.value)
-    } else if (e.target.id === 'file') {
+    } else if (e.target.name === 'file') {
       const selected = e.target.files[0]
 
       if (selected && types.includes(selected.type)) {
@@ -89,49 +114,68 @@ export default function UploadArtwork () {
 
   return (
     <div className='upload-image'>
+      <h1>Subir obra</h1>
       {errors && <Errors errors={errors} />}
 
       <form className='upload-image-form' onSubmit={handleSubmit}>
-        <input
+        <WhiteTextField
           id='title'
-          type='text'
-          placeholder='Título'
+          name='title'
+          label='Título'
+          variant='outlined'
           value={title}
           onChange={handleChange}
+          style={{ marginRight: '1rem', marginBottom: '1rem' }}
+          size='small'
         />
-        <input
+        <WhiteTextField
           id='description'
-          type='text'
-          placeholder='Descripción'
+          name='description'
+          label='Descripción'
+          variant='outlined'
           value={description}
           onChange={handleChange}
+          style={{ marginRight: '1rem', marginBottom: '1rem' }}
+          size='small'
+          multiline
         />
-        <select id='type' value={type} onChange={handleChange}>
-          <option value=''>Seleccione un tipo</option>
-          <option value='painting'>Pintura</option>
-          <option value='photography'>Fotografía</option>
-        </select>
+        <FormControl size='small'>
+          <InputLabel id='type-label' style={{ color: 'white' }}>Tipo de obra</InputLabel>
+          <StyledSelect
+            labelId='type-label'
+            id='type'
+            name='type'
+            value={type}
+            onChange={handleChange}
+            label='Tipo de obra'
+          >
+            <MenuItem value='painting'>Pintura</MenuItem>
+            <MenuItem value='photography'>Fotografía</MenuItem>
+          </StyledSelect>
+        </FormControl>
         <input
+          className='file-input'
           id='file'
+          name='file'
           type='file'
           ref={inputRef}
           onChange={handleChange}
         />
-        <button type='submit' disabled={isDisabled}>
+        <div className='output'>
+          {file && (
+            <>
+              <div>
+                <img src={URL.createObjectURL(file)} alt='uploaded' width='250px' />
+              </div>
+              <button onClick={clearImage}>Quitar archivo</button>
+            </>
+          )}
+        </div>
+        <button type='submit' disabled={isDisabled} style={{ marginTop: '1rem' }}>
           {isSubmitting ? 'Subiendo...' : 'Subir obra'}
         </button>
       </form>
 
-      <div className='output'>
-        {file && (
-          <>
-            <div>
-              <img src={URL.createObjectURL(file)} alt='uploaded' width='250px' />
-            </div>
-            <button onClick={clearImage}>Quitar archivo</button>
-          </>
-        )}
-      </div>
     </div>
   )
 }

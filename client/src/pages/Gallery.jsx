@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { Pagination } from '@mui/material'
+import { FormControlLabel, FormLabel, Pagination, Radio, RadioGroup } from '@mui/material'
 
 import useErrors from '#Hooks/useErrors.js'
 
@@ -79,13 +79,22 @@ export default function Gallery () {
     <>
       <h1>{title}</h1>
       <div className='Sort'>
-        <label htmlFor='sort'>Ordenar por valoración</label>
-        <input
-          type='checkbox'
-          id='sort'
-          checked={sort}
-          onChange={() => setSort(!sort)}
-        />
+        <FormLabel id='sort-label' style={{ marginRight: '1rem', color: 'white' }}>Ordernar por:</FormLabel>
+        <RadioGroup
+          row
+          aria-label='sort-label'
+        >
+          <FormControlLabel
+            value='date'
+            control={<Radio checked={!sort} onChange={() => setSort(false)} />}
+            label='Fecha'
+          />
+          <FormControlLabel
+            value='rating'
+            control={<Radio checked={sort} onChange={() => setSort(true)} />}
+            label='Valoración'
+          />
+        </RadioGroup>
       </div>
       {loading && <p className='loading'>Cargando...</p>}
       {errors && <Errors errors={errors} />}

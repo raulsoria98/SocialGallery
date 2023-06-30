@@ -7,7 +7,9 @@ import useErrors from '#Hooks/useErrors.js'
 import { signUpUser } from '#Services/auth.js'
 import { getProfile } from '#Services/user.js'
 
+import WhiteTextField from '#Components/WhiteTextField.jsx'
 import Errors from '#Components/Errors.jsx'
+import { Checkbox, FormControlLabel } from '@mui/material'
 
 export default function SignUp () {
   const navigate = useNavigate()
@@ -78,39 +80,46 @@ export default function SignUp () {
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <div className='form-control'>
-            <label htmlFor='name'>Nombre</label>
-            <input
+            <WhiteTextField
               id='name'
-              type='text'
+              label='Nombre'
+              variant='outlined'
               value={name}
               onChange={handleChange}
+              style={{ marginBottom: '1rem' }}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='email'>Email</label>
-            <input
+            <WhiteTextField
               id='email'
-              type='email'
+              label='Email'
+              variant='outlined'
               value={email}
               onChange={handleChange}
+              style={{ marginBottom: '1rem' }}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='password'>Contraseña</label>
-            <input
-              id='password'
+            <WhiteTextField
               type='password'
+              id='password'
+              label='Contraseña'
+              variant='outlined'
               value={password}
               onChange={handleChange}
+              style={{ marginBottom: '1rem' }}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='isArtist'>Artista</label>
-            <input
-              id='isArtist'
-              type='checkbox'
-              value={isArtist}
-              onChange={handleChange}
+            <FormControlLabel
+              label='Artista'
+              control={<Checkbox
+                id='isArtist'
+                checked={isArtist}
+                onChange={handleChange}
+                style={{ color: '#fff' }}
+                       />}
+              style={{ marginBottom: '1rem' }}
             />
           </div>
           <button type='submit' disabled={isDisabled}>

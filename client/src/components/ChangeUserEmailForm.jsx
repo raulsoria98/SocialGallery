@@ -6,6 +6,7 @@ import useAuth from '#Hooks/useAuth.js'
 import { changeUserEmail } from '#Services/user.js'
 
 import Errors from './Errors.jsx'
+import WhiteTextField from './WhiteTextField.jsx'
 
 export default function ChangeUserEmailForm ({ token, setEmail }) {
   const { errors, setErrors, clearErrors } = useErrors()
@@ -42,12 +43,14 @@ export default function ChangeUserEmailForm ({ token, setEmail }) {
     <div className='change-email'>
       {errors && <Errors errors={errors} />}
       <form className='change-email-form' onSubmit={handleSubmit}>
-        <label htmlFor='email'>Nuevo Email:</label>
-        <input
+        <WhiteTextField
           id='email'
-          type='text'
+          label='Nuevo email'
+          variant='outlined'
           value={newEmail}
           onChange={handleChange}
+          style={{ marginRight: '1rem', marginBottom: '1rem' }}
+          size='small'
         />
         <button type='submit' disabled={isDisabled}>
           {isSubmitting ? 'Cargando...' : 'Cambiar email'}
