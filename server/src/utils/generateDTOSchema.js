@@ -12,7 +12,7 @@ const generateDTOSchema = async (properties) => {
   }
 
   for (const { property, required, name } of properties) {
-    // Si se ha pasado una propiedad, se utiliza, si no, se utiliza el nombre
+    // Si se ha pasado un nombre, se utiliza, si no, se utiliza el nombre de la propiedad
     let propertyToImport = property
     if (name) propertyToImport = name
 
