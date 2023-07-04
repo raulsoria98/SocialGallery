@@ -1,18 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { FormControlLabel, FormLabel, Pagination, Radio, RadioGroup } from '@mui/material'
+import { FormControlLabel, FormLabel, Pagination, Radio, RadioGroup, Typography } from '@mui/material'
 
 import useErrors from '#Hooks/useErrors.js'
 
-import { getArtworksByAuthor, getArtworksByType } from '#Services/artwork.js'
+import { getAllArtworks, getArtworksByAuthor, getArtworksByType } from '#Services/artwork.js'
+import { getUserById } from '#Services/user.js'
 
 import Errors from '#Components/Errors.jsx'
 import Artwork from '#Components/Artwork.jsx'
 
 import './Gallery.scss'
-import { getUserById } from '#Services/user.js'
 
-export default function Gallery () {
+export default function Gallery ({ homePage }) {
   const { type, authorId } = useParams()
   const { errors, setErrors, clearErrors } = useErrors()
 
@@ -40,6 +40,14 @@ export default function Gallery () {
         return
       }
 
+      if (homePage) {
+        const { artworks: newArtworks, totalArtworks } = await getAllArtworks({ page, pageSize, sort: true })
+
+        setArtworks(newArtworks)
+        setTotalPages(Math.ceil(totalArtworks / pageSize))
+        return
+      }
+
       const { artworks: newArtworks, totalArtworks } = await getArtworksByType({ type, page, pageSize, sort })
 
       setArtworks(newArtworks)
@@ -59,6 +67,8 @@ export default function Gallery () {
     if (authorId) {
       const { name } = await getUserById({ userId: authorId })
       setTitle(name)
+    } else if (homePage) {
+      setTitle('Social Gallery')
     } else {
       setTitle(type === 'painting' ? 'Pintura' : type === 'photography' ? 'Fotografía' : 'Tipo no reconocido')
     }
@@ -78,24 +88,27 @@ export default function Gallery () {
   return (
     <>
       <h1>{title}</h1>
-      <div className='Sort'>
-        <FormLabel id='sort-label' style={{ marginRight: '1rem', color: 'white' }}>Ordernar por:</FormLabel>
-        <RadioGroup
-          row
-          aria-label='sort-label'
-        >
-          <FormControlLabel
-            value='date'
-            control={<Radio checked={!sort} onChange={() => setSort(false)} />}
-            label='Fecha'
-          />
-          <FormControlLabel
-            value='rating'
-            control={<Radio checked={sort} onChange={() => setSort(true)} />}
-            label='Valoración'
-          />
-        </RadioGroup>
-      </div>
+      {homePage && <Typography variant='h5' style={{ marginBottom: '3rem' }}>Bienvenido a Social Gallery, la galería de arte social</Typography>}
+      {!homePage && (
+        <div className='Sort'>
+          <FormLabel id='sort-label' style={{ marginRight: '1rem', color: 'white' }}>Ordernar por:</FormLabel>
+          <RadioGroup
+            row
+            aria-label='sort-label'
+          >
+            <FormControlLabel
+              value='date'
+              control={<Radio checked={!sort} onChange={() => setSort(false)} />}
+              label='Fecha'
+            />
+            <FormControlLabel
+              value='rating'
+              control={<Radio checked={sort} onChange={() => setSort(true)} />}
+              label='Valoración'
+            />
+          </RadioGroup>
+        </div>
+      )}
       {loading && <p className='loading'>Cargando...</p>}
       {errors && <Errors errors={errors} />}
       {!loading && !errors && !artworks.length && <p>No se han encontrado obras de arte</p>}
@@ -106,14 +119,16 @@ export default function Gallery () {
               <Artwork key={artwork.id} artwork={artwork} getArtworks={getArtworks} />
             ))}
           </ul>
-          <div className='Pagination'>
-            <Pagination
-              color='primary'
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          </div>
+          {!homePage && (
+            <div className='Pagination'>
+              <Pagination
+                color='primary'
+                count={totalPages}
+                page={currentPage}
+                onChange={handlePageChange}
+              />
+            </div>
+          )}
         </div>
       )}
     </>

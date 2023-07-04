@@ -1,7 +1,7 @@
+import Gallery from './Gallery.jsx'
+
 export default function Home () {
   return (
-    <div className='Home'>
-      <h1>Social Gallery</h1>
-    </div>
+    <Gallery homePage />
   )
 }
